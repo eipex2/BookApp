@@ -1,17 +1,33 @@
-<form ng-submit="vm.login()">
-	<div>
-		<md-input-container class="LoginForm-inputContainer">
-			<label>Email</label>
-			<input type="email" ng-model="vm.email">
-		</md-input-container>
-	</div>
+<div layout-fill layout="row" layout-align="center center">
+		<div flex></div>
+		<md-card>
+         <md-card-title>
+           <md-card-title-text layout-align="center center">
+             <span class="md-headline">Welcome</span>
+           </md-card-title-text>
+         </md-card-title>
+         <md-card-content>
+					 <form ng-submit="vm.login()">
+						 <div>
+							 <md-input-container class="LoginForm-inputContainer">
+								 <label>Email</label>
+								 <input type="email" ng-model="vm.email">
+							 </md-input-container>
+						 </div>
 
-	<div>
-		<md-input-container class="LoginForm-inputContainer">
-			<label>Password</label>
-			<input type="password" ng-model="vm.password">
-		</md-input-container>
-	</div>
+						 <div>
+							 <md-input-container class="LoginForm-inputContainer">
+								 <label>Password</label>
+								 <input type="password" ng-model="vm.password">
+							 </md-input-container>
+						 </div>
 
-	<md-button type="submit" class="LoginForm-submit md-primary md-raised">Log in</md-button>
-</form>
+
+					 </form>
+         </md-card-content>
+         <md-card-actions layout="column" layout-align="start">
+           <md-button type="submit" ng-click="vm.login()" class="LoginForm-submit md-primary md-raised">Log in</md-button>
+         </md-card-actions>
+    </md-card>
+		<div flex></div>
+<div>
