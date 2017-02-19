@@ -20,8 +20,30 @@ Route::post('auth/password/email', 'Auth\PasswordResetController@sendResetLinkEm
 Route::get('auth/password/verify', 'Auth\PasswordResetController@verify');
 Route::post('auth/password/reset', 'Auth\PasswordResetController@reset');
 
+//listing controller routes
+Route::get('listings', 'ListingController@index');
+
+Route::get('listings/{id}', 'ListingController@show');
+
+//profile routes
+Route::get('profile/{id}', 'ProfileController@getUserProfile');
+
+Route::get('googlebooks/{isbn}', 'ListingController@getBookInfo');
 
 //protected API routes with JWT (must be logged in)
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
+
+
+
+Route::group(['middleware' => ['auth:api']], function () {
+  //listings routes
+
+  Route::post('listings', 'ListingController@store');
+
+  //rent routes
+  Route::post('rent', 'RentController@store');
+
+  Route::post('rents/update', 'RentController@update');
+});

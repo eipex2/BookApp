@@ -18,7 +18,10 @@
 
 </head>
 <body>
-
+<?php
+// use Illuminate\Support\Facades\Auth;
+// echo "MAD JAM";
+// var_dump(Auth::id());?>
     <app-shell>
         <div id="app-shell-header">
             <img src="img/icons/logo.svg" width="171" height="41">

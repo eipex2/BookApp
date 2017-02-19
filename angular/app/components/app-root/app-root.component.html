@@ -1,3 +1,13 @@
-<div ui-view="header"></div>
+<!-- <div ui-view="header"></div>
 <div ui-view="main"></div>
-<div ui-view="footer"></div>
+<div ui-view="footer"></div> -->
+
+<div layout-fill layout="column">
+  <!-- top toolbar -->
+  <md-toolbar style="background-color:white" class="md-whiteframe-1dp" ui-view="toolbar" >
+  </md-toolbar>
+  <md-content flex layout-fill
+              ui-view="main">
+
+  </md-content>
+</div>

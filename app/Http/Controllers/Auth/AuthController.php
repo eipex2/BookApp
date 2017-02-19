@@ -36,15 +36,20 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $this->validate($request, [
-            'name'       => 'required|min:3',
+            'firstname'       => 'required|min:2',
+            'lastname' => 'required|min:2',
             'email'      => 'required|email|unique:users',
             'password'   => 'required|min:8',
+            'university' => 'required'
         ]);
 
         $user = new User;
-        $user->name = trim($request->name);
+        $user->firstname = trim($request->firstname);
+        $user->lastname = trim($request->lastname);
         $user->email = trim(strtolower($request->email));
         $user->password = bcrypt($request->password);
+        $user->university = trim($request->university);
+        $user->rating = 0;
         $user->save();
 
         $token = JWTAuth::fromUser($user);

@@ -1,0 +1,61 @@
+<div layout="column" layout-fill >
+  <div  layout="row" layout-padding layout-align="center center">
+    <div>
+        <img class="book-thumbnail" src="{{vm.listing.thumbnail}}" alt="girl-avatar"/>
+    </div>
+    <div class="text-light">
+        <h4 class="font-weight-600 margin-bottom-0 text-light">{{vm.listing.title}}</h3>
+        <p>by <span class="profile-title" ng-click="vm.showProfile(vm.listing.user.id)">{{vm.listing.user.firstname + ' '+ vm.listing.user.lastname}}</span></p>
+     </div>
+   </div>
+
+  <div layout="row" class="profile" flex>
+      <div layout-fill>
+          <md-tabs md-whiteframe="1" layout-fill>
+              <md-tab label="Offers">
+                  <md-content class="md-padding">
+                      <section class="list-container md-whiteframe-z1">
+                        <!-- <md-toolbar class="list-toolbar" md-scroll-shrink md-border-bottom>
+                          <div class="list-toolbar md-toolbar-tools" md-border-bottom>Pending</div>
+                        </md-toolbar> -->
+                        <!-- <md-subheader class="md-primary">Pending</md-subheader> -->
+                          <md-list layout-padding>
+                            <!-- <md-list-item ng-repeat="rental in vm.listing.rents" layout="row" layout="start start">
+                              <img class="list-user-avatar" alt="{{ person.name }}" src="img/assets/images/avatars/avatar-5.png" class="md-avatar" />
+                              <div  layount-align="center center" layout="column" flex>
+                                 <h4>{{rental.user.firstname + ' ' +rental.user.lastname}}</h4>
+                                 <h6>Date: {{rental.start_date + ' to ' + rental.end_date}}</h6>
+                              </div>
+                              <md-card-actions layout="column" layout-align="end center">
+                                <md-button ng-click="vm.approve(rental.id)">
+                                    Approve
+                                </md-button>
+                                <md-button ng-click="vm.decline(rental.id)">
+                                    Decline
+                                </md-button>
+                              </md-card-actions>
+                             </md-list-item> -->
+                            <div layout="row" layout-align="start center" class="md-2-line" ng-repeat="rental in vm.listing.rents">
+                              <div layout-align="center center">
+                                <img  class="list-user-avatar" src="img/assets/images/avatars/avatar-5.png"  alt="{{}}" />
+                              </div>
+                              <div class="md-list-item-text" flex>
+                                <p class="profile-title" style="font-size:14px">{{rental.user.firstname + ' ' +rental.user.lastname}}</h3>
+                                <p style="font-size:10px">Date: {{rental.start_date + ' to ' + rental.end_date}}</p>
+                              </div>
+                              <md-card-actions layout="column" layout-align="end center">
+                                <md-button ng-show="vm.showUpdateButton" ng-click="vm.updateReservation(rental.id, rental.status)">
+                                    {{rental.status==="declined"||rental.status==='pending'? 'Approve': 'Decline'}}
+                                </md-button>
+                                <p ng-hide="vm.showUpdateButton">{{rental.status}}</p>
+                              </md-card-actions>
+                            </div>
+
+                          </md-list>
+                      </section>
+                  </md-content>
+              </md-tab>
+            </md-tabs>
+          </div>
+    </div>
+</div>

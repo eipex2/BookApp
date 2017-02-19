@@ -25,7 +25,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token','email'
     ];
 
     /**
@@ -47,4 +47,21 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function listings(){
+        return $this->hasMany('App\Listing');
+    }
+
+    public function posts(){
+        return $this->hasMany('App\Post');
+    }
+
+    public function reviews(){
+        return $this->hasMany('App\Review', 'to_user');
+    }
+
+    public function rents(){
+        return $this->hasMany('App\Rent');
+    }
+
 }

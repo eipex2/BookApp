@@ -1,8 +1,15 @@
 <form ng-submit="vm.register()">
 	<div>
 		<md-input-container class="RegisterForm-inputContainer">
-			<label>Name</label>
-			<input type="text" ng-model="vm.name">
+			<label>Firstname</label>
+			<input type="text" ng-model="vm.firstname">
+		</md-input-container>
+	</div>
+
+	<div>
+		<md-input-container class="RegisterForm-inputContainer">
+			<label>Lastname</label>
+			<input type="text" ng-model="vm.lastname">
 		</md-input-container>
 	</div>
 
@@ -19,6 +26,16 @@
 			<input type="password" ng-model="vm.password">
 		</md-input-container>
 	</div>
+
+	<div>
+		<md-input-container class="RegisterForm-inputContainer">
+			<label>University</label>
+			<md-select name="type" ng-model="vm.university" required>
+				<md-option value="University of Oklahoma">University of Oklahoma</md-option>
+			</md-select>
+		</md-input-container>
+	</div>
+
 
 	<md-button type="submit" class="RegisterForm-submit md-primary md-raised">Register</md-button>
 </form>

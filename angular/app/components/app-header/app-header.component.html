@@ -1,16 +1,50 @@
-<md-content class="Page-Container DemoHeader">
+<div >
     <div layout="row">
         <div flex="90" flex-offset="5" class="DemoHeader-container">
             <div layout="row" layout-align="space-between">
-                <img src="img/icons/logo.svg" ui-sref="app.landing" class="DemoHeader-logo"/>
-                <div layout="row" layout-align="center stretch">
-                    <a hide-xs class="DemoHeader-link md-subhead" href="https://laravel-angular.readme.io" target="_blank">Docs</a>
-                    <a hide-xs class="DemoHeader-link md-subhead" href="https://www.youtube.com/channel/UCTiRXlOapSWfu02rtOdaGvA/playlists" target="_blank">Screencasts</a>
-                    <a hide-xs class="DemoHeader-link md-subhead" href="https://github.com/jadjoubran/laravel5-angular-material-starter" target="_blank">Github</a>
-                    <iframe class="DemoHeader-github" ng-src="{{vm.githubWidget}}" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
+                <a class="DemoHeader-link md-subhead" ui-sref="app.landing">Ram</a>
+                <!--<img src="img/icons/logo.svg" ui-sref="app.landing" class="DemoHeader-logo"/>-->
+
+                <div ng-show="!vm.$auth.isAuthenticated()" layout="row" layout-align="center stretch">
+                    <a class="DemoHeader-link md-subhead" ui-sref="app.login">Login</a>
+                    <a class="DemoHeader-link md-subhead" ui-sref="app.register">Register</a>
                 </div>
+
+                <div ng-show="vm.$auth.isAuthenticated()" layout="row" layout-align="center stretch">
+                    <!-- <a class="DemoHeader-link md-subhead" ng-click="vm.profile(vm.user.id)">{{vm.user.firstname + ' ' +vm.user.lastname}}</a>
+                    <a class="DemoHeader-link md-subhead" ng-click="vm.logout()">Logout</a> -->
+                    <md-menu>
+                      <md-button layout-align="center center"  aria-label="Open user menu" ng-click="$mdOpenMenu()" aria-label="side navigation">
+                          <!--<img class="toolbar-user-avatar" ng-src="{{vm.currentUser.avatar}}">-->
+
+                              <img class="toolbar-user-avatar"  src="img/assets/images/avatars/avatar-5.png">
+                          <span style="color:gray">{{vm.user.firstname}}</span>
+                      </md-button>
+                      <md-menu-content width="3">
+                          <md-menu-item>
+                              <md-button ng-click="vm.toggleNotificationsTab(2)" aria-label="side navigation">
+                                  <md-icon md-font-icon="zmdi zmdi-settings"></md-icon>
+                                  <span translate="Settings">Settings</span>
+                              </md-button>
+                          </md-menu-item>
+                          <md-menu-item>
+                              <md-button ng-click="vm.profile(vm.user.id)" aria-label="side navigation">
+                                  <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
+                                  <span translate="Profile">Profile</span>
+                              </md-button>
+                          </md-menu-item>
+                          <md-menu-divider></md-menu-divider>
+                          <md-menu-item>
+                              <md-button ng-click="vm.logout()" aria-label="side navigation">
+                                  <md-icon md-font-icon="zmdi zmdi-sign-in"></md-icon>
+                                  <span translate="Logout">Logout</span>
+                              </md-button>
+                          </md-menu-item>
+                      </md-menu-content>
+                  </md-menu>
+                </div>
+
             </div>
         </div>
     </div>
-</md-content>
-<div class="DemoHeader-spacer"></div>
+</div>
