@@ -4,10 +4,11 @@
 
 <div layout-fill layout="column">
   <!-- top toolbar -->
-  <md-toolbar style="background-color:white" class="md-whiteframe-1dp" ui-view="toolbar" >
-  </md-toolbar>
+
+  <div ui-view="toolbar">
+  </div>
   <md-content flex layout-fill
-              ui-view="main">
+              ui-view="main" >
 
   </md-content>
 </div>

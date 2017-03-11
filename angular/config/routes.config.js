@@ -48,6 +48,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 			url: '/login',
 			data: {auth:false},
 			views: {
+				'toolbar@':{},
 				'main@': {
 					component: "loginForm"
 				}
@@ -57,6 +58,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 			url: '/register',
 			data: {auth:false},
 			views: {
+				'toolbar@':{},
 				'main@': {
 					templateUrl: getView('register')
 				}
@@ -66,6 +68,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 			url: '/forgot-password',
 			data: {auth:false},
 			views: {
+				'toolbar@':{},
 				'main@': {
 					templateUrl: getView('forgot-password')
 				}
@@ -119,6 +122,18 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 				},
 				currentUser: function(user){
 					return user;
+				}
+			}
+		})
+		.state('app.add_book', {
+			url:'/add-book',
+			data:{auth:true},
+			views:{
+				'main@' : {
+					component: "addBookWizard",
+					bindings:{
+
+					}
 				}
 			}
 		});

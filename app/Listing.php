@@ -7,7 +7,7 @@ use Carbon\Carbon;
 
 class Listing extends Model
 {
-  
+
 
   protected $casts = [
     'category' => 'array'
@@ -27,8 +27,4 @@ class Listing extends Model
   {
       return $this->hasMany('App\Rent', 'list_id');
   }
-
-
-
-
 }

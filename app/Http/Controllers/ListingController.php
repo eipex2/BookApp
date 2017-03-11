@@ -69,7 +69,6 @@ class ListingController extends Controller
 
     public function getBookInfo(Request $request, $isbn)
     {
-
         $client = new Client(['base_uri' => 'https://www.googleapis.com/books/v1/']);
         $fetcher = new Fetcher($client);
         $book = $fetcher->forISBN($isbn);

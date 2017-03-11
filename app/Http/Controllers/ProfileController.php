@@ -16,7 +16,7 @@ class ProfileController extends Controller
     }
 
     public function getUserProfile(Request $request, $id){
-        $user = User::with('listings', 'rents.listing')->find($id);
+        $user = User::with('listings.rents', 'rents.listing')->find($id);
         return response()->json($user);
     }
 

@@ -10,29 +10,24 @@ class ListingViewController{
     }
 
     $onInit(){
-
         if(this.listing.user.id===this.currentUser.id){
           this.showUpdateButton = true;
         }else{
           this.showUpdateButton = false;
         }
-
-
     }
 
     updateReservation(id, status){
 
         var data = {
             rent_id : id,
-            status: status==='declined'||status==='pending'?'approved':'declined'
+            status: status==='cancelled'||status==='pending'?'approved':'cancelled'
         };
-
-        console.log(data.status);
 
         //had an error with rent/update as route changed to rents/update worked -- TD
         this.API.all('rents/update').post(data).then(() => {
             this.$state.go(this.$state.$current, {id: this.$stateParams.id}, {reload:true, inherit:false, notify:true});
-            this.ToastService.show('Approved');
+            this.ToastService.show(data.status);
         });
     }
 

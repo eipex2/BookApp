@@ -10,7 +10,6 @@ class AppHeaderController{
     }
 
     $onInit(){
-      console.log(this.user);
         if (this.$auth.isAuthenticated()) {
             // this.API.one('profile').get().then(response => {
             //     this.user= response;

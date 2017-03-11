@@ -6,7 +6,7 @@ class ProfileViewController{
     }
 
     $onInit(){
-
+        
     }
 
     showDetail(id){

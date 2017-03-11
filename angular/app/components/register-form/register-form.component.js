@@ -1,10 +1,11 @@
 class RegisterFormController {
-	constructor($auth, ToastService, $location) {
+	constructor($auth, ToastService, $location, $state) {
 		'ngInject';
 
 		this.$auth = $auth;
 		this.ToastService = ToastService;
-		this.$location = $location
+		this.$location = $location;
+		this.$state = $state;
 	}
 
     $onInit(){
@@ -35,7 +36,9 @@ class RegisterFormController {
 			.catch(this.failedRegistration.bind(this));
 	}
 
-
+	login(){
+		this.$state.go('app.login', {}, {reload:true, inherit:false, notify:true});
+	}
 
 	failedRegistration(response) {
 		if (response.status === 422) {

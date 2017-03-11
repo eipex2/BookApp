@@ -31,6 +31,14 @@ class LoginFormController {
 			.catch(this.failedLogin.bind(this));
 	}
 
+	signUp(){
+		this.$state.go('app.register', {}, {reload:true, inherit:false, notify:true});
+	}
+
+	forgotPassword(){
+		this.$state.go('app.forgot_password', {}, {reload:true, inherit:false, notify:true});
+	}
+
 	failedLogin(response) {
 		if (response.status === 422) {
 			for (let error in response.data.errors) {

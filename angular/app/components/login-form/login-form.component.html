@@ -1,4 +1,4 @@
-<div layout-fill layout="row" layout-align="center center">
+<div layout-fill layout="row" layout-align="center center" class="grey-background">
 		<div flex></div>
 		<md-card>
          <md-card-title>
@@ -27,7 +27,13 @@
          </md-card-content>
          <md-card-actions layout="column" layout-align="start">
            <md-button type="submit" ng-click="vm.login()" class="LoginForm-submit md-primary md-raised">Log in</md-button>
+					 <md-button type="submit" ng-click="vm.signUp()" class="LoginForm-submit">Sign up</md-button>
+
          </md-card-actions>
+				 <div layout="column" layout-align="start center" layout-padding>
+					 	<a class="link" ng-click="vm.forgotPassword()">Forgot account?</a>
+				 </div>
+
     </md-card>
 		<div flex></div>
 <div>

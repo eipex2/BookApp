@@ -1,41 +1,47 @@
-<form ng-submit="vm.register()">
-	<div>
-		<md-input-container class="RegisterForm-inputContainer">
-			<label>Firstname</label>
-			<input type="text" ng-model="vm.firstname">
-		</md-input-container>
-	</div>
+<div layout="row" layout-align="center center">
+		<form ng-submit="vm.register()">
+		<md-card layout-padding>
+				<div>
+					<md-input-container class="RegisterForm-inputContainer">
+						<label>Firstname</label>
+						<input type="text" ng-model="vm.firstname">
+					</md-input-container>
+				</div>
 
-	<div>
-		<md-input-container class="RegisterForm-inputContainer">
-			<label>Lastname</label>
-			<input type="text" ng-model="vm.lastname">
-		</md-input-container>
-	</div>
+				<div>
+					<md-input-container class="RegisterForm-inputContainer">
+						<label>Lastname</label>
+						<input type="text" ng-model="vm.lastname">
+					</md-input-container>
+				</div>
 
-	<div>
-		<md-input-container class="RegisterForm-inputContainer">
-			<label>Email</label>
-			<input type="email" ng-model="vm.email">
-		</md-input-container>
-	</div>
+				<div>
+					<md-input-container class="RegisterForm-inputContainer">
+						<label>Email</label>
+						<input type="email" ng-model="vm.email">
+					</md-input-container>
+				</div>
 
-	<div>
-		<md-input-container class="RegisterForm-inputContainer">
-			<label>Password</label>
-			<input type="password" ng-model="vm.password">
-		</md-input-container>
-	</div>
+				<div>
+					<md-input-container class="RegisterForm-inputContainer">
+						<label>Password</label>
+						<input type="password" ng-model="vm.password">
+					</md-input-container>
+				</div>
 
-	<div>
-		<md-input-container class="RegisterForm-inputContainer">
-			<label>University</label>
-			<md-select name="type" ng-model="vm.university" required>
-				<md-option value="University of Oklahoma">University of Oklahoma</md-option>
-			</md-select>
-		</md-input-container>
-	</div>
+				<div>
+					<md-input-container class="RegisterForm-inputContainer">
+						<label>University</label>
+						<md-select name="type" ng-model="vm.university" required>
+							<md-option value="University of Oklahoma">University of Oklahoma</md-option>
+						</md-select>
+					</md-input-container>
+				</div>
 
-
-	<md-button type="submit" class="RegisterForm-submit md-primary md-raised">Register</md-button>
-</form>
+			<md-card-actions layout="column" layout-align="center center">
+					<md-button type="submit" class="RegisterForm-submit md-primary md-raised">Register</md-button>
+				<a ng-click="vm.login()" layout-padding class="link">Already have account?</a>
+			</md-card-actions>
+		</md-card>
+		</form>
+</div>
