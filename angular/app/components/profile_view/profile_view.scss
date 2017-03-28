@@ -3,6 +3,7 @@
   height: 6rem;
   border-radius: 50%;
   vertical-align: middle;
+  cursor:pointer;
 }
 
 .list-container{
@@ -20,4 +21,36 @@
   width: 3rem;
   height: 4rem;
   padding:10px;
+}
+
+//the thing u've started doesnt have to be like this at the end. Accept contructive change.
+.user-avatar{
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.change_avatar{
+  cursor: pointer;
+}
+
+.listing_status{
+  border: 1px solid #4cae4c;
+  border-radius:5px;
+  padding:4px;
+}
+
+.change_avatar_overlay{
+  text-align: center;
+  background-color: black;
+  color:white;
+  border-color:10px;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  vertical-align: middle;
+  opacity: 0.2;
+  cursor:pointer;
+  padding:5px;
 }

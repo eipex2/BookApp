@@ -27,9 +27,11 @@ module.exports = function(config) {
             'karma-jasmine',
             'karma-phantomjs-launcher',
             'karma-browserify',
-        ]
+        ],
+        watchOptions: {
+            poll: 500
+        }
 
         // define reporters, port, logLevel, browsers etc.
     });
 };
-

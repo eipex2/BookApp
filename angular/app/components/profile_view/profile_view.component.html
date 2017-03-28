@@ -1,11 +1,22 @@
 <div layout="column" layout-fill class="grey-background">
   <div  layout="row" layout-padding layout-align="center center">
-    <div>
-        <img class="profile-user-avatar" src="img/assets/images/avatars/avatar-5.png" alt="girl-avatar"/>
+    <div ng-mouseenter="vm.changeAvatar=true" ng-mouseleave="vm.changeAvatar=false">
+        <!-- <img class="profile-user-avatar" src={{"img/assets/images/avatars/avatar-5.png"}} alt="girl-avatar"/> -->
+        <img ng-hide="vm.showChangeAvatar && vm.changeAvatar" class="profile-user-avatar md-whiteframe-1dp"
+             src={{"/uploads/avatars/"+vm.userp.avatar}}
+             alt="avatar"
+             />
+          <form ng-show="vm.showChangeAvatar && vm.changeAvatar" name="vm.form" layout="row" layout-align="start center">
+            <div class="change_avatar_overlay" ng-show="vm.changeAvatar" layout="column" layout-align="center center"
+                 ngf-select ng-model="vm.file" name="file" ngf-pattern="'image/*'"
+                 ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
+                 ngf-resize="{width: 150, height: 150}" style="cursor:pointer" ng-change="vm.selectImage(ev)">Change avatar</div>
+            <span flex></span>
+          </form>
     </div>
     <div class="text-light">
         <h3 class="font-weight-600 margin-bottom-0 text-light">{{vm.userp.firstname + ' '+ vm.userp.lastname}}</h3>
-        <p class="font-weight-300 margin-top-0">Change picture</p>
+        <ng-rate-it ng-model="vm.rating" resetable="false"></ng-rate-it>
      </div>
   </div>
 
@@ -19,7 +30,7 @@
                         <img ng-src="{{listing.thumbnail}}" class="book-thumbnail" alt="{{}}">
                         <div class="md-list-item-text" layout="column" layout-align="start start">
                           <h3>{{listing.title}}</h3>
-                          <h4>Offers: {{listing.rents.length}}</h4>
+                          <h4 class="listing_status">Offers: {{listing.rents.length}}</h4>
                         </div>
                         <md-button class="md-secondary">
                             View
@@ -42,20 +53,6 @@
                         <md-divider></md-divider>
                     </md-list-item>
                   </md-list>
-              </md-tab>
-
-              <md-tab label="Notifications" layout-fill>
-                  <md-list>
-                      <div ng-repeat="group in ::vm.settingsGroups">
-                          <md-subheader class="md-accent" translate="{{::group.name}}"></md-subheader>
-                          <md-list-item ng-repeat="setting in ::group.settings" layout="row" layout-align="space-around center">
-                              <md-icon md-font-icon="{{::setting.icon}}"></md-icon>
-                              <p translate>{{::setting.title}}</p>
-                              <md-switch class="md-secondary" ng-model="setting.enabled"></md-switch>
-                          </md-list-item>
-                      </div>
-                  </md-list>
-                  <md-button class="md-raised md-primary margin-left-0" ng-disabled="profile.$invalid" translate="Update Settings"></md-button>
               </md-tab>
             </md-tabs>
             <div flex="20" flex-xs="0"></div>

@@ -61,7 +61,7 @@ class HomeComponentController{
         }, function() {
 
         });
-    };
+    }
 
 
 }
@@ -75,11 +75,11 @@ class RentDialogController{
 
     hide() {
       this.$mdDialog.hide();
-    };
+    }
 
     cancel() {
       this.$mdDialog.cancel();
-    };
+    }
 
     rent(){
       var dates = {

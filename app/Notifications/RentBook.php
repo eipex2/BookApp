@@ -11,14 +11,20 @@ class RentBook extends Notification
 {
     use Queueable;
 
+    private $user; //recipient user
+    private $type; //type of action - rent,approve,cancel
+    private $message;
+
     /**
      * Create a new notification instance.
-     *
-     * @return void
+     * RentBook constructor.
+     * @param $user
      */
-    public function __construct()
+    public function __construct($user, $listing, $type)
     {
-        //
+        $this->user = $user;
+        $this->listing = $listing;
+        $this->type = $type;
     }
 
     /**
@@ -40,10 +46,27 @@ class RentBook extends Notification
      */
     public function toMail($notifiable)
     {
+        $url = 'http://localhost:8000/#!/listings/' . $this->listing->id;
+
+        switch($this->type){
+            case 'rent' :
+                $this->message = 'A bid has been placed on your post';
+                break;
+            case 'cancelled':
+                $this->message = 'Sorry your bid has been cancelled';
+                break;
+            case 'approved':
+                $this->message = 'Your bid has been approved';
+                break;
+            default:
+                break;
+        }
+
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', 'https://laravel.com')
-                    ->line('Thank you for using our application!');
+                    ->greeting('Hello ' . $this->user->firstname . ',')
+                    ->line($this->message)
+                    ->action('View Post', $url)
+                    ->line('From your friends at Ram!');
     }
 
     /**

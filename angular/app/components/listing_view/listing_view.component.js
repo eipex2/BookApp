@@ -10,11 +10,8 @@ class ListingViewController{
     }
 
     $onInit(){
-        if(this.listing.user.id===this.currentUser.id){
-          this.showUpdateButton = true;
-        }else{
-          this.showUpdateButton = false;
-        }
+        //only show update button when listing is owned by current user
+        this.showUpdateButton = this.listing.user.id === this.currentUser.id;
     }
 
     updateReservation(id, status){

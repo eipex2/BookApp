@@ -44,7 +44,7 @@ class RentController extends Controller
 
                 $rent->save();
 
-                $user->notify(new RentBook($user), 'rent');
+                $user->notify(new RentBook($user,'rent'));
             }
         }catch(Exception $e){
             return response()->error($e->getMessage());
@@ -72,9 +72,7 @@ class RentController extends Controller
             if($listing->user_id == Auth::id()) {
                 $rent->status = $request->input('status');
                 $rent->save();
-
-                $type = $request->input('status') == 'approved' ? 'approved' : 'cancelled';
-                $user->notify(new RentBook($user,$type), 'rent');
+                $user->notify(new RentBook($user, $listing, $rent->status));
             }else{
               return response()->error(Auth::id());
             }

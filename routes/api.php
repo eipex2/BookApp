@@ -28,6 +28,8 @@ Route::get('listings/{id}', 'ListingController@show');
 //profile routes
 Route::get('profile/{id}', 'ProfileController@getUserProfile');
 
+Route::post('profile/file', 'ProfileController@updateAvatar');
+
 Route::get('googlebooks/{isbn}', 'ListingController@getBookInfo');
 
 //protected API routes with JWT (must be logged in)

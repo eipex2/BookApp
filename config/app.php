@@ -182,6 +182,10 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ResponseMacroServiceProvider::class,
 
+        /*
+        *Image provider
+        */
+        Intervention\Image\ImageServiceProvider::class
     ],
 
     /*
@@ -229,6 +233,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'Image' => Intervention\Image\Facades\Image::class
 
     ],
 
