@@ -23,6 +23,14 @@ class ProfileViewController{
       this.$location.path('/listings/'+ id);
     }
 
+    rentalAction(rental){
+      if(rental.status==="approved"){
+        this.$state.go('app.chat');
+      }else{
+        this.$location.path('/listings/'+ rental.listing.id);
+      }
+    }
+
     selectImage(ev){
       console.log("yes");
       var vm = this;

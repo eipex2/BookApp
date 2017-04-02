@@ -15,6 +15,6 @@ angular.module('app.services', []);
 angular.module('app.config', []);
 angular.module('app.directives', []);
 angular.module('app.components', [
-	'ui.router', 'ngMaterial', 'angular-loading-bar',
+	'ui.router', 'ngMaterial', 'ngAnimate','angular-loading-bar',
 	'restangular', 'ngStorage', 'satellizer','ngFileUpload','ngRateIt'
 ]);

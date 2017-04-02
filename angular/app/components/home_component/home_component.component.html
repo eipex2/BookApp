@@ -10,7 +10,7 @@
               <md-card layou style="min-height:95%; min-width:95%; max-height:95%; max-width:95%;">
                   <md-card-header>
                       <md-card-avatar>
-                          <img class="md-user-avatar"  src={{"/uploads/avatars/"+listing.user.avatar}} alt="avatar">
+                          <img class="md-user-avatar"  ng-src={{vm.imgPath(listing)}} alt="avatar">
                       </md-card-avatar>
                       <md-card-header-text>
                           <span ng-click="vm.showProfile(listing.user_id)" class="profile-title md-title">{{listing.user.firstname + ' ' + listing.user.lastname}}</span>

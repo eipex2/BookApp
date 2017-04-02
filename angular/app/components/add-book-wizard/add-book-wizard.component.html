@@ -52,7 +52,8 @@
                               </div>
                               <div ng-show="vm.googleDone" flex layout="row" layout-align="center center" layout-fill class="md-padding" style="max-height:200px; max-width:300px">
                                   <md-card>
-                                      <img  style="max-height:200px; max-width:300px" ng-src="{{vm.book.thumbnail}}" class="md-card-image" alt="Washed Out">
+                                      <img  ng-hide="vm.notfound" style="max-height:200px; max-width:300px" ng-src="{{vm.book.thumbnail}}" class="md-card-image" alt="Not found">
+                                      <md-button ng-show="vm.notfound" class="md-primary md-raised" ng-click="vm.prevStep()" ng-show="vm.currentStep === 1" >Add book manually</md-button>
                                       <!-- <md-card-title>
                                         <md-card-title-text>
                                           <span class="md-caption">{{vm.book.title}}</span>

@@ -12,6 +12,7 @@ class RentBook extends Notification
     use Queueable;
 
     private $user; //recipient user
+    private $listing_id;
     private $type; //type of action - rent,approve,cancel
     private $message;
 
@@ -20,10 +21,10 @@ class RentBook extends Notification
      * RentBook constructor.
      * @param $user
      */
-    public function __construct($user, $listing, $type)
+    public function __construct($user, $listing_id, $type)
     {
         $this->user = $user;
-        $this->listing = $listing;
+        $this->listing_id = $listing_id;
         $this->type = $type;
     }
 
@@ -46,7 +47,7 @@ class RentBook extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = 'http://localhost:8000/#!/listings/' . $this->listing->id;
+        $url = 'http://localhost:8000/#!/listings/' . $this->listing_id;
 
         switch($this->type){
             case 'rent' :

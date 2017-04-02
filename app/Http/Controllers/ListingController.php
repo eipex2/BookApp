@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
 use App\Listing;
 use AntoineAugusti\Books\Fetcher;
+use AntoineAugusti\Books\InvalidResponseException;
 use GuzzleHttp\Client;
 
 class ListingController extends Controller
@@ -67,12 +68,16 @@ class ListingController extends Controller
       return response()->success(compact('listing'));
   }
 
-    public function getBookInfo(Request $request, $isbn)
-    {
-        $client = new Client(['base_uri' => 'https://www.googleapis.com/books/v1/']);
-        $fetcher = new Fetcher($client);
-        $book = $fetcher->forISBN($isbn);
-
-        return response()->json($book);
+  public function getBookInfo(Request $request, $isbn)
+  {
+    try{
+      $client = new Client(['base_uri' => 'https://www.googleapis.com/books/v1/']);
+      $fetcher = new Fetcher($client);
+      $book = $fetcher->forISBN($isbn);
+    }catch(InvalidResponseException $e){
+      return response()->error("Book not found");
     }
+
+    return response()->success(compact('book',$book));
+  }
 }

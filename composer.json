@@ -12,7 +12,9 @@
         "irazasyed/jwt-auth-guard": "^1.0",
         "barryvdh/laravel-cors": "^0.8.2",
         "antoineaugusti/google-books": "^0.3.0",
-        "intervention/image": "^2.3"
+        "intervention/image": "^2.3",
+        "pusher/pusher-php-server": "^2.6",
+        "vinkla/pusher": "^2.5"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

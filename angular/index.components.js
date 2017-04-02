@@ -1,3 +1,4 @@
+import {ChatComponent} from './app/components/chat/chat.component';
 import {ListingViewComponent} from './app/components/listing_view/listing_view.component';
 import {ProfileViewComponent} from './app/components/profile_view/profile_view.component';
 import {AddBookWizardComponent} from './app/components/add-book-wizard/add-book-wizard.component';
@@ -12,6 +13,7 @@ import {LoginFormComponent} from './app/components/login-form/login-form.compone
 import {RegisterFormComponent} from './app/components/register-form/register-form.component';
 
 angular.module('app.components')
+	.component('chat', ChatComponent)
 	.component('listingView', ListingViewComponent)
 	.component('profileView', ProfileViewComponent)
 	.component('addBookWizard', AddBookWizardComponent)

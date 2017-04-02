@@ -15,6 +15,10 @@ class HomeComponentController{
         //console.log(this.listings);
     }
 
+    imgPath(listing){
+      return "/uploads/avatars/"+listing.user.avatar;
+    }
+
     goCreateBook(){
         //this.$location.path('/add-book');
         this.$state.go('app.add_book', {}, {reload:true, inherit:false, notify:true});
@@ -46,13 +50,11 @@ class HomeComponentController{
           fullscreen: true // Only for -xs, -sm breakpoints.
         })
         .then(function(dates) {
-          //console.log(listing['user_id']);
             var data = {
               start_date: dates.start_date,
               end_date: dates.end_date,
               user_id: vm.currentUser.id,
-              list_user_id:listing.user_id,
-              list_id: listing.id
+              listing_id:listing.id
             }
             vm.API.all('rent').post(data).then(() => {
                 vm.$state.go('app.landing', {}, {reload:true, inherit:false, notify:true});

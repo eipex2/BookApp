@@ -34,7 +34,8 @@ elixir.config.js.folder = 'angular';
      styles = [
          // for some reason, ./ prefix here works fine!
          // it is needed to override elixir.config.css.folder for styles mixin
-         './public/css/vendor.css', './public/css/app.css'
+         './public/css/vendor.css', './public/css/app.css',
+         './angular/material-design-iconic-font/css/material-design-iconic-font.css'
      ],
      karmaJsDir = [
          'public/js/vendor.js',
@@ -48,7 +49,24 @@ elixir(mix => {
     mix.bower()
        .copy('angular/app/**/*.html', 'public/views/app/')
        .copy('angular/dialogs/**/*.html', 'public/views/dialogs/')
+
+       .copy('angular/material-design-iconic-font/fonts/Material-Design-Iconic-Font.woff2',
+        'public/build/fonts/Material-Design-Iconic-Font.woff2')
+
+       .copy('angular/material-design-iconic-font/fonts/Material-Design-Iconic-Font.woff',
+        'public/build/fonts/Material-Design-Iconic-Font.woff')
+
+       .copy('angular/material-design-iconic-font/fonts/Material-Design-Iconic-Font.ttf',
+        'public/build/fonts/Material-Design-Iconic-Font.ttf')
+
+       .copy('angular/material-design-iconic-font/fonts/Material-Design-Iconic-Font.svg',
+        'public/build/fonts/Material-Design-Iconic-Font.svg')
+
+       .copy('angular/material-design-iconic-font/fonts/Material-Design-Iconic-Font.eot',
+         'public/build/fonts/Material-Design-Iconic-Font.eot')
+
        .webpack('index.main.js', 'public/js/app.js')
+
        .sass(['**/*.scss', 'critical.scss'], 'public/css')
        .sass('critical.scss', 'public/css/critical.css')
        .styles(styles, 'public/css/final.css')

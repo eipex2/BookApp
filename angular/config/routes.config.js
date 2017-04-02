@@ -136,6 +136,34 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 					}
 				}
 			}
+		})
+		.state('app.chat', {
+			url:'/chat',
+			data:{auth:true},
+			params:{
+				id:null
+			},
+			views:{
+				'main@' : {
+					component: "chat",
+					bindings:{
+						activeConvo: 'activeConvo',
+						messages:'messages',
+						currentUser:'currentUser'
+					}
+				}
+			},
+			resolve:{
+				activeConvo: function(API, $stateParams){
+					return $stateParams.id;
+				},
+				messages:function(API){
+						return API.one('chat/getMessages').get();
+				},
+				currentUser :function(user){
+					return user;
+				}
+			}
 		});
 
 }

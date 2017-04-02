@@ -16,7 +16,7 @@
     </div>
     <div class="text-light">
         <h3 class="font-weight-600 margin-bottom-0 text-light">{{vm.userp.firstname + ' '+ vm.userp.lastname}}</h3>
-        <ng-rate-it ng-model="vm.rating" resetable="false"></ng-rate-it>
+        <ng-rate-it ng-model="vm.rating" read-only="true" resetable="false"></ng-rate-it>
      </div>
   </div>
 
@@ -41,14 +41,17 @@
               </md-tab>
               <md-tab label="Rentals">
                   <md-list>
-                    <md-list-item ng-click="vm.showDetail(rental.listing.id)" class="md-3-line md-ink-ripple" ng-repeat="rental in vm.userp.rents">
+                    <md-list-item ng-click="vm.rentalAction(rental)" class="md-3-line md-ink-ripple" ng-repeat="rental in vm.userp.rents">
                         <img ng-src="{{rental.listing.thumbnail}}" class="book-thumbnail" alt="{{}}">
                         <div class="md-list-item-text" layout="column" layout-align="start start">
                           <h3>{{rental.listing.title}}</h3>
                           <h4>Status: {{rental.status}}</h4>
                         </div>
-                        <md-button class="md-secondary">
-                            View
+                        <md-button ng-hide={{rental.status==="approved"}} class="md-secondary">
+                            <i class="zmdi zmdi-info-outline"></i>
+                        </md-button>
+                        <md-button ng-show={{rental.status==="approved"}} class="md-secondary">
+                            <i class="zmdi zmdi-comments"></i>
                         </md-button>
                         <md-divider></md-divider>
                     </md-list-item>

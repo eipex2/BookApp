@@ -41,11 +41,14 @@ Route::get('/user', function (Request $request) {
 
 Route::group(['middleware' => ['auth:api']], function () {
   //listings routes
-
   Route::post('listings', 'ListingController@store');
 
   //rent routes
   Route::post('rent', 'RentController@store');
-
   Route::post('rents/update', 'RentController@update');
+
+  //chat routes
+  Route::get('chat/getMessages', 'ChatController@getMessages');
+  Route::post('chat/getuserconversation', 'ChatController@getUserConversation');
+  Route::post('chat/sendmessage', 'ChatController@sendMessage');
 });

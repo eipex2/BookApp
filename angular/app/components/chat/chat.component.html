@@ -1,0 +1,94 @@
+<section layout="row" layout-fill>
+
+    <md-sidenav
+        class="md-sidenav-left md-whiteframe-1dp"
+        md-component-id="contacts-sidenav"
+        md-is-locked-open="$mdMedia('gt-md')"
+        >
+
+      <md-toolbar class="chat_toolbar md-theme-indigo md-whiteframe-1dp" layout="row" layout-align="center center">
+        <md-button class="small-btn">Search</md-button>
+      </md-toolbar>
+      <md-content>
+        <md-list>
+          <md-list-item ng-click="vm.getUserConversation(message)" ng-click-xs="vm.closeContacts()" class="md-2-line" ng-repeat="message in vm.messages">
+              <img  class="list-user-avatar" ng-src={{"/uploads/avatars/"+message.sender.avatar}}  alt="avatar" />
+              <div class="md-list-item-text" layout="column" layout-align="start start">
+                <h3>{{message.sender.firstname + ' ' + message.sender.lastname}}</h3>
+              </div>
+              <md-divider></md-divider>
+          </md-list-item>
+        </md-list>
+      </md-content>
+
+    </md-sidenav>
+
+    <md-content ng-show="vm.nonSelected()" layout="column" flex style="overflow:hidden">
+      <md-toolbar class="chat_toolbar md-whiteframe-1dp" layout="row" layout-align="start center" layout-padding>
+        <md-button ng-click="vm.toggleContacts()" class="small-btn md-primary">
+          <md-tooltip
+              md-direction="right">
+              Show contacts
+          </md-tooltip>
+          <img  class="toolbar-user-avatar" ng-src={{"/uploads/avatars/"+vm.currentRecipient.avatar}}  alt="avatar" />
+          {{vm.currentRecipient.firstname + ' ' + vm.currentRecipient.lastname}}
+        </md-button>
+        <span flex></span>
+        <md-button hide-gt-md class="small-btn icon" ng-click="vm.toggleExchange()">
+          <md-icon md-font-icon="zmdi zmdi-pin-drop"></md-icon>
+        </md-button>
+        </md-button>
+      </md-toolbar>
+      <div flex layout="column" >
+        <div class="grey-background" flex style="overflow:auto;">
+          <md-list>
+            <md-list-item class="chat-cloud" layout="row" ng-repeat="chat in vm.currentConversation">
+                <img  class="list-user-avatar md-whiteframe-1dp" ng-src={{"/uploads/avatars/"+chat.sender.avatar}}  alt="avatar" />
+                <div layout="column" flex class="message_cloud md-whiteframe-1dp" >
+                    <div layout-padding>{{chat.message}}</div>
+                    <div layout="row" layout-align="start end">
+                      <span flex></span>
+                      <span class="message_datetime">{{chat.created_at}}</span>
+                    </div>
+                </div>
+            </md-list-item>
+          </md-list>
+        </div>
+        <div class="md-whiteframe-1dp" layout="row" layout-align="start center" style="height:50px; background-color:white">
+            <md-input-container md-no-float class="md-block" style="height:50px;" flex layout-padding>
+              <input ng-model="vm.message" ng-keypress="vm.sendMessageKey($event)"placeholder="Type a message...">
+            </md-input-container>
+            <md-button class="md-primary" ng-click="vm.sendMessage()">Send</md-button>
+        </div>
+      </div>
+    </md-content>
+
+    <md-content ng-hide="vm.nonSelected()" flex layout="column">
+      <md-toolbar class="chat_toolbar md-whiteframe-1dp" layout="row" layout-align="start center" layout-padding>
+        <md-button ng-click="vm.toggleContacts()" class="small-btn md-primary">
+        <img  class="contact-user-avatar" ng-src={{"/uploads/avatars/avatar-5.png"}}  alt="avatar" />
+        Contacts
+        </md-button>
+        <span flex></span>
+        <md-button hide-gt-md class="small-btn icon" ng-click="vm.toggleExchange()">
+          <md-icon md-font-icon="zmdi zmdi-pin-drop"></md-icon>
+        </md-button>
+      </md-toolbar>
+      <md-content flex>
+      </md-content>
+    </md-content>
+
+    <md-sidenav class="md-sidenav-right md-whiteframe-1dp"
+      md-component-id="exchange-sidenav"
+        md-is-locked-open="$mdMedia('gt-md')">
+
+      <md-toolbar class="chat_toolbar md-theme-light md-whiteframe-1dp" layout="row" layout-align="center center">
+        <md-button class="small-btn">Setup Exchange</md-button>
+      </md-toolbar>
+      <md-content  layout-padding>
+
+      </md-content>
+
+    </md-sidenav>
+
+  </section>

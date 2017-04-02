@@ -185,7 +185,12 @@ return [
         /*
         *Image provider
         */
-        Intervention\Image\ImageServiceProvider::class
+        Intervention\Image\ImageServiceProvider::class,
+
+        /*
+        *pusher
+        */
+        Vinkla\Pusher\PusherServiceProvider::class
     ],
 
     /*
@@ -233,7 +238,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Pusher' => Vinkla\Pusher\Facades\Pusher::class
 
     ],
 

@@ -29,3 +29,14 @@ $factory->define(App\PasswordReset::class, function (Faker\Generator $faker) {
         'token' => str_random(10),
     ];
 });
+
+$factory->define(App\Message::class, function (Faker\Generator $faker) {
+    static $password;
+
+    return [
+        'sender_id' => rand(1,3),
+        'recipient_id' => rand(1,3),
+        'message' => $faker->text,
+        'read' => false,
+    ];
+});

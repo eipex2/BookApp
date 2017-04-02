@@ -1,0 +1,68 @@
+
+.small-btn {
+  padding: 0 4px 0 4px;
+  margin: 2px 4px 2px 4px;
+  min-width: 88px;
+  border-radius: 3px;
+  font-size: 12px;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration:none;
+  border: none;
+  outline: none;
+}
+
+.icon{
+  font-size: 24px;
+}
+
+.chat_toolbar{
+  min-height:50px;
+  padding:0px;
+  text-align: center;
+  //font-size: 12px;
+}
+
+.contact-user-avatar{
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right:5px;
+}
+
+
+.message_cloud {
+    background-color: white;
+    width:80%;
+    border-radius:10px;
+    border-top-left-radius: 0em;
+    border-bottom-left-radius: 0em;
+    border-top-right-radius: 0em;
+    position: relative;
+    margin-left:40px;
+}
+
+.chat-cloud{
+  margin-bottom: 15px;
+}
+
+// .message_cloud:before {
+//     content:"";
+//     position: absolute;
+//     right: 100%;
+//     top:0px;
+//     width:10px;
+//     height:0px;
+//     border-top:10px solid transparent;
+//     border-right:10px solid white;
+//     border-bottom:5px solid transparent;
+//     overflow: hidden;
+//     box-shadow: 0 0px 3px 0 rgba(0,0,0,.2), 0 0px 0px 0 rgba(0,0,0,.14), 0 0px 1px -1px rgba(0,0,0,.12);
+// }
+
+.message_datetime{
+  height: 20px;
+  width:100px;
+  font-size: 12px;
+}

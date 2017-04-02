@@ -10,6 +10,7 @@ export class AddBookWizardController{
         this.API = API;
         this.ToastService = ToastService;
         this.$state = $state;
+        this.notfound = false;
     }
 
     $onInit(){
@@ -24,11 +25,15 @@ export class AddBookWizardController{
         //get book info after first step
         if(this.currentStep === 0){
           var vm = this;
-          this.API.one('googlebooks/' + this.isbn).get().then(function(response){
-             vm.book = response;
-             console.log(response);
+          this.API.one('googlebooks/' + this.isbn).get().then((response)=>{
+            console.log(response);
+             vm.book = response.data.book;
              vm.googleDone = true;
-          });
+          }, (error)=>{
+             vm.googleDone = true;
+             vm.notfound = true;
+             this.ToastService.show('Oops book not found');
+          })
         }
         this.currentStep = this.currentStep + 1;
     }
@@ -47,9 +52,6 @@ export class AddBookWizardController{
       }else if(tab === 2){
         return this.rentPrice || this.buyPrice? false :true;
       }
-      // if(this.currentStep === 2){
-      //   return true;
-      // }
     }
 
     prevStep() {
