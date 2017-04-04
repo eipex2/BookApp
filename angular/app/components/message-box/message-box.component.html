@@ -1,0 +1,18 @@
+<md-content class="grey-background" scroll-to-bottom="vm.messages" ng-style="{'height':vm.messageWindowHeight}">
+  <md-list class="chat-list" >
+    <md-list-item class="chat-cloud" ng-repeat="chat in vm.messages track by chat.id" repeat-done="vm.listDidRender()">
+      <div  id="anchor{{chat.id}}" layout="row" layout-align="start center">
+          <img  class="front message-user-avatar" ng-src={{"/uploads/avatars/"+chat.sender.avatar}}  alt="avatar" />
+        <div class="behind_container message_cloud" layout="column" flex >
+          <div class="message_text" layout="column">
+            <div layout-padding>{{chat.message}}</div>
+            <div layout="row" layout-align="start end">
+              <span flex></span>
+              <span class="message_datetime" am-time-ago="message.create_at"></span>
+            </div>
+          <div>
+        </div>
+      </div>
+    </md-list-item>
+  </md-list>
+</md-content>

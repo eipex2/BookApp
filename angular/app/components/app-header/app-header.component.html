@@ -1,55 +1,45 @@
-<md-toolbar style="background-color:white" class="md-whiteframe-1dp" ui-view="toolbar" >
-  <div >
-      <div layout="row">
-          <div flex="90" flex-offset="5" class="DemoHeader-container">
-              <div layout="row" layout-align="space-between">
-                  <a class="DemoHeader-link md-subhead" ui-sref="app.landing">Amito</a>
-                  <!--<img src="img/icons/logo.svg" ui-sref="app.landing" class="DemoHeader-logo"/>-->
+<md-toolbar  class="md-whiteframe-1dp" ui-view="toolbar" layout="row" layout-align="start center">
+    <md-button class="small-btn md-primary" ui-sref="app.landing" style="font-weight: bold;">
+      Amito
+    </md-button>
+    <!--<img src="img/icons/logo.svg" ui-sref="app.landing" class="DemoHeader-logo"/>-->
+    <span flex></span>
 
+    <div ng-show="!vm.$auth.isAuthenticated()" layout="row" layout-align="start center">
+        <md-button class="small-btn" ui-sref="app.login">Login</md-button>
+        <md-button class="small-btn" ui-sref="app.register">Register</md-button>
+    </div>
 
+    <div ng-show="vm.$auth.isAuthenticated()" layout="row" layout-align="center stretch">
+        <md-button class="small-btn" ui-sref="app.chat" layout="row" layout-align="center center">
+          <md-icon md-font-icon="zmdi zmdi-inbox zmdi-hc-2x"></md-icon>
+        </md-button>
+        <md-divider class="toolbar-divider"></md-divider>
+        <md-button layout-align="center center" ng-click="vm.profile(vm.user.id)"  aria-label="Open user menu" ng-click="$mdOpenMenu()" aria-label="side navigation">
 
-                  <div ng-show="!vm.$auth.isAuthenticated()" layout="row" layout-align="center stretch">
-                      <a class="DemoHeader-link md-subhead" ui-sref="app.login">Login</a>
-                      <a class="DemoHeader-link md-subhead" ui-sref="app.register">Register</a>
-                  </div>
+                <img class="toolbar-user-avatar"  ng-src={{"/uploads/avatars/"+vm.user.avatar}} alt="avatar">
 
-                  <div ng-show="vm.$auth.isAuthenticated()" layout="row" layout-align="center stretch">
-                      <!-- <a class="DemoHeader-link md-subhead" ng-click="vm.profile(vm.user.id)">{{vm.user.firstname + ' ' +vm.user.lastname}}</a>
-                      <a class="DemoHeader-link md-subhead" ng-click="vm.logout()">Logout</a> -->
-                      <md-menu>
-                        <md-button layout-align="center center"  aria-label="Open user menu" ng-click="$mdOpenMenu()" aria-label="side navigation">
-                            <!--<img class="toolbar-user-avatar" ng-src="{{vm.currentUser.avatar}}">-->
-
-                                <img class="toolbar-user-avatar"  ng-src={{"/uploads/avatars/"+vm.user.avatar}} alt="avatar">
-
-                            <span style="color:gray">{{vm.user.firstname}}</span>
-                        </md-button>
-                        <md-menu-content width="3">
-                            <md-menu-item>
-                                <md-button class="icon" ng-click="vm.toggleNotificationsTab(2)" aria-label="side navigation">
-                                    <md-icon md-font-icon="zmdi zmdi-settings zmdi-hc-2x"></md-icon>
-                                    <span translate="Settings">Settings</span>
-                                </md-button>
-                            </md-menu-item>
-                            <md-menu-item>
-                                <md-button class="icon" ng-click="vm.profile(vm.user.id)" aria-label="side navigation">
-                                    <md-icon md-font-icon="zmdi zmdi-account zmdi-hc-2x"></md-icon>
-                                    <span translate="Profile">Profile</span>
-                                </md-button>
-                            </md-menu-item>
-                            <md-menu-divider></md-menu-divider>
-                            <md-menu-item>
-                                <md-button  ng-click="vm.logout()" aria-label="side navigation">
-                                    <md-icon md-font-icon="zmdi zmdi-sign-in zmdi-hc-2x"></md-icon>
-                                    <span translate="Logout">Logout</span>
-                                </md-button>
-                            </md-menu-item>
-                        </md-menu-content>
-                    </md-menu>
-                  </div>
-
-              </div>
-          </div>
-      </div>
-  </div>
+            <span>{{vm.user.firstname}}</span>
+        </md-button>
+        <md-menu>
+          <md-button class="header_more_btn" layout-align="center center"  aria-label="Open user menu"  aria-label="side navigation">
+            <md-icon ng-click="$mdOpenMenu()"  md-font-icon="zmdi zmdi-more-vert zmdi-hc-2x"></md-icon>
+          </md-button>
+          <md-menu-content width="3">
+              <md-menu-item>
+                  <md-button class="icon" ng-click="vm.toggleNotificationsTab(2)" aria-label="side navigation">
+                      <md-icon md-font-icon="zmdi zmdi-settings zmdi-hc-2x"></md-icon>
+                      <span translate="Settings">Settings</span>
+                  </md-button>
+              </md-menu-item>
+              <md-menu-divider></md-menu-divider>
+              <md-menu-item>
+                  <md-button  ng-click="vm.logout()" aria-label="side navigation">
+                      <md-icon md-font-icon="zmdi zmdi-sign-in zmdi-hc-2x"></md-icon>
+                      <span translate="Logout">Logout</span>
+                  </md-button>
+              </md-menu-item>
+          </md-menu-content>
+      </md-menu>
+    </div>
 </md-toolbar>

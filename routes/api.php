@@ -21,7 +21,11 @@ Route::get('auth/password/verify', 'Auth\PasswordResetController@verify');
 Route::post('auth/password/reset', 'Auth\PasswordResetController@reset');
 
 //listing controller routes
-Route::get('listings', 'ListingController@index');
+// Route::get('listings', 'ListingController@index');
+Route::get('listings/items','ListingController@index');
+Route::get('listings/count', 'ListingController@count');
+//Route::get('chat/getuserconversation/{recipient}/items', 'ChatController@getUserConversation');
+
 
 Route::get('listings/{id}', 'ListingController@show');
 
@@ -43,12 +47,14 @@ Route::group(['middleware' => ['auth:api']], function () {
   //listings routes
   Route::post('listings', 'ListingController@store');
 
+
   //rent routes
   Route::post('rent', 'RentController@store');
   Route::post('rents/update', 'RentController@update');
-
   //chat routes
   Route::get('chat/getMessages', 'ChatController@getMessages');
+  //Route::get('chat/getuserconversation/{recipient}/items', 'ChatController@getUserConversation');
   Route::post('chat/getuserconversation', 'ChatController@getUserConversation');
+  Route::get('chat/getuserconversation/count/{recipient}', 'ChatController@getUserConversationCount');
   Route::post('chat/sendmessage', 'ChatController@sendMessage');
 });

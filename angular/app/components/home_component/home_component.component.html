@@ -1,45 +1,30 @@
-<md-content class="grey-background">
-  <div layout="row">
-  <div flex="20" flex-xs="0"></div>
-    <md-grid-list flex="80" flex-xs="100" layout-fill
-      md-cols-xs="1" md-cols-sm="1" md-cols-md="2" md-cols-gt-md="3"
-       md-row-height-gt-md="1:1.2" md-row-height="2:2"
-      md-gutter="0px" md-gutter-gt-sm="0px">
-          <md-grid-tile ng-repeat="listing in vm.listings" class="gray"
-              >
-              <md-card layou style="min-height:95%; min-width:95%; max-height:95%; max-width:95%;">
-                  <md-card-header>
-                      <md-card-avatar>
-                          <img class="md-user-avatar"  ng-src={{vm.imgPath(listing)}} alt="avatar">
-                      </md-card-avatar>
-                      <md-card-header-text>
-                          <span ng-click="vm.showProfile(listing.user_id)" class="profile-title md-title">{{listing.user.firstname + ' ' + listing.user.lastname}}</span>
-                          <span class="md-subhead">{{listing.created_at}}</span>
-                      </md-card-header-text>
-                  </md-card-header>
-                  <md-card-content>
-                    <div class="md-card-image" layout="column" layout-align="center center">
-                        <img style="max-height:100%; max-width:100%" ng-src="{{listing.thumbnail}}" alt="Washed Out">
-                    </div>
-                  </md-card-content>
-                  <md-card-actions layout="row" layout-align="end center" layout-padding>
-                   <!-- <md-card-icon-actions> -->
-                     <!-- <md-button class="md-icon-button" aria-label="Favorite">
-                       <md-icon md-svg-icon="img/icons/favorite.svg"></md-icon>
-                     </md-button>
-                     <md-button class="md-icon-button" aria-label="Share">
-                       <md-icon md-svg-icon="img/icons/share-arrow.svg"></md-icon>
-                     </md-button> -->
-                   <!-- </md-card-icon-actions> -->
-                   <md-button ng-click="vm.showAdvanced($event, listing)">RENT <span>{{listing.rent_price | currency}}</span></md-button>
-                   <md-button>BUY</md-button>
-                 </md-card-actions>
-              </md-card>
-        </md-grid-tile>
-      </md-grid-list>
-      <div flex="20" flex-xs="0"></div>
-      </div>
+
+<md-content class="grey-background" layout-fill>
+  <div masonry load-images="true" style="margin:auto" flex-lg="80" flex="90">
+    <div class="masonry-brick" ng-repeat="listing in vm.listings track by listing.id">
+          <md-card style="width:320px">
+              <md-card-header>
+                  <md-card-avatar>
+                      <img class="md-user-avatar home-user-avatar"  ng-src={{vm.imgPath(listing)}} alt="avatar">
+                  </md-card-avatar>
+                  <md-card-header-text>
+                      <span ng-click="vm.showProfile(listing.user_id)" class="profile-title md-title">{{listing.user.firstname + ' ' + listing.user.lastname}}</span>
+                      <span class="md-subhead">{{listing.created_at}}</span>
+                  </md-card-header-text>
+              </md-card-header>
+              <md-card-content>
+                <div class="md-card-image" layout="column" layout-align="center center">
+                    <img style="max-height:100%; max-width:100%" ng-src="{{listing.thumbnail}}" alt="Washed Out">
+                </div>
+              </md-card-content>
+              <md-card-actions layout="row" layout-align="end center" layout-padding>
+               <md-button ng-click="vm.showAdvanced($event, listing)">RENT <span>{{listing.rent_price | currency}}</span></md-button>
+             </md-card-actions>
+          </md-card>
+        </div>
+    </div>
 </md-content>
+
 <md-button ng-click="vm.goCreateBook()" class="md-fab md-primary  md-fab-bottom-right" style="position: fixed !important;" aria-label="Use Android">
 +<!--<md-icon md-svg-src="img/icons/android.svg" style="color: greenyellow;"></md-icon>-->
 </md-button>

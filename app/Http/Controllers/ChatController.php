@@ -34,9 +34,32 @@ class ChatController extends Controller
         return response()->json($messages);
     }
 
+    // //get user conversation
+    // public function getUserConversation(Request $request, $recipient)
+    // {
+    //
+    //     try{
+    //       //current user
+    //       $sender = $request->user()->id;
+    //
+    //       //get conversations where the sender is both you and the user
+    //       //and also the receiver is both u and the user
+    //       $conversation = Message::with('sender','recipient')
+    //               ->whereIn('sender_id', [$sender, $recipient])
+    //               ->WhereIn('recipient_id', [$sender, $recipient])
+    //               ->orderBy('created_at', 'desc')
+    //               ->paginate(10);
+    //     }catch(Exception $e){
+    //         return response()->error($e->getMessage());
+    //     }
+    //
+    //     return response()->success(compact('conversation', $conversation));
+    // }
+
     //get user conversation
     public function getUserConversation(Request $request)
     {
+
         try{
           //current user
           $sender = $request->user()->id;
@@ -54,6 +77,27 @@ class ChatController extends Controller
         }
 
         return response()->success(compact('conversation', $conversation));
+    }
+
+    //get user conversation
+    public function getUserConversationCount(Request $request,$recipient)
+    {
+        try{
+          //current user
+          $sender = $request->user()->id;
+          //$recipient = $request->input('recipient');
+
+          // get conversations where the sender is both you and the user
+          // and also the receiver is both u and the user
+          $count = Message::whereIn('sender_id', [$sender, $recipient])
+                  ->WhereIn('recipient_id', [$sender, $recipient])
+                  ->count();
+
+        }catch(Exception $e){
+            return response()->error($e->getMessage());
+        }
+
+        return response()->success(compact('count', $count));
     }
 
     public function sendMessage(Request $request)

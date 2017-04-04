@@ -1,0 +1,148 @@
+class ChatController{
+    constructor(API, ToastService, $mdSidenav){
+        'ngInject';
+
+        this.API = API;
+        this.ToastService = ToastService;
+        this.$mdSidenav = $mdSidenav
+
+    }
+
+    $onInit(){
+
+        this.DynamicItems = function() {
+        /**
+         * @type {!Object<?Array>} Data pages, keyed by page number (0-index).
+         */
+         this.loadedPages = {};
+
+        /** @type {number} Total number of items. */
+        this.numItems = 0;
+
+        /** @const {number} Number of items to fetch per request. */
+        this.PAGE_SIZE = 50;
+
+        this.fetchNumItems_();
+      };
+
+      this.DynamicItems.prototype.getItemAtIndex = function(index) {
+         var pageNumber = Math.floor(index / this.PAGE_SIZE);
+         var page = this.loadedPages[pageNumber];
+
+         if (page) {
+           return page[index % this.PAGE_SIZE];
+         } else if (page !== null) {
+           this.fetchPage_(pageNumber);
+         }
+       };
+
+       // Required.
+      this.DynamicItems.prototype.getLength = function() {
+        return this.numItems;
+      };
+
+      this.DynamicItems.prototype.fetchPage_ = function(pageNumber) {
+          // Set the page to null so we know it is already being fetched.
+          this.loadedPages[pageNumber] = null;
+
+          // For demo purposes, we simulate loading more items with a timed
+          // promise. In real code, this function would likely contain an
+          // $http request.
+          $timeout(angular.noop, 300).then(angular.bind(this, function() {
+            this.loadedPages[pageNumber] = [];
+            var pageOffset = pageNumber * this.PAGE_SIZE;
+            for (var i = pageOffset; i < pageOffset + this.PAGE_SIZE; i++) {
+              this.loadedPages[pageNumber].push(i);
+            }
+          }));
+      };
+
+
+
+    }
+
+    //close contacts side nav
+    closeContacts(){
+      this.$mdSidenav("contacts-sidenav")
+       .close()
+    }
+
+    toggleContacts(){
+      this.$mdSidenav("contacts-sidenav")
+       .toggle()
+    }
+
+    toggleExchange(){
+      this.$mdSidenav("exchange-sidenav")
+       .toggle()
+    }
+
+    nonSelected(){
+      return this.currentRecipient?true:false;
+    }
+
+    getUserConversation(messenger){
+      //console.log(messenger);
+      var vm = this;
+      vm.currentRecipient = messenger.sender
+      var data = {
+        recipient:messenger.sender.id
+      }
+      this.API.all('chat/getuserconversation').post(data).then((response) => {
+          vm.currentConversation = response.data.conversation;
+      });
+    }
+
+
+    sendMessage(){
+      this.submitMessage();
+    }
+
+    //handles key pressed
+    sendMessageKey($event){
+      if($event.key === "Enter"){
+        this.submitMessage();
+      }
+    }
+
+    //TODO: implement callbacks for messages not sent
+    submitMessage(){
+      var data = {
+        recipient: this.currentRecipient.id,
+        message: this.message
+      }
+
+      this.API.all('chat/sendmessage').post(data).then((response) => {
+          console.log(response);
+          this.message = '';
+          This.ToastService.show("Message sent")
+      },(error)=>{
+
+      })
+    }
+}
+
+
+class Messages {
+    constructor(){
+      'ngIngect';
+
+      this.loadedPages = {};
+
+      this.numItems = 0;
+
+      this.PAGE_SIZE = 50;
+
+      this.fetchNumItems_();
+    }
+}
+
+export const ChatComponent = {
+    templateUrl: './views/app/components/chat/chat.component.html',
+    controller: ChatController,
+    controllerAs: 'vm',
+    bindings: {
+      messages:'<messages',
+      currentUser:'<currentUser'
+    }
+}

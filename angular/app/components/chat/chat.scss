@@ -1,3 +1,14 @@
+.message-list {
+  flex: 1;
+  overflow: auto;
+  margin-top:0;
+  margin-bottom:0;
+  border: none;
+}
+
+.message-list .collection-item:last-child {
+  border-bottom: 0.1em solid #DCDCDC;
+}
 
 .small-btn {
   padding: 0 4px 0 4px;
@@ -31,38 +42,30 @@
   margin-right:5px;
 }
 
-
-.message_cloud {
-    background-color: white;
-    width:80%;
-    border-radius:10px;
-    border-top-left-radius: 0em;
-    border-bottom-left-radius: 0em;
-    border-top-right-radius: 0em;
-    position: relative;
-    margin-left:40px;
+.messages_box{
+  overflow:hidden;
 }
 
-.chat-cloud{
-  margin-bottom: 15px;
-}
 
-// .message_cloud:before {
-//     content:"";
-//     position: absolute;
-//     right: 100%;
-//     top:0px;
-//     width:10px;
-//     height:0px;
-//     border-top:10px solid transparent;
-//     border-right:10px solid white;
-//     border-bottom:5px solid transparent;
-//     overflow: hidden;
-//     box-shadow: 0 0px 3px 0 rgba(0,0,0,.2), 0 0px 0px 0 rgba(0,0,0,.14), 0 0px 1px -1px rgba(0,0,0,.12);
-// }
+
+
+
 
 .message_datetime{
   height: 20px;
   width:100px;
   font-size: 12px;
+}
+
+#vertical-container {
+    min-height: 100%;
+    width: 100%;
+}
+
+.repeated-item {
+    border-bottom: 1px dotted #757575;
+    box-sizing: border-box;
+    height: 50px;
+    overflow: hidden;
+    margin-right: 16px;
 }

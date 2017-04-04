@@ -1,3 +1,5 @@
+//import * as moment from 'moment-timezone';
+
 angular.module('app', [
     'app.run',
 	'app.filters',
@@ -6,7 +8,7 @@ angular.module('app', [
     'app.directives',
 	'app.routes',
 	'app.config',
-]);
+])
 
 angular.module('app.run', []);
 angular.module('app.routes', []);
@@ -16,5 +18,6 @@ angular.module('app.config', []);
 angular.module('app.directives', []);
 angular.module('app.components', [
 	'ui.router', 'ngMaterial', 'ngAnimate','angular-loading-bar',
-	'restangular', 'ngStorage', 'satellizer','ngFileUpload','ngRateIt'
-]);
+	'restangular', 'ngStorage', 'satellizer','ngFileUpload','ngRateIt','angularMoment','wu.masonry'
+])
+//.constant('moment', moment);

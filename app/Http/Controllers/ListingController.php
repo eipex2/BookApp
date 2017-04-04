@@ -22,8 +22,31 @@ class ListingController extends Controller
    * @return \Illuminate\Http\Response
    */
   public function index()
+  {   try {
+          $listings = Listing::with('user')->paginate(10);
+      } catch (Exception $e) {
+        return response()->error($e->getMessage());
+      }
+
+      return response()->json($listings);
+  }
+
+  // public function index()
+  // {
+  //     try {
+  //       $listings = Listing::with('user')
+  //                   ->orderBy('created_at', 'desc')
+  //                   ->get();
+  //     } catch (Exception $e) {
+  //       response()->error($e->getMessage);
+  //     }
+  //     return response()->success(compact('listing',$listings));
+  // }
+
+  public function count()
   {
-      return response()->json(Listing::with('user')->get());
+    $count = Listing::count();
+    return response()->success(compact('count', $count));
   }
 
 

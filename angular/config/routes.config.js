@@ -37,7 +37,9 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 		},
 		resolve: {
 				listings: function (API){
-					return  API.all('listings').getList();
+					return  API.one('listings/items').get().then((response)=>{
+						return response.data;
+					});
 				},
 				currentUser: function(user){
 					return user;

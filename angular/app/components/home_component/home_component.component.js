@@ -12,7 +12,7 @@ class HomeComponentController{
     }
 
     $onInit(){
-        //console.log(this.listings);
+        //this.listings = new Listings(this.API);
     }
 
     imgPath(listing){
@@ -64,6 +64,68 @@ class HomeComponentController{
 
         });
     }
+
+
+}
+
+class Listings {
+    constructor(API){
+      'ngIngect';
+
+      this.API = API;
+
+      this.loadedPages = {};
+
+      this.numItems = 0;
+
+      this.PAGE_SIZE = 10;
+
+      this.fetchNumItems_();
+    }
+
+    getItemAtIndex(index){
+       var pageNumber = Math.floor(index / this.PAGE_SIZE);
+       var page = this.loadedPages[pageNumber];
+
+       if (page) {
+         return page[index % this.PAGE_SIZE];
+       } else if (page !== null) {
+         this.fetchPage_(pageNumber);
+       }
+    };
+
+    getLength(){
+      return this.numItems;
+    };
+
+    fetchPage_(pageNumber){
+
+        // Set the page to null so we know it is already being fetched.
+        this.loadedPages[pageNumber] = null;
+        var vm = this;
+
+        this.API.all('listings/').customGET("items",{page:pageNumber+1}).then((response) => {
+
+            var listings = response.data;
+
+            this.currentpage = response.current_page;
+
+            this.loadedPages[pageNumber] = [];
+
+            this.loadedPages[pageNumber] = listings;
+            console.log(response);
+        });
+
+
+
+    };
+
+    fetchNumItems_(){
+      this.API.one('listings/count').get().then((response) => {
+        console.log(response);
+        this.numItems = response.data.count;
+      });
+    };
 
 
 }

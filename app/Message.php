@@ -15,10 +15,10 @@ class Message extends Model
     'read'
   ];
 
-  public function getCreatedAtAttribute($value){
-    $date = Carbon::parse($value);
-    return $date->diffForHumans();
-  }
+  // public function getCreatedAtAttribute($value){
+  //   $date = Carbon::parse($value);
+  //   return $date->diffForHumans();
+  // }
 
   public function sender()
   {
