@@ -18,7 +18,7 @@
                 </div>
               </md-card-content>
               <md-card-actions layout="row" layout-align="end center" layout-padding>
-               <md-button ng-click="vm.showAdvanced($event, listing)">RENT <span>{{listing.rent_price | currency}}</span></md-button>
+               <md-button class="list-btn" ng-click="vm.showAdvanced($event, listing)">RENT <span>{{listing.rent_price | currency}}</span></md-button>
              </md-card-actions>
           </md-card>
         </div>
@@ -26,5 +26,5 @@
 </md-content>
 
 <md-button ng-click="vm.goCreateBook()" class="md-fab md-primary  md-fab-bottom-right" style="position: fixed !important;" aria-label="Use Android">
-+<!--<md-icon md-svg-src="img/icons/android.svg" style="color: greenyellow;"></md-icon>-->
+<md-icon md-font-icon="zmdi zmdi-plus zmdi-hc-1x"></md-icon>
 </md-button>

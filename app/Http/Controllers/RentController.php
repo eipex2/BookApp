@@ -60,7 +60,24 @@ class RentController extends Controller
         return response()->success(compact('rent'));
     }
 
+    public function getApprovedRentals(Request $request){
+      try{
 
+          $list_id = $request->input('list_id');
+          $rents = Rent::with('user')
+                        ->where('list_id',$list_id)
+                        ->where('status', "approved")
+                        ->get();
+
+          return response()->success(compact('rents', $rents));
+
+      } catch (Exception $e) {
+
+      }
+
+      return "kpakata";
+
+    }
 
     /**
      * Update the specified resource in storage.

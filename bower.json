@@ -25,7 +25,9 @@
     "angular-timeago": "^0.4.4",
     "ng-timeago": "^0.0.2",
     "angular-moment": "^1.0.1",
-    "angular-masonry": "^0.17.0"
+    "angular-masonry": "^0.17.0",
+    "angular-material-event-calendar": "^0.1.4",
+    "material-calendar": "^0.2.14"
   },
   "overrides": {
     "masonry": {

@@ -50,6 +50,7 @@ Route::group(['middleware' => ['auth:api']], function () {
 
   //rent routes
   Route::post('rent', 'RentController@store');
+  Route::post('rents', 'RentController@getApprovedRentals');
   Route::post('rents/update', 'RentController@update');
   //chat routes
   Route::get('chat/getMessages', 'ChatController@getMessages');

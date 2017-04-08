@@ -69,7 +69,10 @@ class ChatController extends Controller
           //and also the receiver is both u and the user
           $conversation = Message::with('sender','recipient')
                   ->whereIn('sender_id', [$sender, $recipient])
-                  ->WhereIn('recipient_id', [$sender, $recipient])
+                  ->whereIn('recipient_id', [$sender, $recipient])
+                  ->whereColumn([
+                    ['sender_id', '!=', 'recipient_id']
+                  ])
                   ->orderBy('created_at', 'asc')
                   ->get();
         }catch(Exception $e){

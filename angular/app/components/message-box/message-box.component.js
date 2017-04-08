@@ -1,7 +1,8 @@
 class MessageBoxController{
-    constructor($window){
+    constructor($window,$mdSidenav){
         'ngInject';
         this.$window = $window;
+        this.$mdSidenav = $mdSidenav;
 
     }
 
@@ -9,8 +10,13 @@ class MessageBoxController{
       this.messageWindowHeight = parseInt(this.$window.innerHeight - 155) + 'px';
     }
 
-    listDidRender(){
+    cloud(id){
+      return this.currentuser.id === id;
+    }
 
+    listDidRender(){
+      this.$mdSidenav("contacts-sidenav")
+       .close()
     }
 }
 
@@ -19,6 +25,7 @@ export const MessageBoxComponent = {
     controller: MessageBoxController,
     controllerAs: 'vm',
     bindings: {
-      messages: '<'
+      messages: '<',
+      currentuser: '<'
     }
 }

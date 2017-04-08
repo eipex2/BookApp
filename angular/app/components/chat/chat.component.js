@@ -1,12 +1,15 @@
 //TODO: Major todo - paging for loading messages
 
 class ChatController{
-    constructor(API, ToastService, $mdSidenav){
+    constructor(API, ToastService, $mdSidenav, $scope, $state){
         'ngInject';
 
         this.API = API;
         this.ToastService = ToastService;
         this.$mdSidenav = $mdSidenav;
+        this.$scope = $scope;
+        this.$state = $state;
+        this.newMessageId = 1;
     }
 
     $onInit(){
@@ -45,39 +48,43 @@ class ChatController{
     }
 
     sendMessage(){
-      this.submitMessage();
+      if(this.message){
+          this.submitMessage();
+      }
     }
 
     //handles key pressed
     sendMessageKey($event){
-      if($event.key === "Enter"){
+      if($event.key === "Enter" && this.message){
         this.submitMessage();
       }
     }
 
     //TODO: implement callbacks for messages not sent
     submitMessage(){
-      console.log(this.currentUser.avatar);
+      //push message
       this.currentConversation.push({
+          id: Math.random(),
           firstname:this.currentUser.firstname,
           lastname:this.currentUser.lastname,
           message:this.message,
           create_at:new Date(),
-          avatar:this.currentUser.avatar
+          sender:this.currentUser
         })
 
-        console.log(this.currentConversation)
       var data = {
         recipient: this.currentRecipient.id,
-        message: this.message
+        message: angular.copy(this.message)
       }
 
       this.API.all('chat/sendmessage').post(data).then((response) => {
-          this.message = '';
 
       },(error)=>{
 
       })
+
+      //reset message
+      this.message = '';
     }
 }
 

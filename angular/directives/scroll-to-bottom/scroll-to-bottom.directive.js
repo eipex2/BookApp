@@ -19,7 +19,7 @@ export function ScrollToBottomDirective($interval){
                   scrollToBottom: "="
               },
         controller: ScrollToBottomController,
-        link: function(scope, element, attrs, controllers, $interval){
+        link: function(scope, element, attrs, controllers){
           //controllers.scroll(element);
           // window.setTimeout(function() {
           //     console.log('km')

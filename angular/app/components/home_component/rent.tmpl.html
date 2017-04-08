@@ -2,30 +2,32 @@
   <form ng-cloak >
     <md-toolbar style="background-color:white; color:gray">
       <div class="md-toolbar-tools">
-        <h2>Rent me </h2>
+        <h2>Pick your days</h2>
         <span flex></span>
-        <md-button class="md-icon-button" ng-click="vm.cancel()">X
+        <md-button class="md-icon-button" ng-click="vm.cancel()">
+          <md-icon md-font-icon="zmdi zmdi-close zmdi-hc-2x" style="color:grey"> </md-icon>
         </md-button>
       </div>
     </md-toolbar>
-    <div layout="row" layout-align="center center">
-        <h4>Choose your start and end dates</h4>
-    </div>
-    <md-dialog-content layout-padding>
-        <div layout="row">
-            <label>Start date</label>
-            <span flex></span>
-            <md-datepicker ng-model="vm.start_date" required></md-datepicker>
-        </div>
-        <div layout="row">
-            <label>End date</label>
-            <span flex></span>
-            <md-datepicker ng-model="vm.end_date" required></md-datepicker>
-        </div>
+
+          <md-dialog-content layout-padding>
+            <calendar-md flex layout layout-fill
+              calendar-direction="direction"
+              on-prev-month="prevMonth"
+              on-next-month="nextMonth"
+              on-day-click="dayClick"
+              title-format="'MMMM y'"
+              ng-model='selectedDate'
+              day-format="'d'"
+              day-label-format="'EEE'"
+              day-label-tooltip-format="'EEEE'"
+              day-tooltip-format="'fullDate'"
+              week-starts-on="firstDayOfWeek"
+              day-content="setDayContent"></calendar-md>
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
-      <span flex></span>
+      <span flex style="color:teal; font-weight:bold">{{rangeString}}</span>
       <md-button ng-click="vm.cancel()">
        Cancel
       </md-button>

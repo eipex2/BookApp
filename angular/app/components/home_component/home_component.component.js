@@ -1,7 +1,7 @@
 
 
 class HomeComponentController{
-    constructor($location, $mdDialog, $state, API, ToastService){
+    constructor($location, $mdDialog, $state, API, ToastService,$scope){
         'ngInject';
 
         this.$location = $location;
@@ -9,6 +9,9 @@ class HomeComponentController{
         this.$state = $state;
         this.API = API;
         this.ToastService = ToastService;
+        this.$scope = $scope;
+
+
     }
 
     $onInit(){
@@ -36,33 +39,56 @@ class HomeComponentController{
     shows rent dialog
     **/
     showAdvanced(ev,listing) {
-        var vm = this;
-        this.$mdDialog.show({
-          controller: RentDialogController,
-          controllerAs: 'vm',
-          templateUrl: './views/app/components/home_component/rent.tmpl.html',
-          parent: angular.element(document.body),
-          targetEvent: ev,
-          clickOutsideToClose:true,
-          locals : {
-                    listing : listing
-                },
-          fullscreen: true // Only for -xs, -sm breakpoints.
-        })
-        .then(function(dates) {
-            var data = {
-              start_date: dates.start_date,
-              end_date: dates.end_date,
-              user_id: vm.currentUser.id,
-              listing_id:listing.id
-            }
-            vm.API.all('rent').post(data).then(() => {
-                vm.$state.go('app.landing', {}, {reload:true, inherit:false, notify:true});
-                vm.ToastService.show('Owner contacted');
-            });
-        }, function() {
+        var data = {
+          list_id: listing.id
+        }
+
+        this.API.all('rents').post(data).then((response)=>{
+          var vm = this;
+          var rents = response.data.rents;
+
+          var scope = angular.extend(this.$scope.$new(true), {
+            rents: rents
+          });
+
+          var dialog = {
+            controllerAs: 'vm',
+            controller: RentDialogController,
+            templateUrl: './views/app/components/home_component/rent.tmpl.html',
+            //template:'<md-dialog flex="50"><rent-component listing="currentListing"></rent-component><md-dialog>',
+            parent: angular.element(document.body),
+            scope: scope,
+            autoWrap:false,
+            targetEvent: ev,
+            clickOutsideToClose:true,
+            fullscreen: true // Only for -xs, -sm breakpoints.
+          };
+
+          this.$mdDialog.show(dialog)
+          .then((range) => {
+              console.log(range)
+              var data = {
+                start_date: range.start_date,
+                end_date: range.end_date,
+                user_id: vm.currentUser.id,
+                listing_id:listing.id
+              }
+
+
+              this.API.all('rent').post(data).then(() => {
+                  this.$state.go('app.landing', {}, {reload:true, inherit:false, notify:true});
+                  this.ToastService.show('Owner contacted');
+              });
+          }, function() {
+
+          });
 
         });
+
+
+
+
+
     }
 
 
@@ -92,11 +118,11 @@ class Listings {
        } else if (page !== null) {
          this.fetchPage_(pageNumber);
        }
-    };
+    }
 
     getLength(){
       return this.numItems;
-    };
+    }
 
     fetchPage_(pageNumber){
 
@@ -113,29 +139,79 @@ class Listings {
             this.loadedPages[pageNumber] = [];
 
             this.loadedPages[pageNumber] = listings;
-            console.log(response);
         });
 
 
 
-    };
+    }
 
     fetchNumItems_(){
       this.API.one('listings/count').get().then((response) => {
         console.log(response);
         this.numItems = response.data.count;
       });
-    };
+    }
 
 
 }
 
 class RentDialogController{
-    constructor($scope,$mdDialog){
+    constructor($scope,$mdDialog, $filter){
         'ngInject';
-
+        $scope.selectedDate = [];
         this.$mdDialog = $mdDialog;
+        this.$scope = $scope;
+        $scope.rangeString = "None selected";
+        $scope.lastDate = new Date();
+
+        //TODO: show already approved dates on calendar
+
+        // for(var n in $scope.rents){
+        //     var rent = $scope.rents[n];
+        //     var event = {
+        //                   title: rent.user.firstname +' '+ rent.user.lastname,
+        //                   start: rent.start_date,
+        //                   end: rent.end_date,
+        //                   allDay: true
+        //                 }
+        //     $scope.events.push(event);
+        // }
+
+        $scope.dayClick = function(date) {
+          //  $scope.msg = "You clicked " + $filter("date")(date, "MMM d, y h:mm:ss a Z");
+          //  console.log($scope.msg);
+
+            //  var lastDateSelected = $scope.selectedDate[]
+
+              if ($scope.lastDate>date) {
+                $scope.selectedDate = [];
+                $scope.selectedDate.push(date);
+              }
+              $scope.lastDate = date;
+              $scope.rangeString = $scope.getDateRange();
+         };
+
+         //get date range
+         $scope.getDateRange = ()=>{
+           var length = $scope.selectedDate.length;
+           $scope.range = {
+             start_date:$filter("date")($scope.selectedDate[0], "MMM d"),
+             end_date:$filter("date")($scope.selectedDate[length-1], "MMM d")
+           }
+
+           if(length===0){
+            return "None selected"
+           }
+
+           return "From: " +  $scope.range.start_date +"th to: "+  $scope.range.end_date+"th";
+         }
     }
+
+    $onInit(){
+
+    }
+
+
 
     hide() {
       this.$mdDialog.hide();
@@ -146,12 +222,9 @@ class RentDialogController{
     }
 
     rent(){
-      var dates = {
-        start_date:this.start_date,
-        end_date: this.end_date
-      }
-      this.$mdDialog.hide(dates);
+      this.$mdDialog.hide(this.$scope.range);
     }
+
 }
 
 export const HomeComponentComponent = {
@@ -159,6 +232,7 @@ export const HomeComponentComponent = {
     controller: HomeComponentController,
     controllerAs: 'vm',
     bindings: {
+        rents:'<rents',
         listings:'<listings',
         currentUser: '<currentUser'
     }

@@ -18,6 +18,6 @@ angular.module('app.config', []);
 angular.module('app.directives', []);
 angular.module('app.components', [
 	'ui.router', 'ngMaterial', 'ngAnimate','angular-loading-bar',
-	'restangular', 'ngStorage', 'satellizer','ngFileUpload','ngRateIt','angularMoment','wu.masonry'
+	'restangular', 'ngStorage', 'satellizer','ngFileUpload','ngRateIt','angularMoment','wu.masonry','materialCalendar'
 ])
 //.constant('moment', moment);

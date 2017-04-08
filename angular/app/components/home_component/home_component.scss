@@ -8,3 +8,21 @@
 .home-user-avatar{
   border: 1px solid #f6f6f6;
 }
+
+.list-btn {
+  padding: 0 4px 0 4px;
+  margin: 2px 4px 2px 4px;
+  min-width: 88px;
+  border-radius: 3px;
+  font-size: 12px;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration:none;
+  border: 1px solid teal;
+  outline: none;
+}
+
+.list-btn:not([disabled]):hover{
+  color:white;
+  background-color: teal;
+}
