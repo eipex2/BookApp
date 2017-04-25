@@ -27,7 +27,8 @@
     "angular-moment": "^1.0.1",
     "angular-masonry": "^0.17.0",
     "angular-material-event-calendar": "^0.1.4",
-    "material-calendar": "^0.2.14"
+    "material-calendar": "^0.2.14",
+    "pusher-angular": "^0.1.9"
   },
   "overrides": {
     "masonry": {

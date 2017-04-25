@@ -7,7 +7,7 @@ class MessageBoxController{
     }
 
     $onInit(){
-      this.messageWindowHeight = parseInt(this.$window.innerHeight - 155) + 'px';
+      this.messageWindowHeight = parseInt(this.$window.innerHeight - 170) + 'px';
     }
 
     cloud(id){
@@ -25,7 +25,7 @@ export const MessageBoxComponent = {
     controller: MessageBoxController,
     controllerAs: 'vm',
     bindings: {
-      messages: '<',
+      conversations: '<',
       currentuser: '<'
     }
 }

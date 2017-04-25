@@ -8,8 +8,6 @@ class RentComponentController{
     }
 
     $onInit(){
-      console.log('friends')
-      console.log(this.$scope.listing);
 
     }
 

@@ -26,10 +26,9 @@ export class AddBookWizardController{
         if(this.currentStep === 0){
           var vm = this;
           this.API.one('googlebooks/' + this.isbn).get().then((response)=>{
-            console.log(response);
              vm.book = response.data.book;
              vm.googleDone = true;
-          }, (error)=>{
+          }, ()=>{
              vm.googleDone = true;
              vm.notfound = true;
              this.ToastService.show('Oops book not found');

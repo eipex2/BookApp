@@ -9,7 +9,14 @@
         </md-button>
       </div>
     </md-toolbar>
-
+    <md-toolbar style="background-color:white; color:gray" layout-padding>
+      <div class="md-toolbar-tools">
+        <img class="toolbar-user-avatar"  ng-src={{"/uploads/avatars/"+listing.user.avatar}} alt="avatar">
+        <h2 style="padding-left:5px;">{{listing.user.firstname}}</h2>
+        <span flex></span>
+        <img  class="book_dialog md-whiteframe-1dp" ng-src="{{listing.thumbnail}}" alt="Washed Out">
+      </div>
+    </md-toolbar>
           <md-dialog-content layout-padding>
             <calendar-md flex layout layout-fill
               calendar-direction="direction"

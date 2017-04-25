@@ -7,31 +7,32 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
-use Vinkla\Pusher\Facades\Pusher as Pusher;
+use LaravelPusher;
 use App\Message;
 
 class ChatController extends Controller
 {
-
-    //get last 20 messages involving current user
-    public function getMessages(Request $request)
+    /**
+     * get last 20 conversations involving this user
+     * @param  Request $request api request
+     * @return array            conversations
+     */
+    public function getConversations(Request $request)
     {
         try {
-          $userID = $request->user()->id;
+          $thisUser = $request->user()->id;
 
-          $messages = Message::with('sender', 'recipient')
+          $conversations = Message::with('sender', 'recipient')
                         ->selectRaw('count(*) AS cnt, sender_id')
-                        ->where('sender_id',$userID)
-                        ->orWhere('recipient_id', $userID)
+                        ->where('sender_id',$thisUser)
+                        ->orWhere('recipient_id', $thisUser)
                         ->groupBy('sender_id')
                         ->get();
-
-
         }catch (Exception $e) {
             return response()->error($e->getMessage());
         }
 
-        return response()->json($messages);
+        return response()->json($conversations);
     }
 
     // //get user conversation
@@ -56,20 +57,23 @@ class ChatController extends Controller
     //     return response()->success(compact('conversation', $conversation));
     // }
 
-    //get user conversation
-    public function getUserConversation(Request $request)
+    /**
+     * getConversation gets conversation between this user and other user
+     * @param  Request $request api request
+     * @return array           conversation
+     */
+    public function getConversation(Request $request)
     {
 
         try{
           //current user
-          $sender = $request->user()->id;
-          $recipient = $request->input('recipient');
+          $thisUser = $request->user()->id;
+          $otherUser = $request->input('other_user_id');
 
-          //get conversations where the sender is both you and the user
-          //and also the receiver is both u and the user
+
           $conversation = Message::with('sender','recipient')
-                  ->whereIn('sender_id', [$sender, $recipient])
-                  ->whereIn('recipient_id', [$sender, $recipient])
+                  ->whereIn('sender_id', [$thisUser, $otherUser])
+                  ->whereIn('recipient_id', [$thisUser, $otherUser])
                   ->whereColumn([
                     ['sender_id', '!=', 'recipient_id']
                   ])
@@ -112,7 +116,10 @@ class ChatController extends Controller
           $message->message = $request->input('message');
           $message->read = false;
 
-          $message->save();
+          if($message->save()){
+            $lastmessage = Message::where('id', $message->id)->first();
+            LaravelPusher::trigger('chat_channel', 'chat_saved', ['message'=>$lastmessage]);
+          };
         }catch(Exception $e){
             return response()->error($e->getMessage());
         }

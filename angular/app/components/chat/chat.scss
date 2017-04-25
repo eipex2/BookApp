@@ -1,3 +1,4 @@
+
 .message-list {
   flex: 1;
   overflow: auto;
@@ -31,6 +32,7 @@
   min-height:50px;
   padding:0px;
   text-align: center;
+  background-color:white;
   //font-size: 12px;
 }
 
@@ -45,11 +47,6 @@
 .messages_box{
   overflow:hidden;
 }
-
-
-
-
-
 
 .message_datetime{
   height: 20px;
@@ -68,4 +65,45 @@
     height: 50px;
     overflow: hidden;
     margin-right: 16px;
+}
+
+.exchange-panel{
+
+}
+
+.search_contacts{
+  height: 50px;
+  font-size: 14px;
+  padding-left:10px;
+  border:none;
+
+}
+
+.send_message{
+  height:60px;
+  font-size: 14px;
+  border:none;
+  padding-left:10px;
+}
+
+input:focus {
+    outline:none;
+}
+
+
+
+.search_contacts:active{
+  height: 50px;
+  font-size: 14px;
+  padding-left:10px;
+  border:none;
+}
+
+.contacts-list{
+  padding:0px;
+}
+
+md-toolbar.md-default-theme:not(.md-menu-toolbar) md-icon, md-toolbar:not(.md-menu-toolbar) md-icon {
+    color: rgba(0,0,0,0.54);
+    fill: rgb(255,255,255);
 }

@@ -1,3 +1,4 @@
+import {BookComponent} from './app/components/book/book.component';
 import {RentComponentComponent} from './app/components/rent_component/rent_component.component';
 import {MessageBoxComponent} from './app/components/message-box/message-box.component';
 import {ChatComponent} from './app/components/chat/chat.component';
@@ -15,6 +16,7 @@ import {LoginFormComponent} from './app/components/login-form/login-form.compone
 import {RegisterFormComponent} from './app/components/register-form/register-form.component';
 
 angular.module('app.components')
+	.component('book', BookComponent)
 	.component('rentComponent', RentComponentComponent)
 	.component('messageBox', MessageBoxComponent)
 	.component('chat', ChatComponent)

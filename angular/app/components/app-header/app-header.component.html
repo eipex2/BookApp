@@ -1,6 +1,6 @@
-<md-toolbar  class="md-whiteframe-1dp" ui-view="toolbar" layout="row" layout-align="start center">
+<md-toolbar  class="chat_toolbar md-whiteframe-1dp" ui-view="toolbar" layout="row" layout-align="start center">
     <md-button class="small-btn" ui-sref="app.landing" style="font-weight: bold;">
-      Amito
+      Peobee
     </md-button>
     <!--<img src="img/icons/logo.svg" ui-sref="app.landing" class="DemoHeader-logo"/>-->
     <span flex></span>
@@ -15,10 +15,11 @@
           <md-icon md-font-icon="zmdi zmdi-inbox zmdi-hc-2x"></md-icon>
         </md-button>
         <md-divider class="toolbar-divider"></md-divider>
-        <md-button layout-align="center center" ng-click="vm.profile(vm.user.id)"  aria-label="Open user menu" ng-click="$mdOpenMenu()" aria-label="side navigation">
-
+        <md-button
+              layout-align="center center"
+              ng-click="vm.profile(vm.user.id)"
+              aria-label="side navigation">
                 <img class="toolbar-user-avatar"  ng-src={{"/uploads/avatars/"+vm.user.avatar}} alt="avatar">
-
             <span>{{vm.user.firstname}}</span>
         </md-button>
         <md-menu>

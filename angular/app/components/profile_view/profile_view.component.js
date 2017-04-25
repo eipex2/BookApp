@@ -31,8 +31,7 @@ class ProfileViewController{
       }
     }
 
-    selectImage(ev){
-      console.log("yes");
+    selectImage(){
       var vm = this;
       //vm.file = files[0];
       vm.$mdDialog.show({
@@ -46,7 +45,7 @@ class ProfileViewController{
               },
         fullscreen: false // Only for -xs, -sm breakpoints.
       })
-      .then(function(file) {
+      .then(function() {
         vm.uploadImage();
       }, function() {
           vm.file = "";
@@ -66,8 +65,7 @@ class ProfileViewController{
             },
             headers: { 'Authorization': 'Bearer ' + this.$auth.getToken() },
             withCredentials: true
-        }).then((response) => {
-            console.log(response);
+        }).then(() => {
             vm.$state.reload();
             vm.ToastService.show('Avatar changed');
             vm.file = "";

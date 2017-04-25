@@ -35,21 +35,23 @@ class HomeComponentController{
         this.$location.path('/profile/' + id);
     }
 
+
     /**
     shows rent dialog
     **/
     showAdvanced(ev,listing) {
-        var data = {
-          list_id: listing.id
-        }
+        this.showingDialog = true;
+        // var data = {
+        //   list_id: listing.id
+        // }
 
-        this.API.all('rents').post(data).then((response)=>{
-          var vm = this;
-          var rents = response.data.rents;
-
-          var scope = angular.extend(this.$scope.$new(true), {
-            rents: rents
-          });
+        //this.API.all('rents').post(data).then((response)=>{
+           var vm = this;
+        //   var rents = response.data.rents;
+        //
+        //   var scope = angular.extend(this.$scope.$new(true), {
+        //     rents: rents
+        //   });
 
           var dialog = {
             controllerAs: 'vm',
@@ -57,7 +59,10 @@ class HomeComponentController{
             templateUrl: './views/app/components/home_component/rent.tmpl.html',
             //template:'<md-dialog flex="50"><rent-component listing="currentListing"></rent-component><md-dialog>',
             parent: angular.element(document.body),
-            scope: scope,
+            onShowing: (scope)=>{
+              this.showingDialog = false;
+              scope.listing = listing;
+            },
             autoWrap:false,
             targetEvent: ev,
             clickOutsideToClose:true,
@@ -66,7 +71,6 @@ class HomeComponentController{
 
           this.$mdDialog.show(dialog)
           .then((range) => {
-              console.log(range)
               var data = {
                 start_date: range.start_date,
                 end_date: range.end_date,
@@ -83,7 +87,7 @@ class HomeComponentController{
 
           });
 
-        });
+        //});
 
 
 
@@ -94,66 +98,66 @@ class HomeComponentController{
 
 }
 
-class Listings {
-    constructor(API){
-      'ngIngect';
-
-      this.API = API;
-
-      this.loadedPages = {};
-
-      this.numItems = 0;
-
-      this.PAGE_SIZE = 10;
-
-      this.fetchNumItems_();
-    }
-
-    getItemAtIndex(index){
-       var pageNumber = Math.floor(index / this.PAGE_SIZE);
-       var page = this.loadedPages[pageNumber];
-
-       if (page) {
-         return page[index % this.PAGE_SIZE];
-       } else if (page !== null) {
-         this.fetchPage_(pageNumber);
-       }
-    }
-
-    getLength(){
-      return this.numItems;
-    }
-
-    fetchPage_(pageNumber){
-
-        // Set the page to null so we know it is already being fetched.
-        this.loadedPages[pageNumber] = null;
-        var vm = this;
-
-        this.API.all('listings/').customGET("items",{page:pageNumber+1}).then((response) => {
-
-            var listings = response.data;
-
-            this.currentpage = response.current_page;
-
-            this.loadedPages[pageNumber] = [];
-
-            this.loadedPages[pageNumber] = listings;
-        });
-
-
-
-    }
-
-    fetchNumItems_(){
-      this.API.one('listings/count').get().then((response) => {
-        console.log(response);
-        this.numItems = response.data.count;
-      });
-    }
-
-
-}
+// class Listings {
+//     constructor(API){
+//       'ngIngect';
+//
+//       this.API = API;
+//
+//       this.loadedPages = {};
+//
+//       this.numItems = 0;
+//
+//       this.PAGE_SIZE = 10;
+//
+//       this.fetchNumItems_();
+//     }
+//
+//     getItemAtIndex(index){
+//        var pageNumber = Math.floor(index / this.PAGE_SIZE);
+//        var page = this.loadedPages[pageNumber];
+//
+//        if (page) {
+//          return page[index % this.PAGE_SIZE];
+//        } else if (page !== null) {
+//          this.fetchPage_(pageNumber);
+//        }
+//     }
+//
+//     getLength(){
+//       return this.numItems;
+//     }
+//
+//     fetchPage_(pageNumber){
+//
+//         // Set the page to null so we know it is already being fetched.
+//         this.loadedPages[pageNumber] = null;
+//         var vm = this;
+//
+//         this.API.all('listings/').customGET("items",{page:pageNumber+1}).then((response) => {
+//
+//             var listings = response.data;
+//
+//             this.currentpage = response.current_page;
+//
+//             this.loadedPages[pageNumber] = [];
+//
+//             this.loadedPages[pageNumber] = listings;
+//         });
+//
+//
+//
+//     }
+//
+//     fetchNumItems_(){
+//       this.API.one('listings/count').get().then((response) => {
+//         console.log(response);
+//         this.numItems = response.data.count;
+//       });
+//     }
+//
+//
+// }
 
 class RentDialogController{
     constructor($scope,$mdDialog, $filter){

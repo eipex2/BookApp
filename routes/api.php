@@ -52,10 +52,34 @@ Route::group(['middleware' => ['auth:api']], function () {
   Route::post('rent', 'RentController@store');
   Route::post('rents', 'RentController@getApprovedRentals');
   Route::post('rents/update', 'RentController@update');
-  //chat routes
-  Route::get('chat/getMessages', 'ChatController@getMessages');
+
+
+  /**
+   *get conversation involving this user and other users
+   */
+  Route::get('chat/get_conversations', 'ChatController@getConversations');
   //Route::get('chat/getuserconversation/{recipient}/items', 'ChatController@getUserConversation');
-  Route::post('chat/getuserconversation', 'ChatController@getUserConversation');
+  Route::post('chat/get_conversation', 'ChatController@getConversation');
   Route::get('chat/getuserconversation/count/{recipient}', 'ChatController@getUserConversationCount');
   Route::post('chat/sendmessage', 'ChatController@sendMessage');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 });

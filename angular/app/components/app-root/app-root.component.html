@@ -7,8 +7,9 @@
 
   <div ui-view="toolbar">
   </div>
-  <md-content flex layout-fill
-              ui-view="main" >
+  <md-content class="main_content" flex layout-fill
+              ui-view="main">
+              <!-- style="overflow:hidden" fix for safari -->
 
   </md-content>
 </div>

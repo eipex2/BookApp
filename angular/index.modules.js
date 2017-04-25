@@ -17,7 +17,7 @@ angular.module('app.services', []);
 angular.module('app.config', []);
 angular.module('app.directives', []);
 angular.module('app.components', [
-	'ui.router', 'ngMaterial', 'ngAnimate','angular-loading-bar',
+	'ui.router', 'ngMaterial', 'ngAnimate','angular-loading-bar','pusher-angular',
 	'restangular', 'ngStorage', 'satellizer','ngFileUpload','ngRateIt','angularMoment','wu.masonry','materialCalendar'
 ])
 //.constant('moment', moment);

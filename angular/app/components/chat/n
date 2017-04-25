@@ -1,214 +1,74 @@
-class ChatController{
-    constructor(API, ToastService, $mdSidenav){
-        'ngInject';
+<section layout="row" layout-fill>
+    <md-sidenav
+        class="md-sidenav-left md-whiteframe-1dp"
+        md-component-id="contacts-sidenav"
+        md-is-locked-open="$mdMedia('gt-md')"
+        >
+      <md-toolbar class="chat_toolbar md-theme-indigo" layout="row" layout-align="center center">
+        <md-button class="small-btn">Search</md-button>
+      </md-toolbar>
+      <md-content>
+        <md-list>
+          <md-list-item ng-click="vm.getUserConversation(message)" ng-click-xs="vm.closeContacts()" class="md-2-line" ng-repeat="message in vm.messages">
+              <img  class="list-user-avatar" ng-src={{"/uploads/avatars/"+message.sender.avatar}}  alt="avatar" />
+              <div class="md-list-item-text" layout="column" layout-align="start start">
+                <h3>{{message.sender.firstname + ' ' + message.sender.lastname}}</h3>
+              </div>
+              <md-divider></md-divider>
+          </md-list-item>
+        </md-list>
+      </md-content>
 
-        this.API = API;
-        this.ToastService = ToastService;
-        this.$mdSidenav = $mdSidenav;
+    </md-sidenav>
 
-    }
+    <md-content ng-show="vm.nonSelected()" class="messages_box"  layout="column" flex>
+      <md-toolbar class="chat_toolbar md-whiteframe-1dp" layout="row" layout-align="start center" layout-padding>
+        <md-button ng-click="vm.toggleContacts()" class="small-btn">
+          <img  class="toolbar-user-avatar" ng-src={{"/uploads/avatars/"+vm.currentRecipient.avatar}}  alt="avatar" />
+          {{vm.currentRecipient.firstname + ' ' + vm.currentRecipient.lastname}}
+        </md-button>
+        <span flex></span>
+        <md-button hide-gt-md class="small-btn icon" ng-click="vm.toggleExchange()">
+          <md-icon md-font-icon="zmdi zmdi-pin-drop"></md-icon>
+        </md-button>
+        </md-button>
+      </md-toolbar>
 
-    $onInit(){
-
-      this.dynamicItems = new Messages();
-      console.log(this.dynamicItems);
-    }
-
-    //close contacts side nav
-    closeContacts(){
-      this.$mdSidenav("contacts-sidenav")
-       .close()
-    }
-
-    toggleContacts(){
-      this.$mdSidenav("contacts-sidenav")
-       .toggle()
-    }
-
-    toggleExchange(){
-      this.$mdSidenav("exchange-sidenav")
-       .toggle()
-    }
-
-    nonSelected(){
-      return this.currentRecipient?true:false;
-    }
-
-    getUserConversation(messenger){
-      //console.log(messenger);
-      var vm = this;
-      vm.currentRecipient = messenger.sender
-      var data = {
-        recipient:messenger.sender.id
-      }
-      this.API.all('chat/getuserconversation').post(data).then((response) => {
-          vm.currentConversation = response.data.conversation;
-      });
-    }
+      <!--
+        _____________________________
+       | Message Box                 |
+       |_____________________________|
+      -->
+      <message-box messages="vm.currentConversation" currentuser="vm.currentUser"></message-box>
 
 
-    sendMessage(){
-      this.submitMessage();
-    }
+    </md-content>
+    <md-content  ng-hide="vm.nonSelected()"flex layout="column">
+      <md-toolbar class="chat_toolbar md-whiteframe-1dp" layout="row" layout-align="start center" layout-padding>
+        <md-button ng-click="vm.toggleContacts()" class="small-btn">
+        <img  class="contact-user-avatar" ng-src={{"/uploads/avatars/avatar-5.png"}}  alt="avatar" />
+        Contacts
+        </md-button>
+        <span flex></span>
+        <md-button hide-gt-md class="small-btn icon" ng-click="vm.toggleExchange()">
+          <md-icon md-font-icon="zmdi zmdi-pin-drop"></md-icon>
+        </md-button>
+      </md-toolbar>
+      <md-content flex>
 
-    //handles key pressed
-    sendMessageKey($event){
-      if($event.key === "Enter"){
-        this.submitMessage();
-      }
-    }
+      </md-content>
+    </md-content>
 
-    //TODO: implement callbacks for messages not sent
-    submitMessage(){
-      var data = {
-        recipient: this.currentRecipient.id,
-        message: this.message
-      }
+    <md-sidenav class="md-sidenav-right md-whiteframe-1dp"
+      md-component-id="exchange-sidenav"
+        md-is-locked-open="$mdMedia('gt-md')">
 
-      this.API.all('chat/sendmessage').post(data).then((response) => {
-          console.log(response);
-          this.message = '';
-          This.ToastService.show("Message sent")
-      },(error)=>{
+      <md-toolbar class="chat_toolbar md-theme-light md-whiteframe-1dp" layout="row" layout-align="center center">
+        <md-button class="small-btn">Setup Exchange</md-button>
+      </md-toolbar>
+      <md-content  layout-padding>
 
-      })
-    }
-}
+      </md-content>
 
-
-class Messages {
-    constructor(){
-      'ngIngect';
-
-      this.loadedPages = {};
-
-      this.numItems = 0;
-
-      this.PAGE_SIZE = 50;
-
-      this.prototype.fetchNumItems_();
-
-      this.prototype.getItemAtIndex= (index)=>{
-         var pageNumber = Math.floor(index / this.PAGE_SIZE);
-         var page = this.loadedPages[pageNumber];
-
-         if (page) {
-           return page[index % this.PAGE_SIZE];
-         } else if (page !== null) {
-           this.fetchPage_(pageNumber);
-         }
-      };
-
-      this.prototype.getLength = () => {
-        return this.numItems;
-      };
-
-      this.prototype.fetchPage_ = (pageNumber)=>{
-          // Set the page to null so we know it is already being fetched.
-          this.loadedPages[pageNumber] = null;
-          var vm = this;
-
-          // For demo purposes, we simulate loading more items with a timed
-          // promise. In real code, this function would likely contain an
-          // $http request.
-          $timeout(angular.noop, 300).then(angular.bind(this, function() {
-            this.loadedPages[pageNumber] = [];
-            var pageOffset = pageNumber * this.PAGE_SIZE;
-            for (var i = pageOffset; i < pageOffset + this.PAGE_SIZE; i++) {
-              this.loadedPages[pageNumber].push(i);
-            }
-          }));
-      };
-
-      this.prototype.fetchNumItems_ = function() {
-          // For demo purposes, we simulate loading the item count with a timed
-          // promise. In real code, this function would likely contain an
-          // $http request.
-          $timeout(angular.noop, 300).then(angular.bind(this, function() {
-            this.numItems = 50000;
-          }));
-      };
-    }
-}
-
-export const ChatComponent = {
-    templateUrl: './views/app/components/chat/chat.component.html',
-    controller: ChatController,
-    controllerAs: 'vm',
-    bindings: {
-      messages:'<messages',
-      currentUser:'<currentUser'
-    }
-}
-
-getUserConversation(messenger){
-  //console.log(messenger);
-  var vm = this;
-  vm.currentRecipient = messenger.sender
-  var data = {
-    recipient:messenger.sender.id
-  }
-
-  this.dynamicMessages = {
-    numLoaded_: 0,
-    toLoad_: 0,
-
-    // Required.
-    getItemAtIndex: function(index) {
-      if (index > this.numLoaded_) {
-        this.fetchMoreItems_(index);
-        return null;
-      }
-
-      return index;
-    },
-
-    // Required.
-    // For infinite scroll behavior, we always return a slightly higher
-    // number than the previously loaded items.
-    getLength: function() {
-      return this.numLoaded_ + 2;
-    },
-
-    fetchMoreItems_: function(index) {
-      // For demo purposes, we simulate loading more items with a timed
-      // promise. In real code, this function would likely contain an
-      // $http request.
-
-      if (this.toLoad_ < index) {
-        this.toLoad_ += 1;
-        //vm.$timeout(angular.noop, 300).then(angular.bind(this, function() {
-          vm.API.one('chat/getuserconversation/',data.recipient).customGET("items",{page:this.toLoad}).then((response) => {
-              //this.lastpage+=1;
-              console.log(response.data);
-              this.currentConversation = vm.currentConversation.concat(response.data.conversation.data);
-              this.numLoaded_ = this.toLoad_;
-              // this.numb
-              // this.currentpage = response.current_page;
-              //
-              // this.loadedPages[pageNumber] = [];
-              //
-              // this.loadedPages[pageNumber] = conversation;
-          });
-
-        //}));
-      }
-    }
-  }
-
-}
-
-<!-- <md-virtual-repeat-container id="vertical-container"   md-top-index="this.dynamicMessages.topIndex">
-
-  <md-list-item class="chat-cloud" layout="row" md-virtual-repeat="chat in vm.dynamicMessages" md-on-demand>
-
-      <img  class="list-user-avatar md-whiteframe-1dp" ng-src={{"/uploads/avatars/"+chat.sender.avatar}}  alt="avatar" />
-      <div layout="column" flex class="message_cloud md-whiteframe-1dp" >
-          <div layout-padding>{{chat.sender.firstname+ ': '+ chat.message}}</div>
-          <div layout="row" layout-align="start end">
-            <span flex></span>
-            <span class="message_datetime">{{chat.created_at}}</span>
-          </div>
-      </div>
-  </md-list-item>
-</md-virtual-repeat-container> -->
+    </md-sidenav>
+  </section>

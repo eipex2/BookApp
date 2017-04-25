@@ -18,10 +18,10 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 				}
 			},
 			resolve:{
-				user: function(API, $auth){
-					return $auth.isAuthenticated()? API.one('user').get() : {};
+				user: function(UserService){
+					return UserService.user;
 				}
-			}//{auth: true} would require JWT auth
+			}
 		})
 		.state('app.landing', {
 		url: '/',
@@ -150,7 +150,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 					component: "chat",
 					bindings:{
 						activeConvo: 'activeConvo',
-						messages:'messages',
+						convo:'messages',
 						currentUser:'currentUser'
 					}
 				}
@@ -159,8 +159,8 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 				activeConvo: function(API, $stateParams){
 					return $stateParams.id;
 				},
-				messages:function(API){
-						return API.one('chat/getMessages').get();
+				conversations:function(ChatService){
+						return ChatService.getConversations().get();
 				},
 				currentUser :function(user){
 					return user;

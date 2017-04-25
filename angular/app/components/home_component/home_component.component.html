@@ -1,30 +1,20 @@
 
-<md-content class="grey-background" layout-fill>
-  <div masonry load-images="true" style="margin:auto" flex-lg="80" flex="90">
+<md-content class="grey-background" layout-fill style="padding:10px;">
+  <div masonry load-images="true" >
     <div class="masonry-brick" ng-repeat="listing in vm.listings track by listing.id">
-          <md-card style="width:320px">
-              <md-card-header>
-                  <md-card-avatar>
-                      <img class="md-user-avatar home-user-avatar"  ng-src={{vm.imgPath(listing)}} alt="avatar">
-                  </md-card-avatar>
-                  <md-card-header-text>
-                      <span ng-click="vm.showProfile(listing.user_id)" class="profile-title md-title">{{listing.user.firstname + ' ' + listing.user.lastname}}</span>
-                      <span class="md-subhead">{{listing.created_at}}</span>
-                  </md-card-header-text>
-              </md-card-header>
-              <md-card-content>
-                <div class="md-card-image" layout="column" layout-align="center center">
-                    <img style="max-height:100%; max-width:100%" ng-src="{{listing.thumbnail}}" alt="Washed Out">
-                </div>
-              </md-card-content>
-              <md-card-actions layout="row" layout-align="end center" layout-padding>
-               <md-button class="list-btn" ng-click="vm.showAdvanced($event, listing)">RENT <span>{{listing.rent_price | currency}}</span></md-button>
-             </md-card-actions>
-          </md-card>
-        </div>
+          <div style="color:grey" class="front book_header slide-down md-whiteframe-1dp" ng-show="options || checkbox" layout="row" layout-align:"start center">
+            <img class="toolbar-user-avatar"  ng-src={{"/uploads/avatars/"+listing.user.avatar}} alt="avatar">
+            <span flex >{{listing.user.firstname}}</span>
+            <md-icon ng-show="vm.showingDialog" class="spinner" md-font-icon="zmdi zmdi-spinner zmdi-hc-2x"></md-icon>
+          </div>
+          <img ng-click="vm.showAdvanced(ev,listing)" ng-mouseenter="options=true" ng-mouseleave="options=false" class="book md-whiteframe-1dp" ng-src="{{listing.thumbnail}}" alt="Washed Out">
+          <div class="book_price front md-whiteframe-1dp">
+            {{listing.rent_price|currency}}
+          <div>
+      </div>
     </div>
 </md-content>
-
-<md-button ng-click="vm.goCreateBook()" class="md-fab md-primary  md-fab-bottom-right" style="position: fixed !important;" aria-label="Use Android">
+<md-button ng-click="vm.goCreateBook()" class="md-fab md-primary md-fab-bottom-right" style="position: fixed !important;" aria-label="Use Android">
 <md-icon md-font-icon="zmdi zmdi-plus zmdi-hc-1x"></md-icon>
 </md-button>
+<!-- TODO:add listing title in rent pop up so user knows where they are.  -->

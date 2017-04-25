@@ -1,4 +1,3 @@
-import {ScrollToBottomDirective} from './directives/scroll-to-bottom/scroll-to-bottom.directive';
 import {RepeatDoneDirective} from './directives/repeat-done/repeat-done.directive';
 
 
@@ -9,7 +8,7 @@ angular.module('app.directives')
         scope: {
                   scrollToBottom: "="
               },
-        link: function(scope, element, attrs, controllers){
+        link: function(scope, element){
           scope.$watchCollection('scrollToBottom', function(newVal) {
               if (newVal) {
 								$timeout(function() {

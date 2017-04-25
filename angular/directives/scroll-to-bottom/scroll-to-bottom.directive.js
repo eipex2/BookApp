@@ -8,18 +8,18 @@ class ScrollToBottomController{
     }
 
     scroll(){
-      console.log(element);
+      //console.log(element);
     }
 }
 
-export function ScrollToBottomDirective($interval){
+export function ScrollToBottomDirective(){
     return {
         restrict: 'A',
         scope: {
                   scrollToBottom: "="
               },
         controller: ScrollToBottomController,
-        link: function(scope, element, attrs, controllers){
+        link: function(){
           //controllers.scroll(element);
           // window.setTimeout(function() {
           //     console.log('km')

@@ -239,7 +239,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'Image' => Intervention\Image\Facades\Image::class,
-        'Pusher' => Vinkla\Pusher\Facades\Pusher::class
+        'LaravelPusher' => Vinkla\Pusher\Facades\Pusher::class
 
     ],
 

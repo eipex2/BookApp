@@ -1,40 +1,41 @@
-<section layout="row" layout-fill>
-
+<section layout="row" layout-fill style="background-color:white; overflow:hidden" >
     <md-sidenav
-        class="md-sidenav-left md-whiteframe-1dp"
+        class="md-sidenav-left"
         md-component-id="contacts-sidenav"
         md-is-locked-open="$mdMedia('gt-md')"
         >
 
-      <md-toolbar class="chat_toolbar md-theme-indigo md-whiteframe-1dp" layout="row" layout-align="center center">
-        <md-button class="small-btn">Search</md-button>
-      </md-toolbar>
-      <md-content>
-        <md-list>
-          <md-list-item ng-click="vm.getUserConversation(message)" ng-click-xs="vm.closeContacts()" class="md-2-line" ng-repeat="message in vm.messages">
-              <img  class="list-user-avatar" ng-src={{"/uploads/avatars/"+message.sender.avatar}}  alt="avatar" />
-              <div class="md-list-item-text" layout="column" layout-align="start start">
-                <h3>{{message.sender.firstname + ' ' + message.sender.lastname}}</h3>
-              </div>
+            <md-content layout="column">
+              <md-toolbar class="chat_toolbar" style="background-color:white">
+                <input type="text" class="search_contacts" placeholder="Search">
+              </md-toolbar>
               <md-divider></md-divider>
-          </md-list-item>
-        </md-list>
-      </md-content>
-
+              <md-list class="contacts-list">
+                <md-list-item ng-click="vm.getUserConversation(convo)" ng-click-xs="vm.closeContacts()" class="md-2-line" ng-repeat="convo in vm.conversations">
+                    <img  class="list-user-avatar" ng-src={{"/uploads/avatars/"+convo.sender.avatar}}  alt="avatar" />
+                    <div class="md-list-item-text" layout="column" layout-align="start start">
+                      <h3>{{convo | convoUsername}}</h3>
+                    </div>
+                    <md-divider></md-divider>
+                </md-list-item>
+              </md-list>
+            </md-content>
     </md-sidenav>
 
+    <md-divider></md-divider>
     <md-content ng-show="vm.nonSelected()" class="messages_box"  layout="column" flex>
-      <md-toolbar class="chat_toolbar md-whiteframe-1dp" layout="row" layout-align="start center" layout-padding>
-        <md-button ng-click="vm.toggleContacts()" class="small-btn">
+      <md-toolbar class="chat_toolbar" layout="row" layout-align="start center" layout-padding style="background-color:white">
+        <md-button ng-click="vm.toggleContacts()" class="small-btn" style="color:grey">
           <img  class="toolbar-user-avatar" ng-src={{"/uploads/avatars/"+vm.currentRecipient.avatar}}  alt="avatar" />
           {{vm.currentRecipient.firstname + ' ' + vm.currentRecipient.lastname}}
         </md-button>
         <span flex></span>
-        <md-button hide-gt-md class="small-btn icon" ng-click="vm.toggleExchange()">
+        <md-button hide-gt-md class="small-btn" ng-click="vm.toggleExchange()" style="color:grey">
           <md-icon md-font-icon="zmdi zmdi-pin-drop"></md-icon>
         </md-button>
         </md-button>
       </md-toolbar>
+      <md-divider></md-divider>
 
       <!--
         _____________________________
@@ -42,42 +43,45 @@
        |_____________________________|
       -->
       <message-box messages="vm.currentConversation" currentuser="vm.currentUser"></message-box>
-
-
-      <div class="md-whiteframe-1dp" layout="row" layout-align="start center" style="height:60px; background-color:white">
-          <md-input-container md-no-float class="md-block" style="height:60px;" flex layout-padding>
-            <input ng-model="vm.message" ng-keypress="vm.sendMessageKey($event)"placeholder="Type a message...">
-          </md-input-container>
-          <md-button class="md-primary" ng-click="vm.sendMessage()">Send</md-button>
-      </div>
+      <md-divider></md-divider>
+      <input  ng-model="vm.message" ng-keyup="vm.sendMessageKey($event)" type="text" placeholder="Type a message..." style="height:60px; border:none; padding:10px 0px 10px 10px">
     </md-content>
     <md-content  ng-hide="vm.nonSelected()"flex layout="column">
-      <md-toolbar class="chat_toolbar md-whiteframe-1dp" layout="row" layout-align="start center" layout-padding>
-        <md-button ng-click="vm.toggleContacts()" class="small-btn">
+      <md-toolbar class="chat_toolbar" layout="row" layout-align="start center" layout-padding style="background-color:white">
+        <md-button ng-click="vm.toggleContacts()" class="small-btn" style="color:rgba(0,0,0,0.54);">
         <img  class="contact-user-avatar" ng-src={{"/uploads/avatars/avatar-5.png"}}  alt="avatar" />
         Contacts
         </md-button>
         <span flex></span>
-        <md-button hide-gt-md class="small-btn icon" ng-click="vm.toggleExchange()">
+        <md-button hide-gt-md class="small-btn icon" ng-click="vm.toggleExchange()" style="color:grey">
           <md-icon md-font-icon="zmdi zmdi-pin-drop"></md-icon>
         </md-button>
       </md-toolbar>
+        <md-divider></md-divider>
       <md-content flex>
 
       </md-content>
     </md-content>
+    <md-divider></md-divider>
+    <!-- <md-content  layout="column" flex="20">
+      <md-toolbar class="chat_toolbar" style="background-color:white">Exchange</md-toolbar>
+      <md-divider></md-divider>
+      <div flex></div>
+    </md-content> -->
 
-    <md-sidenav class="md-sidenav-right md-whiteframe-1dp"
+
+    <md-sidenav
+      class="md-sidenav-right"
       md-component-id="exchange-sidenav"
         md-is-locked-open="$mdMedia('gt-md')">
 
-      <md-toolbar class="chat_toolbar md-theme-light md-whiteframe-1dp" layout="row" layout-align="center center">
-        <md-button class="small-btn">Setup Exchange</md-button>
-      </md-toolbar>
-      <md-content  layout-padding>
-
-      </md-content>
+        <md-content  layout="column">
+          <md-toolbar class="chat_toolbar" style="background-color:white; color:grey; font-size:14px" layout="row" layout-align="center center">
+            Exchange
+          </md-toolbar>
+          <md-divider></md-divider>
+          <div flex></div>
+        </md-content>
 
     </md-sidenav>
-
   </section>

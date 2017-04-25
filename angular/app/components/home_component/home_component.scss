@@ -26,3 +26,167 @@
   color:white;
   background-color: teal;
 }
+
+.book{
+  cursor:pointer;
+  padding:3px;
+  margin:10px;
+  background-color: white;
+}
+
+.book:hover{
+  opacity: 0.5;
+}
+
+.front {
+    display: block;
+    z-index: 5;
+    position: relative;
+    border:3px solid white;
+}
+
+.behind_container {
+    position: relative;
+}
+
+.book_header{
+  height:40px;
+  background-color:white;
+  margin-bottom:-40px;
+  border:1px solid white;
+  border-radius: 27px;
+}
+
+.book_price{
+  width:50px;
+  height:20px;
+  font-weight:bold;
+  border-radius:17px;
+  margin:auto;
+  margin-top:-30px;
+  text-align:center;
+  color:teal;
+  background-color: white;
+}
+
+.book_dialog{
+  padding:3px;
+  margin:10px;
+  background-color: white;
+  width:3rem;
+  height:4rem;
+}
+
+.spinner{
+  color:teal;
+  -webkit-animation-name: spin;
+  -webkit-animation-duration: 700ms;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-name: spin;
+  -moz-animation-duration: 700ms;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+  -ms-animation-name: spin;
+  -ms-animation-duration: 700ms;
+  -ms-animation-iteration-count: infinite;
+  -ms-animation-timing-function: linear;
+
+  animation-name: spin;
+  animation-duration: 700ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}
+
+.slide-down {
+ -webkit-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+ -moz-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+ -ms-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+ -o-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+ transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+ /* easeOutQuad */
+ -webkit-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+ -moz-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+ -ms-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+ -o-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+ transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+ /* easeOutQuad */
+}
+/* line 273, ../sass/ng-animation.scss */
+.slide-down.ng-enter {
+ transform: translateY(-60px);
+ -ms-transform: translateY(-60px);
+ -webkit-transform: translateY(-60px);
+ transition-duration: 250ms;
+ -webkit-transition-duration: 250ms;
+ opacity: 0;
+}
+/* line 279, ../sass/ng-animation.scss */
+.slide-down.ng-enter-active {
+ transform: translateY(0);
+ -ms-transform: translateY(0);
+ -webkit-transform: translateY(0);
+ opacity: 1;
+}
+/* line 284, ../sass/ng-animation.scss */
+.slide-down.ng-leave {
+ transform: translateY(0);
+ -ms-transform: translateY(0);
+ -webkit-transform: translateY(0);
+ transition-duration: 250ms;
+ -webkit-transition-duration: 250ms;
+ opacity: 1;
+}
+/* line 290, ../sass/ng-animation.scss */
+.slide-down.ng-leave-active {
+ transform: translateY(-60px);
+ -ms-transform: translateY(-60px);
+ -webkit-transform: translateY(-60px);
+ opacity: 0;
+}
+/* line 296, ../sass/ng-animation.scss */
+.slide-down.ng-hide-add {
+ transform: translateY(0);
+ -ms-transform: translateY(0);
+ -webkit-transform: translateY(0);
+ transition-duration: 250ms;
+ -webkit-transition-duration: 250ms;
+ opacity: 1;
+}
+/* line 301, ../sass/ng-animation.scss */
+.slide-down.ng-hide-add.ng-hide-add-active {
+ transform: translateY(-60px);
+ -ms-transform: translateY(-60px);
+ -webkit-transform: translateY(-60px);
+ opacity: 0;
+}
+/* line 307, ../sass/ng-animation.scss */
+.slide-down.ng-hide-remove {
+ transform: translateY(-60px);
+ -ms-transform: translateY(-60px);
+ -webkit-transform: translateY(-60px);
+ transition-duration: 250ms;
+ -webkit-transition-duration: 250ms;
+ display: block !important;
+ opacity: 0;
+}
+/* line 313, ../sass/ng-animation.scss */
+.slide-down.ng-hide-remove.ng-hide-remove-active {
+ transform: translateY(0);
+ -ms-transform: translateY(0);
+ -webkit-transform: translateY(0);
+ opacity: 1;
+}

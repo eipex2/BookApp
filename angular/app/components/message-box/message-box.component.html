@@ -1,6 +1,6 @@
-<md-content class="grey-background" scroll-to-bottom="vm.messages" ng-style="{'height':vm.messageWindowHeight}">
+<md-content  scroll-to-bottom="vm.conversations" ng-style="{'height':vm.messageWindowHeight}">
   <md-list class="chat-list" >
-    <md-list-item class="chat-cloud" ng-repeat="chat in vm.messages track by chat.id" repeat-done="vm.listDidRender()">
+    <md-list-item class="chat-cloud" ng-repeat="chat in vm.conversations track by chat.id" repeat-done="vm.listDidRender()">
           <!-- show id sender is current user -->
           <div  ng-show="vm.cloud(chat.sender.id)" layout="row" layout-align="end center" style="width:100%; float:right">
             <div class="behind_container message_cloud_2" layout="column" flex="1">
