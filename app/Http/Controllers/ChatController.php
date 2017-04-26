@@ -1,4 +1,11 @@
 <?php
+# @Author: eipex
+# @Date:   2017-03-29T15:00:48-05:00
+# @Last modified by:   eipex
+# @Last modified time: 2017-04-26T02:27:00-05:00
+
+
+
 
 namespace App\Http\Controllers;
 
@@ -7,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 use LaravelPusher;
 use App\Message;
 
@@ -19,43 +27,25 @@ class ChatController extends Controller
      */
     public function getConversations(Request $request)
     {
+        $thisUser = $request->user()->id;
         try {
-          $thisUser = $request->user()->id;
+          //get the most recent messages and group by sender or recipient id
+          $most_recent_messages = DB::table('messages')
+             ->selectRaw('max(messages.id) as most_recent_message_id')
+             ->where('sender_id',$thisUser)
+             ->orWhere('recipient_id', $thisUser)
+             ->groupBy(DB::raw("CASE WHEN sender_id > recipient_id THEN recipient_id ELSE sender_id END,
+                                 CASE WHEN sender_id < recipient_id THEN recipient_id ELSE sender_id END"))->pluck('most_recent_message_id');
 
-          $conversations = Message::with('sender', 'recipient')
-                        ->selectRaw('count(*) AS cnt, sender_id')
-                        ->where('sender_id',$thisUser)
-                        ->orWhere('recipient_id', $thisUser)
-                        ->groupBy('sender_id')
-                        ->get();
+
+           $conversations = Message::with('sender','recipient')
+           ->whereIn('id', $most_recent_messages)
+           ->get();
         }catch (Exception $e) {
             return response()->error($e->getMessage());
         }
-
         return response()->json($conversations);
     }
-
-    // //get user conversation
-    // public function getUserConversation(Request $request, $recipient)
-    // {
-    //
-    //     try{
-    //       //current user
-    //       $sender = $request->user()->id;
-    //
-    //       //get conversations where the sender is both you and the user
-    //       //and also the receiver is both u and the user
-    //       $conversation = Message::with('sender','recipient')
-    //               ->whereIn('sender_id', [$sender, $recipient])
-    //               ->WhereIn('recipient_id', [$sender, $recipient])
-    //               ->orderBy('created_at', 'desc')
-    //               ->paginate(10);
-    //     }catch(Exception $e){
-    //         return response()->error($e->getMessage());
-    //     }
-    //
-    //     return response()->success(compact('conversation', $conversation));
-    // }
 
     /**
      * getConversation gets conversation between this user and other user
@@ -64,19 +54,14 @@ class ChatController extends Controller
      */
     public function getConversation(Request $request)
     {
-
         try{
           //current user
           $thisUser = $request->user()->id;
           $otherUser = $request->input('other_user_id');
 
-
           $conversation = Message::with('sender','recipient')
                   ->whereIn('sender_id', [$thisUser, $otherUser])
                   ->whereIn('recipient_id', [$thisUser, $otherUser])
-                  ->whereColumn([
-                    ['sender_id', '!=', 'recipient_id']
-                  ])
                   ->orderBy('created_at', 'asc')
                   ->get();
         }catch(Exception $e){
@@ -109,6 +94,7 @@ class ChatController extends Controller
 
     public function sendMessage(Request $request)
     {
+      $lastmessage;
         try{
           $message = new Message;
           $message->sender_id = $request->user()->id;
@@ -124,6 +110,6 @@ class ChatController extends Controller
             return response()->error($e->getMessage());
         }
 
-        return response()->success('chat');
+        return response()->success($lastmessage);
     }
 }

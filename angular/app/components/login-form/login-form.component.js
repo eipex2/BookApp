@@ -1,11 +1,21 @@
+/**
+ * @Author: eipex
+ * @Date:   2017-03-11T14:56:01-06:00
+ * @Last modified by:   eipex
+ * @Last modified time: 2017-04-26T01:13:13-05:00
+ */
+
+
+
 class LoginFormController {
-	constructor($auth, ToastService, $state, $location) {
+	constructor($auth, ToastService, $state, $location, UserService) {
 		'ngInject';
 
 		this.$auth = $auth;
 		this.ToastService = ToastService;
 		this.$state = $state;
 		this.$location = $location;
+		this.UserService = UserService;
 	}
 
     $onInit(){
@@ -15,37 +25,29 @@ class LoginFormController {
 			}
     }
 
+	/**
+	 * log in user
+	 */
 	login() {
 		let user = {
 			email: this.email,
 			password: this.password
 		};
-
-		this.$auth.login(user)
-			.then((response) => {
-				this.$auth.setToken(response.data);
-
-				this.ToastService.show('Logged in successfully.');
-				this.$state.go('app.landing', {}, {reload:true, inherit:false, notify:true});
-			})
-			.catch(this.failedLogin.bind(this));
+		this.UserService.login(user)
 	}
 
+	/**
+	 * go to signup page
+	 */
 	signUp(){
 		this.$state.go('app.register', {}, {reload:true, inherit:false, notify:true});
 	}
 
+	/**
+	 * go to forgot password page
+	 */
 	forgotPassword(){
 		this.$state.go('app.forgot_password', {}, {reload:true, inherit:false, notify:true});
-	}
-
-	failedLogin(response) {
-		if (response.status === 422) {
-			for (let error in response.data.errors) {
-				return this.ToastService.error(response.data.errors[error][0]);
-			}
-		}
-		this.ToastService.error(response.statusText);
 	}
 }
 

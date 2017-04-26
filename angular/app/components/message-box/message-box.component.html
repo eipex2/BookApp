@@ -1,4 +1,4 @@
-<md-content  scroll-to-bottom="vm.conversations" ng-style="{'height':vm.messageWindowHeight}">
+<md-content ng-style="{'height':vm.messageWindowHeight}" scroll-glue="true">
   <md-list class="chat-list" >
     <md-list-item class="chat-cloud" ng-repeat="chat in vm.conversations track by chat.id" repeat-done="vm.listDidRender()">
           <!-- show id sender is current user -->

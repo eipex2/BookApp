@@ -1,7 +1,16 @@
+/**
+ * @Author: eipex
+ * @Date:   2017-03-29T16:33:35-05:00
+ * @Last modified by:   eipex
+ * @Last modified time: 2017-04-26T01:47:01-05:00
+ */
+
+
+
 //TODO: Major todo - paging for loading messages
 
 class ChatController{
-    constructor(API, ToastService, $mdSidenav, $scope, $state, ChatService){
+    constructor(API, ToastService, $mdSidenav, $scope, $state, ChatService,UserService){
         'ngInject';
 
       this.API = API;
@@ -10,6 +19,7 @@ class ChatController{
       this.$scope = $scope;
       this.$state = $state;
       this.ChatService = ChatService;
+      this.UserService = UserService;
       // this.newMessageId = 1;
       // $scope.callbackNotifications = 0;
       // $scope.callbackNotification = '';
@@ -41,18 +51,28 @@ class ChatController{
        .close()
     }
 
+    /**
+     * toggleExchange hide or show contacts-sidenav
+     */
     toggleContacts(){
       this.$mdSidenav("contacts-sidenav")
        .toggle()
     }
 
+    /**
+     * toggleExchange hide or show exchange-sidenav
+     */
     toggleExchange(){
       this.$mdSidenav("exchange-sidenav")
        .toggle()
     }
 
+    /**
+     * show contacts div if activeRecipient is null
+     * @return {bool} show or hide div
+     */
     nonSelected(){
-      return this.currentRecipient?true:false;
+      return this.activeRecipient?true:false;
     }
 
     /**
@@ -62,51 +82,42 @@ class ChatController{
     setActiveConversation(convo){
       this.activeRecipient = this.ChatService.getOtherUser(convo);
       var data = {
-        recipient:this.activeRecipient.id
+        other_user_id:this.activeRecipient.id
       }
       this.ChatService.getConversation(data).then((response) => {
           this.currentConversation = response.data.conversation;
       });
     }
 
+    /**
+     * sender message to other user
+     */
     sendMessage(){
       if(this.message){
-          this.submitMessage();
-      }
-    }
+        //push message
+        this.currentConversation.push({
+            id: Math.random(),
+            firstname:this.currentUser.firstname,
+            lastname:this.currentUser.lastname,
+            message:this.message,
+            create_at:new Date(),
+            sender:this.currentUser
+          })
 
-    //handles key pressed
-    sendMessageKey($event){
-      if($event.key === "Enter" && this.message){
-        this.submitMessage();
-      }
-    }
+        var data = {
+          recipient: this.activeRecipient.id,
+          message: angular.copy(this.message)
+        }
 
-    //TODO: implement callbacks for messages not sent
-    submitMessage(){
-      //push message
-      this.currentConversation.push({
-          id: Math.random(),
-          firstname:this.currentUser.firstname,
-          lastname:this.currentUser.lastname,
-          message:this.message,
-          create_at:new Date(),
-          sender:this.currentUser
+        this.ChatService.sendMessage(data).then(() => {
+
+        },()=>{
+
         })
 
-      var data = {
-        recipient: this.currentRecipient.id,
-        message: angular.copy(this.message)
+        //reset message
+        this.message = '';
       }
-
-      this.API.all('chat/sendmessage').post(data).then(() => {
-
-      },()=>{
-
-      })
-
-      //reset message
-      this.message = '';
     }
 }
 

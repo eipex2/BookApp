@@ -1,3 +1,12 @@
+/**
+ * @Author: eipex
+ * @Date:   2017-03-29T07:32:32-05:00
+ * @Last modified by:   eipex
+ * @Last modified time: 2017-04-26T01:38:46-05:00
+ */
+
+
+
 export function RoutesConfig($stateProvider, $urlRouterProvider) {
 	'ngInject';
 
@@ -19,7 +28,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 			},
 			resolve:{
 				user: function(UserService){
-					return UserService.user;
+					return UserService.getUser();
 				}
 			}
 		})
@@ -160,7 +169,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 					return $stateParams.id;
 				},
 				conversations:function(ChatService){
-						return ChatService.getConversations().get();
+						return ChatService.getConversations();
 				},
 				currentUser :function(user){
 					return user;
