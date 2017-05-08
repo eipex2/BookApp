@@ -1,0 +1,16 @@
+<md-dialog layout="column" flex="50" aria-label="Add Book">
+  <md-dialog-content layout-padding>
+    <form layout="row" layout-align="center center" layout-fill>
+
+    </form>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+    <span flex style="color:teal; font-weight:bold">{{rangeString}}</span>
+    <md-button ng-click="vm.cancel()">
+     Cancel
+    </md-button>
+    <md-button ng-click="vm.rent()">
+      Rent
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

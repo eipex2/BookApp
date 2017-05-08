@@ -1,4 +1,11 @@
 <?php
+# @Author: eipex
+# @Date:   2016-12-01T13:46:23-06:00
+# @Last modified by:   eipex
+# @Last modified time: 2017-05-05T19:37:30-05:00
+
+
+
 
 return [
 
@@ -15,7 +22,7 @@ return [
     |
     */
 
-    'default' => env('BROADCAST_DRIVER', 'null'),
+    'default' => env('BROADCAST_DRIVER', 'pusher'),
 
     /*
     |--------------------------------------------------------------------------
@@ -36,7 +43,8 @@ return [
             'secret' => env('PUSHER_SECRET'),
             'app_id' => env('PUSHER_APP_ID'),
             'options' => [
-                //
+              'cluster' => 'mt1',
+              'encrypted' => true
             ],
         ],
 

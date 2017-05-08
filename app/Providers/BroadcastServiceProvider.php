@@ -1,4 +1,11 @@
 <?php
+# @Author: eipex
+# @Date:   2016-12-01T13:46:23-06:00
+# @Last modified by:   eipex
+# @Last modified time: 2017-05-06T09:55:44-05:00
+
+
+
 
 namespace App\Providers;
 
@@ -14,7 +21,7 @@ class BroadcastServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Broadcast::routes();
+        Broadcast::routes([ 'middleware' => [ 'api', 'jwt.auth' ] ]);
 
         /*
          * Authenticate the user's personal channel...
