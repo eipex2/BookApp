@@ -1,3 +1,10 @@
+/**
+ * @Author: eipex
+ * @Date:   2017-04-26T09:25:11-05:00
+ * @Last modified by:   eipex
+ * @Last modified time: 2017-05-08T01:50:11-05:00
+ */
+
 
 
 class HomeComponentController{
@@ -20,6 +27,44 @@ class HomeComponentController{
 
     imgPath(listing){
       return "/uploads/avatars/"+listing.user.avatar;
+    }
+
+    addBook(ev){
+        this.showingDialog = true;
+
+        var vm = this;
+
+        var dialog2 = {
+          controllerAs: 'vm',
+          //controller: RentDialogController,
+          templateUrl: './views/app/components/home_component/add_book.tmpl.html',
+          parent: angular.element(document.body),
+          onShowing: (scope)=>{
+            this.showingDialog = false;
+          },
+          autoWrap:false,
+          targetEvent: ev,
+          clickOutsideToClose:true,
+          fullscreen: true // Only for -xs, -sm breakpoints.
+        };
+
+        this.$mdDialog.show(dialog2)
+        .then((range) => {
+            var data = {
+              start_date: range.start_date,
+              end_date: range.end_date,
+              user_id: vm.currentUser.id,
+              listing_id:listing.id
+            }
+
+
+            this.API.all('rent').post(data).then(() => {
+                this.$state.go('app.landing', {}, {reload:true, inherit:false, notify:true});
+                this.ToastService.show('Owner contacted');
+            });
+        }, function() {
+
+        });
     }
 
     goCreateBook(){

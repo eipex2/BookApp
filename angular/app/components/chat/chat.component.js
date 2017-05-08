@@ -2,7 +2,7 @@
  * @Author: eipex
  * @Date:   2017-03-29T16:33:35-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-04-26T01:47:01-05:00
+ * @Last modified time: 2017-05-07T09:53:38-05:00
  */
 
 
@@ -10,7 +10,7 @@
 //TODO: Major todo - paging for loading messages
 
 class ChatController{
-    constructor(API, ToastService, $mdSidenav, $scope, $state, ChatService,UserService){
+    constructor(API, ToastService, $mdSidenav, $scope, $state, ChatService,UserService, $pusher, ChannelManagerService){
         'ngInject';
 
       this.API = API;
@@ -20,6 +20,9 @@ class ChatController{
       this.$state = $state;
       this.ChatService = ChatService;
       this.UserService = UserService;
+      this.ChannelManagerService = ChannelManagerService;
+
+
       // this.newMessageId = 1;
       // $scope.callbackNotifications = 0;
       // $scope.callbackNotification = '';
@@ -42,7 +45,7 @@ class ChatController{
     }
 
     $onInit(){
-
+      this.bindChannelEvents();
     }
 
     //close contacts side nav
@@ -80,6 +83,7 @@ class ChatController{
      * @param  {object} convo conversation
      */
     setActiveConversation(convo){
+      convo.new_message = false;
       this.activeRecipient = this.ChatService.getOtherUser(convo);
       var data = {
         other_user_id:this.activeRecipient.id
@@ -119,7 +123,85 @@ class ChatController{
         this.message = '';
       }
     }
+
+    /**
+     * bind to channel events
+     */
+    bindChannelEvents(){
+      var channel = this.ChannelManagerService.getChannel();
+
+      //bind to channel
+      channel.bind('message.sent', (response)=>{
+        //do stuff to update UI
+
+        //if activeRecipient is set
+        if(this.activeRecipient){
+          if(this.activeRecipient.id === response.message.sender_id){
+            response.message.sender = response.user;
+            this.currentConversation.push(response.message)
+
+            //sort conversations - newest on top
+            this.conversations = this.ChatService.sortConversations(this.conversations)
+          }else{
+            this.updateView(response)
+            this.receiveNotification()
+          }
+        }else{
+          this.updateView(response)
+          this.receiveNotification()
+        }
+
+      })
+    }
+
+    /**
+     * update the users view
+     */
+    updateView(response){
+      var convo = this.ChatService.getConvo(response.user, this.conversations);
+      convo.new_message = true;
+      convo.message = response.message.message;
+      //sort conversations - newest on top
+      this.conversations = this.ChatService.sortConversations(this.conversations)
+    }
+
+    receiveNotification(){
+        // if(typeof window.Notification === 'undefined'){
+        //     console.log('undefined');
+        //     return;
+        // }
+        //
+        // window.Notification.requestPermission(function (permission) {
+        //     var username = newMessage.sender_firstname + ' ' + newMessage.sender_lastname;
+        //     if (permission == 'granted' && newMessage) {
+        //
+        //         var notify = new window.Notification( username, {
+        //             body: newMessage.message
+        //         });
+        //
+        //         notify.onclick = function() {
+        //             window.focus();
+        //         };
+        //
+        //         notify.onclose = function() {
+        //             chat.pageTitleNotification.off();
+        //         };
+        //
+        //         var timmer = setInterval(function() {
+        //             notify && notify.close();
+        //             typeof timmer !== 'undefined' && window.clearInterval(timmer);
+        //             $scope.$apply();
+        //         }, 4000);
+        //     }
+        // });
+        //
+        // window.addEventListener('focus', () => {
+        //     this.pageTitleNotification.off();
+        // });
+    }
 }
+
+
 
 
 // class Messages {

@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-03-29T15:00:48-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-04-26T02:27:00-05:00
+# @Last modified time: 2017-05-06T19:36:35-05:00
 
 
 
@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use LaravelPusher;
 use App\Message;
+use App\Events\MessageSent;
 
 class ChatController extends Controller
 {
@@ -40,6 +41,7 @@ class ChatController extends Controller
 
            $conversations = Message::with('sender','recipient')
            ->whereIn('id', $most_recent_messages)
+           ->orderBy('created_at', 'desc')
            ->get();
         }catch (Exception $e) {
             return response()->error($e->getMessage());
@@ -94,7 +96,8 @@ class ChatController extends Controller
 
     public function sendMessage(Request $request)
     {
-      $lastmessage;
+        $user = $request->user();
+
         try{
           $message = new Message;
           $message->sender_id = $request->user()->id;
@@ -103,13 +106,11 @@ class ChatController extends Controller
           $message->read = false;
 
           if($message->save()){
-            $lastmessage = Message::where('id', $message->id)->first();
-            LaravelPusher::trigger('chat_channel', 'chat_saved', ['message'=>$lastmessage]);
+            event(new MessageSent($message, $user));
           };
         }catch(Exception $e){
             return response()->error($e->getMessage());
         }
-
-        return response()->success($lastmessage);
+        return response()->success($message);
     }
 }

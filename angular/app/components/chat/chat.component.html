@@ -10,11 +10,12 @@
                 <input type="text" class="search_contacts" placeholder="Search">
               </md-toolbar>
               <md-divider></md-divider>
-              <md-list class="contacts-list">
-                <md-list-item ng-click="vm.setActiveConversation(convo)" ng-click-xs="vm.closeContacts()" class="md-2-line" ng-repeat="convo in vm.conversations">
-                    <img  class="list-user-avatar" ng-src={{vm.ChatService.getConvoAvatar(convo)}}  alt="avatar" />
-                    <div class="md-list-item-text" layout="column" layout-align="start start">
+              <md-list class="contacts-list md-dense">
+                <md-list-item ng-class="{convo_new:convo.new_message}" ng-click="vm.setActiveConversation(convo)" ng-click-xs="vm.closeContacts()" class="md-2-line" ng-repeat="convo in vm.conversations">
+                    <img  class="md-avatar list-user-avatar" ng-src={{vm.ChatService.getConvoAvatar(convo)}}  alt="avatar" />
+                    <div class="md-list-item-text" layout="column" layout-align="start start" >
                       <h3>{{convo | convoUsername}}</h3>
+                      <p> {{convo.message | limitTo: 15}}</p>
                     </div>
                     <md-divider></md-divider>
                 </md-list-item>

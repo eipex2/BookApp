@@ -1,4 +1,11 @@
 <?php
+# @Author: eipex
+# @Date:   2016-12-01T13:46:23-06:00
+# @Last modified by:   eipex
+# @Last modified time: 2017-05-05T18:30:02-05:00
+
+
+
 
 namespace App\Console;
 
@@ -13,7 +20,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\SendChatMessage::class
     ];
 
     /**
@@ -37,4 +44,6 @@ class Kernel extends ConsoleKernel
     {
         require base_path('routes/console.php');
     }
+
+
 }

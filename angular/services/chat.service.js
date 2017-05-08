@@ -2,7 +2,7 @@
  * @Author: eipex
  * @Date:   2017-04-25T10:36:02-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-04-26T01:51:23-05:00
+ * @Last modified time: 2017-05-06T22:02:54-05:00
  */
 
 
@@ -66,6 +66,33 @@ export class ChatService{
           avatar: convo.sender.avatar
         }
       }
+    }
+
+    /**
+     * get conversation between this user and other user
+     * @param  {object} otherUser     other user in convo
+     * @param  {object} conversations user conversations
+     * @return {object}               conversation between users
+     */
+    getConvo(otherUser, conversations){
+      for(var i in conversations){
+        var convo = conversations[i]
+        if(otherUser.id === convo.sender_id || otherUser.id === convo.recipient_id){
+          return convo;
+        }
+        return {};
+      }
+    }
+
+    /**
+     * sort array by key
+     */
+    sortConversations(array) {
+      var key = 'created_at'
+      return array.sort(function(a, b) {
+          var x = a[key]; var y = b[key];
+          return ((x > y) ? -1 : ((x < y) ? 1 : 0));
+      });
     }
 
     /**

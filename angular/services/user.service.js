@@ -2,7 +2,7 @@
  * @Author: eipex
  * @Date:   2017-04-25T11:26:14-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-04-26T01:37:27-05:00
+ * @Last modified time: 2017-04-27T16:32:41-05:00
  */
 
 
@@ -20,11 +20,11 @@ export class UserService{
           this.user = this.API.one('user').get().then((response)=>{
               this.user = response;
           });
-        }        
+        }
     }
 
     getUser(){
-      return this.API.one('user').get()
+      return this.$auth.isAuthenticated()? this.API.one('user').get() : {}
     }
 
     login(user){
