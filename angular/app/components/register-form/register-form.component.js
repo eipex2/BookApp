@@ -1,19 +1,29 @@
+/**
+ * @Author: eipex
+ * @Date:   2017-04-26T09:25:11-05:00
+ * @Last modified by:   eipex
+ * @Last modified time: 2017-05-08T17:00:29-05:00
+ */
+
+
+
 class RegisterFormController {
-	constructor($auth, ToastService, $location, $state) {
+	constructor($auth, ToastService, $location, $state, UserService) {
 		'ngInject';
 
 		this.$auth = $auth;
 		this.ToastService = ToastService;
 		this.$location = $location;
 		this.$state = $state;
+		this.UserService = UserService;
 	}
 
     $onInit(){
         this.firstname = '';
-		this.lastname = '';
+				this.lastname = '';
         this.email = '';
         this.password = '';
-		this.university = '';
+				this.school = '';
     }
 
 	register() {
@@ -22,14 +32,16 @@ class RegisterFormController {
 			lastname: this.lastname,
 			email: this.email,
 			password: this.password,
-			university: this.university
+			school: this.school
 		};
 
 		this.$auth.signup(user)
 			.then((response) => {
 				//remove this if you require email verification
 				this.$auth.setToken(response.data);
-
+				this.UserService.getUser().then((response)=>{
+					this.UserService.user = response
+				})
 				this.ToastService.show('Successfully registered.');
 				this.$location.path('/');
 			})

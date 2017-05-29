@@ -1,0 +1,48 @@
+// @Author: eipex
+// @Date:   2017-05-10T22:14:43-05:00
+// @Last modified by:   eipex
+// @Last modified time: 2017-05-22T20:17:58-05:00
+
+
+
+ng-quill-editor div:first-child{
+  height:100%;
+  background-color: white;
+}
+
+ng-quill-toolbar div:first-child{
+  height:50px;
+  background-color: white;
+}
+
+.ql-toolbar.ql-snow{
+  border:none;
+}
+
+.create_close{
+  cursor:pointer;
+}
+
+.course_dialog{
+  border-top:5px solid teal;
+}
+
+.new_course_btn{
+  border:1px solid teal;
+}
+
+md-select-value{
+  min-width:200px;
+}
+
+.icon{
+  cursor:pointer;
+}
+
+.icon:focus{
+  outline:none;
+}
+
+.error{
+  border-top:5px solid red;
+}

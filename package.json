@@ -15,7 +15,7 @@
     "gulp-cssnano": "^2.1.2",
     "gulp-filter": "^4.0.0",
     "jquery": "^3.1.0",
-    "laravel-elixir": "^6.0.0-9",
+    "laravel-elixir": "^6.0.0-15",
     "laravel-elixir-eslint": "^3.0.0",
     "laravel-elixir-webpack-official": "^1.0.2",
     "lodash": "^4.14.0",
@@ -25,6 +25,8 @@
   },
   "dependencies": {
     "moment": "^2.18.1",
-    "moment-timezone": "^0.5.12"
+    "moment-timezone": "^0.5.12",
+    "quill": "^1.2.4",
+    "ng-quill": "^3.1.1"
   }
 }

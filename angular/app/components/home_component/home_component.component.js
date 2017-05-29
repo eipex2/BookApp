@@ -2,13 +2,13 @@
  * @Author: eipex
  * @Date:   2017-04-26T09:25:11-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-05-08T01:50:11-05:00
+ * @Last modified time: 2017-05-23T04:43:21-05:00
  */
 
 
 
 class HomeComponentController{
-    constructor($location, $mdDialog, $state, API, ToastService,$scope){
+    constructor($location, $mdDialog, $mdSidenav, $state, API, ToastService,$scope, CourseService){
         'ngInject';
 
         this.$location = $location;
@@ -17,130 +17,32 @@ class HomeComponentController{
         this.API = API;
         this.ToastService = ToastService;
         this.$scope = $scope;
+        this.CourseService = CourseService;
+        this.$mdSidenav = $mdSidenav;
 
 
+
+        CourseService.getCourses().then((response)=>{
+          this.courses = response.data.courses;
+        })
     }
 
     $onInit(){
-        //this.listings = new Listings(this.API);
+          this.current_page = {content:'Please select a course :)'};
     }
 
-    imgPath(listing){
-      return "/uploads/avatars/"+listing.user.avatar;
+    showPage(course){
+      this.course = course;
+      this.CourseService.getPage(course).then((response)=>{
+        this.current_page = response.data.page[0]
+        this.$mdSidenav("main-sidenav")
+       .toggle()
+      });
     }
 
-    addBook(ev){
-        this.showingDialog = true;
-
-        var vm = this;
-
-        var dialog2 = {
-          controllerAs: 'vm',
-          //controller: RentDialogController,
-          templateUrl: './views/app/components/home_component/add_book.tmpl.html',
-          parent: angular.element(document.body),
-          onShowing: (scope)=>{
-            this.showingDialog = false;
-          },
-          autoWrap:false,
-          targetEvent: ev,
-          clickOutsideToClose:true,
-          fullscreen: true // Only for -xs, -sm breakpoints.
-        };
-
-        this.$mdDialog.show(dialog2)
-        .then((range) => {
-            var data = {
-              start_date: range.start_date,
-              end_date: range.end_date,
-              user_id: vm.currentUser.id,
-              listing_id:listing.id
-            }
-
-
-            this.API.all('rent').post(data).then(() => {
-                this.$state.go('app.landing', {}, {reload:true, inherit:false, notify:true});
-                this.ToastService.show('Owner contacted');
-            });
-        }, function() {
-
-        });
+    createPage(ev){
+        this.$state.go('app.create_page', {}, {reload:true, inherit:false, notify:true});
     }
-
-    goCreateBook(){
-        //this.$location.path('/add-book');
-        this.$state.go('app.add_book', {}, {reload:true, inherit:false, notify:true});
-    }
-
-    detail(id){
-        this.$location.path('/posts/'+ id);
-    }
-
-    showProfile(id){
-        this.$location.path('/profile/' + id);
-    }
-
-
-    /**
-    shows rent dialog
-    **/
-    showAdvanced(ev,listing) {
-        this.showingDialog = true;
-        // var data = {
-        //   list_id: listing.id
-        // }
-
-        //this.API.all('rents').post(data).then((response)=>{
-           var vm = this;
-        //   var rents = response.data.rents;
-        //
-        //   var scope = angular.extend(this.$scope.$new(true), {
-        //     rents: rents
-        //   });
-
-          var dialog = {
-            controllerAs: 'vm',
-            controller: RentDialogController,
-            templateUrl: './views/app/components/home_component/rent.tmpl.html',
-            //template:'<md-dialog flex="50"><rent-component listing="currentListing"></rent-component><md-dialog>',
-            parent: angular.element(document.body),
-            onShowing: (scope)=>{
-              this.showingDialog = false;
-              scope.listing = listing;
-            },
-            autoWrap:false,
-            targetEvent: ev,
-            clickOutsideToClose:true,
-            fullscreen: true // Only for -xs, -sm breakpoints.
-          };
-
-          this.$mdDialog.show(dialog)
-          .then((range) => {
-              var data = {
-                start_date: range.start_date,
-                end_date: range.end_date,
-                user_id: vm.currentUser.id,
-                listing_id:listing.id
-              }
-
-
-              this.API.all('rent').post(data).then(() => {
-                  this.$state.go('app.landing', {}, {reload:true, inherit:false, notify:true});
-                  this.ToastService.show('Owner contacted');
-              });
-          }, function() {
-
-          });
-
-        //});
-
-
-
-
-
-    }
-
-
 }
 
 // class Listings {
@@ -204,7 +106,7 @@ class HomeComponentController{
 //
 // }
 
-class RentDialogController{
+class CreatePageDialogController{
     constructor($scope,$mdDialog, $filter){
         'ngInject';
         $scope.selectedDate = [];
@@ -281,8 +183,6 @@ export const HomeComponentComponent = {
     controller: HomeComponentController,
     controllerAs: 'vm',
     bindings: {
-        rents:'<rents',
-        listings:'<listings',
-        currentUser: '<currentUser'
+        user: '<user'
     }
 }

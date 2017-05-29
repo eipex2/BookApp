@@ -2,7 +2,7 @@
  * @Author: eipex
  * @Date:   2017-04-25T11:26:14-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-04-27T16:32:41-05:00
+ * @Last modified time: 2017-05-08T17:04:53-05:00
  */
 
 
@@ -15,12 +15,6 @@ export class UserService{
         this.API = API;
         this.$state = $state;
         this.ToastService = ToastService
-
-        if(this.$auth.isAuthenticated()){
-          this.user = this.API.one('user').get().then((response)=>{
-              this.user = response;
-          });
-        }
     }
 
     getUser(){

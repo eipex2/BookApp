@@ -1,6 +1,68 @@
-
-<md-content class="grey-background" layout-fill style="padding:10px;">
-  <div masonry load-images="true" >
+<md-sidenav
+    class="md-sidenav-left"
+    md-component-id="main-sidenav"
+    >
+        <md-content layout="column">
+          <!-- you have a 50px margin on user-div for when u deside to add the search bar -->
+          <div class="user_div" layout="column" layout-align="center center" layout-padding>
+            <div ng-mouseenter="vm.changeAvatar=true" ng-mouseleave="vm.changeAvatar=false">
+                <!-- <img class="profile-user-avatar" src={{"img/assets/images/avatars/avatar-5.png"}} alt="girl-avatar"/> -->
+                <img ng-hide="vm.changeAvatar" class="main_sidenav_user_avatar"
+                     src={{"/uploads/avatars/"+vm.user.avatar}}
+                     alt="avatar"
+                     />
+                  <form ng-show="vm.changeAvatar" name="vm.form" layout="row" layout-align="start center">
+                    <div class="main_change_avatar_overlay" ng-show="vm.changeAvatar" layout="column" layout-align="center center"
+                         ngf-select ng-model="vm.file" name="file" ngf-pattern="'image/*'"
+                         ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
+                         ngf-resize="{width: 150, height: 150}" style="cursor:pointer" ng-change="vm.selectImage(ev)">Change avatar</div>
+                    <span flex></span>
+                  </form>
+            </div>
+            <div class="text-light" style="color:#444">
+                <h3 class="font-weight-600 margin-bottom-0 text-light">{{vm.user | username}}</h3>
+             </div>
+             <div>
+                <md-button class="md-primary" ng-click="vm.createPage(ev)">Create Page</md-button>
+              </div>
+          </div>
+          <div>
+          <md-divider></md-divider>
+            <md-subheader class="md-no-sticky">Courses</md-subheader>
+            <md-list-item ng-click="vm.showPage(course)" ng-repeat="course in vm.courses">
+              <p>{{course.title}}</p>
+              <md-icon md-font-icon="zmdi zmdi-chevron-right zmdi-hc-lg"></md-icon>
+            </md-list-item>
+          <md-divider></md-divider>
+        </div>
+          <!-- <md-toolbar class="chat_toolbar" style="background-color:white">
+            <input type="text" class="search_contacts" placeholder="Search">
+          </md-toolbar>
+          <md-divider></md-divider>
+          <md-list class="contacts-list md-dense">
+            <md-list-item ng-class="{convo_new:convo.new_message}" ng-click="vm.setActiveConversation(convo)" ng-click-xs="vm.closeContacts()" class="md-2-line" ng-repeat="convo in vm.conversations">
+                <img  class="md-avatar list-user-avatar" ng-src={{vm.ChatService.getConvoAvatar(convo)}}  alt="avatar" />
+                <div class="md-list-item-text" layout="column" layout-align="start start" >
+                  <h3>{{convo | convoUsername}}</h3>
+                  <p> {{convo.message | limitTo: 15}}</p>
+                </div>
+                <md-divider></md-divider>
+            </md-list-item>
+          </md-list> -->
+        </md-content>
+</md-sidenav>
+<app-header user="vm.user" title="vm.course.title"></app-header>
+<md-content class="grey-background" layout="row" layout-align="center start" layout-fill style="padding:10px;">
+  <div flex="80" style="height:90%" layout-padding>
+    <ng-quill-editor
+               ng-model="vm.current_page.content"
+               read-only="true"
+               modules="{toolbar:false}"
+               placeholder="Please select a course :)"
+           >
+    </ng-quill-editor>
+  </div>
+  <!-- <div masonry load-images="true" >
     <div class="masonry-brick" ng-repeat="listing in vm.listings track by listing.id">
           <div style="color:grey" class="front book_header slide-down md-whiteframe-1dp" ng-show="options || checkbox" layout="row" layout-align:"start center">
             <img class="toolbar-user-avatar"  ng-src={{"/uploads/avatars/"+listing.user.avatar}} alt="avatar">
@@ -12,9 +74,9 @@
             {{listing.rent_price|currency}}
           <div>
       </div>
-    </div>
+    </div> -->
 </md-content>
-<md-button ng-click="vm.addBook(ev)" class="md-fab md-primary md-fab-bottom-right" style="position: fixed !important;" aria-label="Use Android">
+<!-- <md-button ng-click="vm.addBook(ev)" class="md-fab md-primary md-fab-bottom-right" style="position: fixed !important;" aria-label="Use Android">
 <md-icon md-font-icon="zmdi zmdi-plus zmdi-hc-1x"></md-icon>
-</md-button>
+</md-button> -->
 <!-- TODO:add listing title in rent pop up so user knows where they are.  -->

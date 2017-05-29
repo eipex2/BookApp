@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-03-29T07:32:32-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-04-25T21:57:27-05:00
+# @Last modified time: 2017-05-23T04:34:26-05:00
 
 
 
@@ -51,35 +51,39 @@ Route::get('/user', function (Request $request) {
 
 
 Route::group(['middleware' => ['auth:api']], function () {
-  //listings routes
-  Route::post('listings', 'ListingController@store');
+//listings routes
+Route::post('listings', 'ListingController@store');
 
 
-  //rent routes
-  Route::post('rent', 'RentController@store');
-  Route::post('rents', 'RentController@getApprovedRentals');
-  Route::post('rents/update', 'RentController@update');
+//rent routes
+Route::post('rent', 'RentController@store');
+Route::post('rents', 'RentController@getApprovedRentals');
+Route::post('rents/update', 'RentController@update');
 
 
-  /**
-   *get conversations involving this user and other users
-   */
-  Route::get('chat/get_conversations', 'ChatController@getConversations');
+/**
+ *get conversations involving this user and other users
+ */
+Route::get('chat/get_conversations', 'ChatController@getConversations');
 
-  /**
-   * get conversation involving this user and other user
-   */
-  Route::post('chat/get_conversation', 'ChatController@getConversation');
-  Route::get('chat/getuserconversation/count/{recipient}', 'ChatController@getUserConversationCount');
-  Route::post('chat/sendmessage', 'ChatController@sendMessage');
+/**
+ * get conversation involving this user and other user
+ */
+Route::post('chat/get_conversation', 'ChatController@getConversation');
+Route::get('chat/getuserconversation/count/{recipient}', 'ChatController@getUserConversationCount');
+Route::post('chat/sendmessage', 'ChatController@sendMessage');
 
+/**
+ * course routes
+ */
+Route::post('course/store_course', 'CourseController@store');
+Route::get('courses', 'CourseController@courses');
 
-
-
-
-
-
-
+/**
+* page routes
+* */
+Route::post('page/store_page', 'PageController@store');
+Route::post('page/get_page', 'PageController@getPage');
 
 
 
