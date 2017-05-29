@@ -1,0 +1,73 @@
+<md-content layout="column" layout-fill>
+  <md-toolbar class="chat_toolbar" layout="row" layout-align="start center" layout-padding style="color:#444; background-color:white">
+    <div>Create a page{{" - " + vm.course.title}}</div>
+    <span flex></span>
+    <div>
+    <md-icon ng-click="vm.exit()" class="create_close" md-font-icon="zmdi zmdi-close zmdi-hc-lg"></md-icon>
+    </div>
+  </md-toolbar>
+  <ng-quill-editor
+             ng-model="vm.page_content"
+         flex>
+             <ng-quill-toolbar>
+                 <div id="ng-quill-toolbar"  layout="row" layout-align="start center">
+                     <span class="ql-formats">
+                         <button class="ql-bold" ng-attr-title="{{'Bold'}}"></button>
+                         <button class="ql-italic" ng-attr-title="{{'Italic'}}"></button>
+                         <button class="ql-underline" ng-attr-title="{{'Underline'}}"></button>
+                     </span>
+                     <span class="ql-formats">
+                       <button class="ql-blockquote" ng-attr-title="{{'blockquote'}}"></button>
+                       <button class="ql-code-block" ng-attr-title="{{'code-block'}}"></button>
+                     </span>
+                     <span class="ql-formats">
+                       <button class="ql-list" ng-attr-title="{{'ordered'}}" value="ordered"></button>
+                       <button class="ql-list" ng-attr-title="{{'bullet'}}" value="bullet"></button>
+                     </span>
+                     <span class="ql-formats">
+                         <select class="ql-align" ng-attr-title="{{'Aligment'}}">
+                             <option selected></option>
+                             <option value="center"></option>
+                             <option value="right"></option>
+                             <option value="justify"></option>
+                         </select>
+                     </span>
+                     <span class="ql-formats">
+                         <select class="ql-header">
+                             <option selected></option>
+                             <option value="1"></option>
+                             <option value="2"></option>
+                             <option value="3"></option>
+                             <option value="4"></option>
+                             <option value="5"></option>
+                             <option value="6"></option>
+                         </select>
+                     </span>
+                     <span class="ql-formats">
+                       <select class="ql-color">
+                        <option selected></option>
+                        <option value="red"></option>
+                        <option value="orange"></option>
+                        <option value="yellow"></option>
+                        <option value="green"></option>
+                        <option value="blue"></option>
+                        <option value="purple"></option>
+                      </select>
+                      <select class="ql-background">
+                        <option selected></option>
+                        <option value="red"></option>
+                        <option value="orange"></option>
+                        <option value="yellow"></option>
+                        <option value="green"></option>
+                        <option value="blue"></option>
+                        <option value="purple"></option>
+                      </select>
+                     </span>
+                 </div>
+             </ng-quill-toolbar>
+         </ng-quill-editor>
+         <div layout="row">
+           <span flex></span>
+           <md-button class="md-primary" ng-click="vm.save()">Save</md-button>
+         </div>
+</md-content>

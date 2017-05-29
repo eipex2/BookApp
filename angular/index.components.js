@@ -1,3 +1,5 @@
+import {RegisterFormTwoComponent} from './app/components/register-form-two/register-form-two.component';
+import {CreatePageComponent} from './app/components/create_page/create_page.component';
 import {BookComponent} from './app/components/book/book.component';
 import {RentComponentComponent} from './app/components/rent_component/rent_component.component';
 import {MessageBoxComponent} from './app/components/message-box/message-box.component';
@@ -16,6 +18,8 @@ import {LoginFormComponent} from './app/components/login-form/login-form.compone
 import {RegisterFormComponent} from './app/components/register-form/register-form.component';
 
 angular.module('app.components')
+	.component('registerFormTwo', RegisterFormTwoComponent)
+	.component('createPage', CreatePageComponent)
 	.component('book', BookComponent)
 	.component('rentComponent', RentComponentComponent)
 	.component('messageBox', MessageBoxComponent)

@@ -1,3 +1,12 @@
+/**
+ * @Author: eipex
+ * @Date:   2017-04-26T09:25:11-05:00
+ * @Last modified by:   eipex
+ * @Last modified time: 2017-05-11T11:42:43-05:00
+ */
+
+
+
 'use strict';
 
 const elixir = require('laravel-elixir');
@@ -41,6 +50,8 @@ elixir.config.js.folder = 'angular';
          'public/js/vendor.js',
          'node_modules/angular-mocks/angular-mocks.js',
          'node_modules/ng-describe/dist/ng-describe.js',
+         'node_modules/ng-quill/dist/quil.js',
+         'node_modules/ng-quill/dist/ng-quil.js',
          'public/js/app.js',
          'tests/angular/**/*.spec.js'
      ];

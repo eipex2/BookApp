@@ -1,47 +1,54 @@
-<div layout="row" layout-align="center center">
-		<form ng-submit="vm.register()">
-		<md-card layout-padding>
-				<div>
-					<md-input-container class="RegisterForm-inputContainer">
-						<label>Firstname</label>
-						<input type="text" ng-model="vm.firstname">
-					</md-input-container>
-				</div>
+<div layout="column" layout-align="center center" style="min-height:480px">
+	<div flex="30">
+		<md-card class="grey_text" layout="column" layout-align="center center">
+			<h1 class="md-headline">Join Us!</h1>
+				<div layout="row" layout-align="center center">
+						<form ng-submit="vm.register()">
+						<div layout-padding layout="column" layout-align="center center">
+								<div class="input_container">
+									<md-input-container class="RegisterForm-inputContainer">
+										<label>Firstname</label>
+										<input type="text" ng-model="vm.firstname">
+									</md-input-container>
+								</div>
 
-				<div>
-					<md-input-container class="RegisterForm-inputContainer">
-						<label>Lastname</label>
-						<input type="text" ng-model="vm.lastname">
-					</md-input-container>
-				</div>
+								<div class="input_container">
+									<md-input-container class="RegisterForm-inputContainer">
+										<label>Lastname</label>
+										<input type="text" ng-model="vm.lastname">
+									</md-input-container>
+								</div>
 
-				<div>
-					<md-input-container class="RegisterForm-inputContainer">
-						<label>Email</label>
-						<input type="email" ng-model="vm.email">
-					</md-input-container>
-				</div>
+								<div class="input_container">
+									<md-input-container class="RegisterForm-inputContainer">
+										<label>Email</label>
+										<input type="email" ng-model="vm.email">
+									</md-input-container>
+								</div>
 
-				<div>
-					<md-input-container class="RegisterForm-inputContainer">
-						<label>Password</label>
-						<input type="password" ng-model="vm.password">
-					</md-input-container>
-				</div>
+								<div class="input_container">
+									<md-input-container class="RegisterForm-inputContainer">
+										<label>Password</label>
+										<input type="password" ng-model="vm.password">
+									</md-input-container>
+								</div>
 
-				<div>
-					<md-input-container class="RegisterForm-inputContainer">
-						<label>University</label>
-						<md-select name="type" ng-model="vm.university" required>
-							<md-option value="University of Oklahoma">University of Oklahoma</md-option>
-						</md-select>
-					</md-input-container>
-				</div>
+								<!-- <div class="input_container">
+									<md-input-container class="RegisterForm-inputContainer">
+										<label>School</label>
+										<md-select name="type" ng-model="vm.school" required>
+											<md-option value="Norman High School">Norman High School</md-option>
+										</md-select>
+									</md-input-container>
+								</div> -->
 
-			<md-card-actions layout="column" layout-align="center center">
-					<md-button type="submit" class="RegisterForm-submit md-primary md-raised">Register</md-button>
-				<a ng-click="vm.login()" layout-padding class="link">Already have account?</a>
-			</md-card-actions>
-		</md-card>
-		</form>
-</div>
+							<md-card-actions layout="column" layout-align="center center">
+									<md-button type="submit" class="RegisterForm-submit md-primary">Enter</md-button>
+								<a ng-click="vm.login()" layout-padding class="link">Already a member?</a>
+							</md-card-actions>
+						</div>
+						</form>
+				</div>
+			</md-card>
+		</div>
+	<div>

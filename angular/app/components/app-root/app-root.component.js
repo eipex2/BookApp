@@ -1,10 +1,19 @@
-class AppRootController {
-    constructor($mdToast, ToastService, $window) {
-        'ngInject';
+/**
+ * @Author: eipex
+ * @Date:   2016-12-01T13:46:23-06:00
+ * @Last modified by:   eipex
+ * @Last modified time: 2017-05-10T21:40:10-05:00
+ */
 
+
+
+class AppRootController {
+    constructor($mdToast, ToastService, $window, UserService) {
+        'ngInject';
         this.$window = $window;
         this.$mdToast = $mdToast;
         this.ToastService = ToastService;
+        this.UserService = UserService
     }
 
     $onInit() {
@@ -57,5 +66,7 @@ export const AppRootComponent = {
     templateUrl: './views/app/components/app-root/app-root.component.html',
     controller: AppRootController,
     controllerAs: 'vm',
-    bindings: {}
+    bindings: {
+      user: '<user'
+    }
 }

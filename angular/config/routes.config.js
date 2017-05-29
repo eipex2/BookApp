@@ -2,7 +2,7 @@
  * @Author: eipex
  * @Date:   2017-03-29T07:32:32-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-04-26T01:38:46-05:00
+ * @Last modified time: 2017-05-27T21:51:27-05:00
  */
 
 
@@ -21,37 +21,24 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 			abstract: true,
             data: {auth:true},
 			views: {
-				'toolbar@' :{
-					component: "appHeader",
-					bindings:{user: 'user'}
-				}
 			},
 			resolve:{
-				user: function(UserService){
-					return UserService.getUser();
-				}
 			}
 		})
 		.state('app.landing', {
 		url: '/',
-		data: {auth:false},
+		data: {auth:true},
 		views: {
 			'main@' : {
 				component: "homeComponent",
 				bindings: {
-						listings: 'listings',
-						currentUser: 'user'
+						user: 'user'
 					}
 			}
 		},
 		resolve: {
-				listings: function (API){
-					return  API.one('listings/items').get().then((response)=>{
-						return response.data;
-					});
-				},
-				currentUser: function(user){
-					return user;
+				user: function(UserService){
+					return UserService.getUser();
 				}
 			}
 		})
@@ -75,6 +62,16 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 				}
 			}
 		})
+		.state('app.register-profile', {
+			url: '/register-profile',
+			data: {auth:true},
+			views: {
+				'toolbar@':{},
+				'main@': {
+					component: "registerFormTwo"
+				}
+			}
+		})
 		.state('app.forgot_password', {
 			url: '/forgot-password',
 			data: {auth:false},
@@ -94,30 +91,30 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 				}
 			}
 		})
-		.state('app.listings',{
-			url:'/listings/{id}',
-			data: {auth:false},
-			views:{
-				'main@' : {
-					component: "listingView",
-					bindings: {
-						listing:'listing',
-						user: 'user'
-					}
-				}
-			},
-			resolve: {
-				listing: function (API, $stateParams) {
-						return API.one('listings',$stateParams.id).get();
-				},
-				currentUser :function(user){
-					return user;
-				}
-			}
-		})
+		// .state('app.listings',{
+		// 	url:'/listings/{id}',
+		// 	data: {auth:false},
+		// 	views:{
+		// 		'main@' : {
+		// 			component: "listingView",
+		// 			bindings: {
+		// 				listing:'listing',
+		// 				user: 'user'
+		// 			}
+		// 		}
+		// 	},
+		// 	resolve: {
+		// 		listing: function (API, $stateParams) {
+		// 				return API.one('listings',$stateParams.id).get();
+		// 		},
+		// 		currentUser :function(user){
+		// 			return user;
+		// 		}
+		// 	}
+		//})
 		.state('app.profile', {
 			url:'/profile/{id}',
-			data:{auth:false},
+			data:{auth:true},
 			views:{
 				'main@' : {
 					component: "profileView",
@@ -136,18 +133,18 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 				}
 			}
 		})
-		.state('app.add_book', {
-			url:'/add-book',
-			data:{auth:true},
-			views:{
-				'main@' : {
-					component: "addBookWizard",
-					bindings:{
-
-					}
-				}
-			}
-		})
+		// .state('app.add_book', {
+		// 	url:'/add-book',
+		// 	data:{auth:true},
+		// 	views:{
+		// 		'main@' : {
+		// 			component: "addBookWizard",
+		// 			bindings:{
+		//
+		// 			}
+		// 		}
+		// 	}
+		// })
 		.state('app.chat', {
 			url:'/chat',
 			data:{auth:true},
@@ -173,6 +170,26 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 				},
 				currentUser :function(user){
 					return user;
+				}
+			}
+		})
+		.state('app.create_page', {
+			url:'/create',
+			data:{auth:true},
+			params:{
+				id:null
+			},
+			views:{
+				'main@' : {
+					component: "createPage",
+					bindings:{
+							user:'user'
+					}
+				}
+			},
+			resolve:{
+				user :function(UserService){
+					return UserService.user;
 				}
 			}
 		});

@@ -17,9 +17,30 @@
 
     <style><?php require(public_path("css/critical.css")) ?></style>
 
+    <!-- Main Quill library -->
+    <!-- <script src="//cdn.quilljs.com/1.2.4/quill.js"></script> -->
+    <script src="//cdn.quilljs.com/1.2.4/quill.min.js"></script>
+
+    <!-- Theme included stylesheets -->
+    <link href="//cdn.quilljs.com/1.2.4/quill.snow.css" rel="stylesheet">
+    <!-- <link href="//cdn.quilljs.com/1.2.4/quill.bubble.css" rel="stylesheet"> -->
+
+    <!-- Core build with no theme, formatting, non-essential modules -->
+    <link href="//cdn.quilljs.com/1.2.4/quill.core.css" rel="stylesheet">
+    <script src="//cdn.quilljs.com/1.2.4/quill.core.js"></script>
+
+
+
 </head>
 <body>
 <?php
+# @Author: eipex
+# @Date:   2017-04-26T09:25:11-05:00
+# @Last modified by:   eipex
+# @Last modified time: 2017-05-10T22:46:55-05:00
+
+
+
 // use Illuminate\Support\Facades\Auth;
 // echo "MAD JAM";
 // var_dump(Auth::id());?>

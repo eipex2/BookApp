@@ -1,0 +1,53 @@
+<div layout="row" layout-align="center center" layout-fill>
+	<div flex="50" flex-xs="100" layout-padding>
+		<md-card class="grey_text" layout="column" layout-padding>
+						<form layout="column" ng-submit="vm.register()">
+  						<div layout="column" layout-align="center center">
+                <div layout="column" layout-align="center center">
+                  <div ng-mouseenter="vm.changeAvatar=true" ng-mouseleave="vm.changeAvatar=false">
+                        <form ng-show="vm.changeAvatar" name="vm.form" layout="row" layout-align="start center">
+                          <div class="main_change_avatar_overlay" layout="column" layout-align="center center"
+                               ngf-select ng-model="vm.file" name="file" ngf-pattern="'image/*'"
+                               ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
+                               ngf-resize="{width: 150, height: 150}" style="cursor:pointer" ng-change="vm.selectImage(ev)">Change avatar</div>
+                          <span flex></span>
+                        </form>
+                  </div>
+                  <div class="text-light" style="color:#444">
+                      <h3 class="font-weight-500 margin-bottom-0 text-light">Samuel Setsoafia{{vm.user | username}}</h3>
+                   </div>
+                </div>
+                <span>{{vm.user_type}}</span>
+  						</div>
+              <div layout="column">
+                <div layout="row" layout-align="center center">
+                  <md-radio-group ng-show="vm.step_one" ng-click="vm.show_step_two()" layout="row" ng-model="vm.user_type">
+                    <md-radio-button value="Student" class="md-primary">A student</md-radio-button>
+                    <md-radio-button value="Instructor" class="md-primary">An instructor</md-radio-button>
+                  </md-radio-group>
+
+                  <md-radio-group ng-show="vm.step_two" ng-click="vm.show_step_three()" layout="row" ng-model="vm.user_sex">
+                    <md-radio-button value="Boy" class="md-primary">Boy</md-radio-button>
+                    <md-radio-button value="Girl" class="md-primary">Girl</md-radio-button>
+                  </md-radio-group>
+
+                  <md-input-container ng-show="vm.step_three">
+                     <label>Enter date</label>
+                     <md-datepicker  ng-change="vm.show_step_four()" ng-model="vm.user_dob"></md-datepicker>
+                   </md-input-container>
+
+                   <md-input-container ng-show="vm.step_four" class="RegisterForm-inputContainer">
+                     <label>School</label>
+                     <md-select name="type" ng-model="vm.school" ng-change="vm.show_last_step()" required>
+                       <md-option value="Norman High School">Norman High School</md-option>
+                     </md-select>
+                   </md-input-container>
+                </div>
+              </div>
+						</form>
+            <md-card-actions layout="column" layout-align="center center">
+              <md-button ng-show="vm.show_undo" class="small-btn" ng-click="vm.undo()">UNDO</md-button>
+            </md-card-actions>
+			</md-card>
+		</div>
+	<div>

@@ -2,13 +2,13 @@
  * @Author: eipex
  * @Date:   2017-03-11T14:56:01-06:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-04-26T00:08:34-05:00
+ * @Last modified time: 2017-05-23T04:28:26-05:00
  */
 
 
 
 class AppHeaderController{
-    constructor($sce, $auth, ToastService, $location, API, UserService){
+    constructor($sce, $auth, ToastService, $location, API, UserService, $mdSidenav){
         'ngInject';
 
         this.$sce = $sce;
@@ -17,6 +17,7 @@ class AppHeaderController{
         this.$location = $location;
         this.API = API;
         this.UserService = UserService;
+        this.$mdSidenav = $mdSidenav;
     }
 
     $onInit(){
@@ -26,6 +27,11 @@ class AppHeaderController{
             //     console.log(this.user);
             // });
         }
+    }
+
+    toggleMainSideNav(){
+        this.$mdSidenav("main-sidenav")
+       .toggle()
     }
 
     profile(id){
@@ -49,6 +55,7 @@ export const AppHeaderComponent = {
     controller: AppHeaderController,
     controllerAs: 'vm',
     bindings: {
-        user: '<user'
+        user: '<user',
+        title:'<title'
     }
 };
