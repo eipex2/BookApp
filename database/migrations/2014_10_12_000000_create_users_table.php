@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-04-26T09:25:11-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-05-08T16:30:04-05:00
+# @Last modified time: 2017-05-30T15:52:18-05:00
 
 
 
@@ -26,8 +26,11 @@ class CreateUsersTable extends Migration
             $table->string('lastname');
             $table->string('email')->unique();
             $table->string('password', 60);
-            $table->string('school');
             $table->string('avatar')->default('avatar-5.png');
+            $table->string('type')->nullable();
+            $table->date('dob')->nullable();
+            $table->string('school')->nullable();
+            $table->string('sex')->nullable();
             $table->timestamps();
         });
     }

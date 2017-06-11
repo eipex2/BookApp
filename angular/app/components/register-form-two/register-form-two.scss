@@ -1,7 +1,16 @@
 // @Author: eipex
 // @Date:   2017-05-27T21:46:13-05:00
 // @Last modified by:   eipex
-// @Last modified time: 2017-05-28T16:13:19-05:00
+// @Last modified time: 2017-05-29T13:33:36-05:00
 
+.cursor{
+  cursor: pointer;
+}
 
+.cursor:hover{
+  color:teal;
+}
 
+.md-subheader .md-subheader-inner{
+  padding:0px;
+}

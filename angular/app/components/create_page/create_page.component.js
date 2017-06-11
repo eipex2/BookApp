@@ -1,8 +1,12 @@
-/**
+ /**
  * @Author: eipex
  * @Date:   2017-05-10T22:14:43-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-05-23T10:02:09-05:00
+ * @Last modified time: 2017-06-09T10:57:34-05:00
+ */
+
+/**
+ * contains CreatePageController, CreatePageDialogController and PageConfirmationController
  */
 class CreatePageController{
     constructor($state, $mdDialog, API, ToastService, CourseService){
@@ -55,14 +59,50 @@ class CreatePageController{
     }
 
     save(){
-     var data = {
-       course_id:this.course.id,
-       page_no: parseInt(this.course.last_page_no) + 1,
-       content: this.page_content
-     }
-     console.log(this.course);
-     this.CourseService.savePage(data).then(()=>{
+      //create new page if it doesnt exist else update existing page
+      if(this.page){
+        var page_no = parseInt(this.page.page_no)
+        var update = true;
+      }else{
+        var page_no = parseInt(this.course.last_page_no) + 1;
+        var update = false;
+      }
+
+      var data = {
+        course_id:this.course.id,
+        page_no,
+        content: this.page_content,
+        update
+      }
+
+      return this.CourseService.savePage(data);
+    };
+
+    auto_save(){
+      this.save().then((response)=>{
+        this.ToastService.show("Page Saved");
+        this.page = response.data.page;
+      });
+    }
+
+    done(){
+     this.save().then(()=>{
        this.ToastService.show("Page Saved");
+       var dialog = {
+         controllerAs: 'vm',
+         controller: PageConfirmationController,
+         templateUrl: './views/app/components/create_page/page_confirmation_dialog.tmpl.html',
+         parent: angular.element(document.body),
+         autoWrap:false,
+         fullscreen: false// Only for -xs, -sm breakpoints.
+       };
+
+       this.$mdDialog.show(dialog)
+       .then((data) => {
+
+       }, function() {
+
+       });
      })
     }
 
@@ -141,6 +181,23 @@ class CreatePageDialogController{
   dialog_validate(){
     return this.course || (this.course_title && this.course_subject)? true : false;
   }
+}
+
+class PageConfirmationController{
+  constructor($state, $mdDialog, API, CourseService){
+      'ngInject';
+      this.$mdDialog = $mdDialog;
+  }
+
+  create_page(){
+    this.$mdDialog.hide();
+  }
+
+  view_page(){
+    this.$mdDialog.hide();
+    this.$state.go('app.landing')
+  }
+
 }
 
 export const CreatePageComponent = {

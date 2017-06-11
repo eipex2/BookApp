@@ -2,7 +2,7 @@
  * @Author: eipex
  * @Date:   2017-03-29T07:32:32-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-05-27T21:51:27-05:00
+ * @Last modified time: 2017-06-11T09:31:51-05:00
  */
 
 
@@ -30,10 +30,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 		data: {auth:true},
 		views: {
 			'main@' : {
-				component: "homeComponent",
-				bindings: {
-						user: 'user'
-					}
+				component: "homeComponent"
 			}
 		},
 		resolve: {
@@ -62,8 +59,8 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 				}
 			}
 		})
-		.state('app.register-profile', {
-			url: '/register-profile',
+		.state('app.edit-profile', {
+			url: '/edit-profile',
 			data: {auth:true},
 			views: {
 				'toolbar@':{},
@@ -91,6 +88,35 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 				}
 			}
 		})
+		.state('app.welcome',{
+			url:'/welcome',
+			data:{auth:true},
+			views:{
+				'main@':{
+					component:"welcome"
+				}
+			},
+			resolve:{
+				user: function(UserService){
+					return UserService.getUser();
+				}
+			}
+		})
+		.state('app.filter',{
+			url:'/filter',
+			data:{auth:true},
+			views:{
+				'main@':{
+					component:"filter"
+				}
+			},
+			resolve:{
+				user:function(UserService){
+					return UserService.getUser();
+				}
+			}
+		})
+
 		// .state('app.listings',{
 		// 	url:'/listings/{id}',
 		// 	data: {auth:false},
@@ -117,11 +143,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 			data:{auth:true},
 			views:{
 				'main@' : {
-					component: "profileView",
-					bindings:{
-						userp: 'userp',
-						currentUser: 'user'
-					}
+					component: "profileView"
 				}
 			},
 			resolve: {
@@ -153,12 +175,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 			},
 			views:{
 				'main@' : {
-					component: "chat",
-					bindings:{
-						activeConvo: 'activeConvo',
-						convo:'messages',
-						currentUser:'currentUser'
-					}
+					component: "chat"
 				}
 			},
 			resolve:{
@@ -181,10 +198,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 			},
 			views:{
 				'main@' : {
-					component: "createPage",
-					bindings:{
-							user:'user'
-					}
+					component: "createPage"
 				}
 			},
 			resolve:{

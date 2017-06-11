@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-05-23T03:26:51-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-05-23T04:37:16-05:00
+# @Last modified time: 2017-06-05T15:55:46-05:00
 
 
 
@@ -31,21 +31,26 @@ class PageController extends Controller
               'content' => 'required'
           ]);
 
-          $page = new Page;
-          $page->course_id = $request->input('course_id');
-          $page->page_no = $request->input('page_no');
-          $page->content = $request->input('content');
+          $course_id = $request->input('course_id');
+          $page_no = $request->input('page_no');
+          $content = $request->input('content');
+          $update = $request->input('update');
 
-          if($page->save()){
+          $page = Page::updateOrCreate(
+            ['course_id' => $course_id, 'page_no' => $page_no],
+            ['content' => $content]);
+
+          //if its a new page increment the course last page
+          if(!$update){
             $course = Course::find($request->input('course_id'));
             $course->last_page_no += 1;
             $course->save();
           }
 
+          return response()->success(compact('page',$page));
       }catch(Exception $e){
           return response()->error($e->getMessage());
       }
-      return response()->success(compact('course'));
   }
 
   public function getPage(Request $request)

@@ -1,4 +1,11 @@
 <?php
+# @Author: eipex
+# @Date:   2017-02-19T10:36:03-06:00
+# @Last modified by:   eipex
+# @Last modified time: 2017-06-10T22:27:07-05:00
+
+
+
 
 namespace App;
 
@@ -16,7 +23,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'firstname', 'lastname', 'email', 'password',
     ];
 
     /**
@@ -48,8 +55,8 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public function listings(){
-        return $this->hasMany('App\Listing');
+    public function courses(){
+        return $this->hasMany('App\Course');
     }
 
     public function posts(){

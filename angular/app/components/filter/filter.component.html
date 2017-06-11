@@ -1,0 +1,21 @@
+<md-content layout-fill layout="column" layout-align="center center">
+  <h4>Hello <strong>{{vm.user.firstname}}</strong>,</h4>
+  <md-input-container style="min-width:235px" md-no-float class="md-block">
+      <input
+      ng-model="user.address2"
+      placeholder="What is your main focus today?"
+      style="text-align:center"
+      autofocus>
+  </md-input-container>
+  <div style="min-width:235px;">
+    <div>
+      <div class="md-button md-primary" layout="row" ng-repeat="c in vm.courses">
+        <p>{{c}}</p>
+        <span flex></span>
+        <md-icon md-font-icon="zmdi zmdi-chevron-right"></md-icon>
+      </div>
+    </div>
+  </div>
+  <div >
+  </div>
+</md-content>

@@ -2,7 +2,7 @@
  * @Author: eipex
  * @Date:   2017-04-25T11:26:14-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-05-08T17:04:53-05:00
+ * @Last modified time: 2017-06-11T09:55:08-05:00
  */
 
 
@@ -18,7 +18,12 @@ export class UserService{
     }
 
     getUser(){
-      return this.$auth.isAuthenticated()? this.API.one('user').get() : {}
+      if(this.user){
+        return this.user
+      }else{
+        return this.API.one('user').get()
+        //his.$auth.isAuthenticated()? this.API.one('user').get() : {}
+      }
     }
 
     login(user){
@@ -28,10 +33,31 @@ export class UserService{
           this.API.one('user').get().then((response)=>{
             this.user = response;
             this.ToastService.show('Logged in successfully.');
-            this.$state.go('app.landing', {}, {reload:true, inherit:false, notify:true});
+            this.redirectUser(this.user)
           });
         })
       .catch(this.failedLogin.bind(this));
+    }
+
+    updateProfile(data){
+      return this.API.all('user/update_profile').post(data).then(()=>{
+        redirectUser(this.user)
+      });
+    }
+
+    redirectUser(user){
+      //redirect user to register if profile is incomplete
+      console.log(user)
+      if(!( user.type || user.dob || user.school || user.sex) ){
+        this.$state.go('app.edit-profile', {}, {reload:true, inherit:false, notify:true});
+      }else{
+
+        if(user.type === 'Instructor'){
+          this.$state.go('app.welcome', {}, {reload:false, inherit:false, notify:true});
+        }else{
+          this.$state.go('app.filter', {}, {reload:false, inherit:false, notify:true});
+        }
+      }
     }
 
     failedLogin(response) {

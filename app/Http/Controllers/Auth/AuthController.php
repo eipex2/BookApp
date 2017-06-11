@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-02-19T10:36:03-06:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-05-08T16:09:44-05:00
+# @Last modified time: 2017-05-30T15:32:16-05:00
 
 
 
@@ -46,8 +46,7 @@ class AuthController extends Controller
             'firstname'       => 'required|min:2',
             'lastname' => 'required|min:2',
             'email'      => 'required|email|unique:users',
-            'password'   => 'required|min:8',
-            'school' => 'required'
+            'password'   => 'required|min:8'
         ]);
 
         $user = new User;
@@ -55,7 +54,6 @@ class AuthController extends Controller
         $user->lastname = trim($request->lastname);
         $user->email = trim(strtolower($request->email));
         $user->password = bcrypt($request->password);
-        $user->school = trim($request->school);
         $user->save();
 
         $token = JWTAuth::fromUser($user);

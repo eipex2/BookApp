@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-03-29T07:32:32-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-05-23T04:34:26-05:00
+# @Last modified time: 2017-06-10T19:30:22-05:00
 
 
 
@@ -45,55 +45,49 @@ Route::get('googlebooks/{isbn}', 'ListingController@getBookInfo');
 
 //protected API routes with JWT (must be logged in)
 Route::get('/user', function (Request $request) {
-    return $request->user();
+  //$user =
+
+  return $request->user();//response()->success(compact('user', $user));
 })->middleware('auth:api');
 
 
-
 Route::group(['middleware' => ['auth:api']], function () {
-//listings routes
-Route::post('listings', 'ListingController@store');
+
+  Route::post('user/update_profile', 'UserController@updateProfile');
+
+  //listings routes
+  Route::post('listings', 'ListingController@store');
 
 
-//rent routes
-Route::post('rent', 'RentController@store');
-Route::post('rents', 'RentController@getApprovedRentals');
-Route::post('rents/update', 'RentController@update');
+  //rent routes
+  Route::post('rent', 'RentController@store');
+  Route::post('rents', 'RentController@getApprovedRentals');
+  Route::post('rents/update', 'RentController@update');
 
 
-/**
- *get conversations involving this user and other users
- */
-Route::get('chat/get_conversations', 'ChatController@getConversations');
+  /**
+   *get conversations involving this user and other users
+   */
+  Route::get('chat/get_conversations', 'ChatController@getConversations');
 
-/**
- * get conversation involving this user and other user
- */
-Route::post('chat/get_conversation', 'ChatController@getConversation');
-Route::get('chat/getuserconversation/count/{recipient}', 'ChatController@getUserConversationCount');
-Route::post('chat/sendmessage', 'ChatController@sendMessage');
+  /**
+   * get conversation involving this user and other user
+   */
+  Route::post('chat/get_conversation', 'ChatController@getConversation');
+  Route::get('chat/getuserconversation/count/{recipient}', 'ChatController@getUserConversationCount');
+  Route::post('chat/sendmessage', 'ChatController@sendMessage');
 
-/**
- * course routes
- */
-Route::post('course/store_course', 'CourseController@store');
-Route::get('courses', 'CourseController@courses');
+  /**
+   * course routes
+   */
+  Route::post('course/store_course', 'CourseController@store');
+  Route::get('courses', 'CourseController@courses');
+  Route::get('offered_courses', 'CourseController@getCoursesOfferedInSchool');
 
-/**
-* page routes
-* */
-Route::post('page/store_page', 'PageController@store');
-Route::post('page/get_page', 'PageController@getPage');
-
-
-
-
-
-
-
-
-
-
-
+  /**
+  * page routes
+  * */
+  Route::post('page/store_page', 'PageController@store');
+  Route::post('page/get_page', 'PageController@getPage');
 
 });

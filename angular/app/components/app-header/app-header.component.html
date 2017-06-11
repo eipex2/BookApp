@@ -1,4 +1,4 @@
-<md-toolbar  class="main_toolbar" ui-view="toolbar" layout="row" layout-align="start center" style="color:#444; background-color:white">
+<md-toolbar  class="main_toolbar md-whiteframe-1dp" ui-view="toolbar" layout="row" layout-align="start center" style="color:#444; background-color:white">
     <md-button class="small-btn" style="font-weight: bold; " ng-click="vm.toggleMainSideNav()">
       Pages
     </md-button>
@@ -15,14 +15,20 @@
           <md-icon md-font-icon="zmdi zmdi-inbox zmdi-hc-2x"></md-icon>
         </md-button> -->
         <!-- <md-divider class="toolbar-divider"></md-divider> -->
-        <md-button
+        <!-- <md-button
               layout-align="center center"
               ng-click="vm.profile(vm.user.id)"
               aria-label="side navigation">
                 <img class="toolbar-user-avatar"  ng-src={{"/uploads/avatars/"+vm.user.avatar}} alt="avatar">
             <span>{{vm.user.firstname}}</span>
+        </md-button> -->
+        <md-button
+              layout-align="center center"
+              aria-label="side navigation">
+                <img class="toolbar-user-avatar"  ng-src={{"/uploads/avatars/"+vm.user.avatar}} alt="avatar">
+            <span>{{vm.user.firstname}}</span>
         </md-button>
-        <!-- <md-menu>
+        <md-menu>
           <md-button class="header_more_btn" layout-align="center center"  aria-label="Open user menu"  aria-label="side navigation">
             <md-icon ng-click="$mdOpenMenu()"  md-font-icon="zmdi zmdi-more-vert zmdi-hc-2x"></md-icon>
           </md-button>
@@ -41,6 +47,6 @@
                   </md-button>
               </md-menu-item>
           </md-menu-content>
-      </md-menu> -->
+      </md-menu>
     </div>
 </md-toolbar>

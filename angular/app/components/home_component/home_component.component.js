@@ -2,7 +2,7 @@
  * @Author: eipex
  * @Date:   2017-04-26T09:25:11-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-05-23T04:43:21-05:00
+ * @Last modified time: 2017-06-10T17:32:15-05:00
  */
 
 
@@ -28,7 +28,10 @@ class HomeComponentController{
     }
 
     $onInit(){
-          this.current_page = {content:'Please select a course :)'};
+      this.$mdDialog.hide();
+      this.current_page = {content:'Please select a course :)'};
+
+    
     }
 
     showPage(course){
@@ -183,6 +186,6 @@ export const HomeComponentComponent = {
     controller: HomeComponentController,
     controllerAs: 'vm',
     bindings: {
-        user: '<user'
+        user: '<'
     }
 }
