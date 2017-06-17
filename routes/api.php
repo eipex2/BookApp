@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-03-29T07:32:32-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-06-10T19:30:22-05:00
+# @Last modified time: 2017-06-13T16:28:12-05:00
 
 
 
@@ -80,8 +80,9 @@ Route::group(['middleware' => ['auth:api']], function () {
   /**
    * course routes
    */
-  Route::post('course/store_course', 'CourseController@store');
+  Route::get('course/{course_id}', 'CourseController@getCourse');
   Route::get('courses', 'CourseController@courses');
+  Route::post('course/store_course', 'CourseController@store');
   Route::get('offered_courses', 'CourseController@getCoursesOfferedInSchool');
 
   /**
@@ -89,5 +90,11 @@ Route::group(['middleware' => ['auth:api']], function () {
   * */
   Route::post('page/store_page', 'PageController@store');
   Route::post('page/get_page', 'PageController@getPage');
+
+  /**
+   * activity routes
+   */
+  Route::post('activity/store', 'ActivityController@store');
+  Route::get('activities/{course_id}', 'ActivityController@getActivities');
 
 });

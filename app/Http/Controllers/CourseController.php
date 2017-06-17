@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-05-19T01:43:12-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-06-11T09:41:48-05:00
+# @Last modified time: 2017-06-13T17:02:38-05:00
 
 
 
@@ -58,6 +58,19 @@ class CourseController extends Controller
   }
 
   /**
+   * get a specific course
+   * @param  Request $request [description]
+   * @return [type]           [description]
+   */
+  public function getCourse(Request $request, $course_id)
+  {
+    $course = Course::with('pages')
+                      ->find($course_id);
+
+    return response()->success(compact('course',$course));
+  }
+
+  /**
    * get course offered in students school
    * @param  Request $request [description]
    * @return [type]           [description]
@@ -67,9 +80,17 @@ class CourseController extends Controller
     try {
       $id = Auth::id();
       $user = User::find($id);
-      $intructors = User::with('courses')->where('school', $user->school)->get();
-      //echo $users;
-      return response()->json($intructors);
+
+      //i want to select all courses that have been created by instructors in the same school as the student
+      $courses = Course::with('user')
+                        ->whereIn('user_id', function($query) use ($user){
+                          $query->select('id')
+                                ->from('users')
+                                ->where('type', 'Instructor')
+                                ->where('school',$user->school);
+      })->get();
+      return response()->success(compact('courses', $courses));
+      //return response()->json($courses);
     } catch (Exception $e) {
       return response()->error(compact('courses'));
 

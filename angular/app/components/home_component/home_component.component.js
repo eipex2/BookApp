@@ -2,13 +2,13 @@
  * @Author: eipex
  * @Date:   2017-04-26T09:25:11-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-06-10T17:32:15-05:00
+ * @Last modified time: 2017-06-16T16:38:25-05:00
  */
 
 
 
 class HomeComponentController{
-    constructor($location, $mdDialog, $mdSidenav, $state, API, ToastService,$scope, CourseService){
+    constructor($location, $mdDialog, $mdSidenav, $state, API, ToastService,$scope, CourseService, ActivityService){
         'ngInject';
 
         this.$location = $location;
@@ -18,20 +18,35 @@ class HomeComponentController{
         this.ToastService = ToastService;
         this.$scope = $scope;
         this.CourseService = CourseService;
+        this.ActivityService = ActivityService;
         this.$mdSidenav = $mdSidenav;
 
-
+        this.page = null;
 
         CourseService.getCourses().then((response)=>{
           this.courses = response.data.courses;
         })
+
+
     }
 
     $onInit(){
       this.$mdDialog.hide();
-      this.current_page = {content:'Please select a course :)'};
+      //this.current_page = {content:'Please select a course :)'};
 
-    
+      this.course = this.courseRes.data.course
+      this.activities = this.activitiesRes.data.activities
+
+      //if $location.hash() is not set get the page number from the activity
+      if(this.$location.hash()===""){
+        this.page_no = this.ActivityService.getPageNo(this.course, this.activities);
+        this.page = this.course.pages[this.page_no];
+        this.$location.hash(this.page_no)
+      }else{
+        //if it is set get the page_no from the $location.hash()
+        this.page_no = this.$location.hash();
+        this.page = this.course.pages[this.page_no]
+      }
     }
 
     showPage(course){
@@ -43,8 +58,12 @@ class HomeComponentController{
       });
     }
 
-    createPage(ev){
+    createPage(){
         this.$state.go('app.create_page', {}, {reload:true, inherit:false, notify:true});
+    }
+
+    isInstructor(){
+      return this.user.type === 'Instructor'
     }
 }
 
@@ -186,6 +205,8 @@ export const HomeComponentComponent = {
     controller: HomeComponentController,
     controllerAs: 'vm',
     bindings: {
-        user: '<'
+        user: '<',
+        courseRes: '<',
+        activitiesRes: '<'
     }
 }

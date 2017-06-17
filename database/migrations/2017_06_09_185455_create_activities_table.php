@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-06-09T13:54:55-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-06-09T14:16:22-05:00
+# @Last modified time: 2017-06-12T16:37:13-05:00
 
 
 
@@ -23,11 +23,12 @@ class CreateActivitiesTable extends Migration
         Schema::create('activities', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->integer('page_id')->unsigned();
-            $table->string('content');
+            $table->integer('course_id')->unsigned();
+            $table->integer('page_no')->unsigned();
+            $table->string('content')->nullable();
             $table->foreign('user_id')
                   ->references('id')->on('users');
-            $table->foreign('page_id')
+            $table->foreign('course_id')
                   ->references('id')->on('pages');
             $table->timestamps();
         });

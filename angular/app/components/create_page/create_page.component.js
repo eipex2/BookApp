@@ -2,7 +2,7 @@
  * @Author: eipex
  * @Date:   2017-05-10T22:14:43-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-06-09T10:57:34-05:00
+ * @Last modified time: 2017-06-16T16:35:14-05:00
  */
 
 /**
@@ -76,7 +76,7 @@ class CreatePageController{
       }
 
       return this.CourseService.savePage(data);
-    };
+    }
 
     auto_save(){
       this.save().then((response)=>{
@@ -98,7 +98,7 @@ class CreatePageController{
        };
 
        this.$mdDialog.show(dialog)
-       .then((data) => {
+       .then(() => {
 
        }, function() {
 
@@ -184,7 +184,7 @@ class CreatePageDialogController{
 }
 
 class PageConfirmationController{
-  constructor($state, $mdDialog, API, CourseService){
+  constructor($state, $mdDialog){
       'ngInject';
       this.$mdDialog = $mdDialog;
   }

@@ -2,28 +2,28 @@
  * @Author: eipex
  * @Date:   2017-06-09T11:42:32-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-06-11T09:33:53-05:00
+ * @Last modified time: 2017-06-12T11:30:09-05:00
  */
 
 
 
 class FilterController{
-    constructor(CourseService){
+    constructor(CourseService,$state){
         'ngInject';
 
+        this.$state = $state;
         this.CourseService = CourseService;
         CourseService.getOfferedCourses().then((response)=>{
-          console.log(response);
+          this.courses = response.data.courses;
         })
     }
 
     $onInit(){
-      this.courses = [
-        'Calculus',
-        'English'
-      ]
 
+    }
 
+    loadCourse(course){
+      this.$state.go('app.landing',{course_id:course.id})
     }
 }
 

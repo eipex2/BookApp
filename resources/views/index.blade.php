@@ -7,7 +7,7 @@
     <title>Peobee</title>
 
     <meta name="theme-color" content="#0690B7">
-
+    <base href="/app">
     <link rel="manifest" href="manifest.json">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css"> -->
 
@@ -37,7 +37,7 @@
 # @Author: eipex
 # @Date:   2017-04-26T09:25:11-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-05-10T22:46:55-05:00
+# @Last modified time: 2017-06-15T21:02:48-05:00
 
 
 

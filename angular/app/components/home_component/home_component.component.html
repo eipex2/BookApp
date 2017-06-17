@@ -22,7 +22,7 @@
             <div class="text-light" style="color:#444">
                 <h3 class="font-weight-600 margin-bottom-0 text-light">{{vm.user | username}}</h3>
              </div>
-             <div>
+             <div ng-show="vm.isInstructor()">
                 <md-button class="md-primary" ng-click="vm.createPage(ev)">Create Page</md-button>
               </div>
           </div>
@@ -52,10 +52,10 @@
         </md-content>
 </md-sidenav>
 <app-header user="vm.user" title="vm.course.title"></app-header>
-<md-content class="grey-background" layout="row" layout-align="center start" layout-fill style="padding:10px;">
-  <div class="md-whiteframe-1dp" flex="80" layout-padding>
+<md-content class="=home_background" layout="row" layout-align="center start" layout-fill style="padding:10px;">
+  <div class="md-whiteframe-1dp" flex="80" layout-padding style="background-color:white">
     <ng-quill-editor
-               ng-model="vm.current_page.content"
+               ng-model="vm.page.content"
                read-only="true"
                modules="{toolbar:false}"
                placeholder="Please select a course :)"

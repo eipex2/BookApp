@@ -1,4 +1,11 @@
 <?php
+# @Author: eipex
+# @Date:   2017-05-29T11:02:01-05:00
+# @Last modified by:   eipex
+# @Last modified time: 2017-06-15T21:01:42-05:00
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -11,7 +18,7 @@
 |
 */
 
-Route::get('/', 'AngularController@serveApp');
-
-
-Route::get('/unsupported-browser', 'AngularController@unsupported');
+Route::group(['prefix' => 'app'], function() {
+  Route::any('/{path?}', 'AngularController@serveApp')->where("path",".+");
+  Route::get('/unsupported-browser', 'AngularController@unsupported');
+});

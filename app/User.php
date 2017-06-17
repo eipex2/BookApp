@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-02-19T10:36:03-06:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-06-10T22:27:07-05:00
+# @Last modified time: 2017-06-12T16:15:02-05:00
 
 
 
@@ -32,7 +32,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token','email'
+        'password', 'remember_token','email','dob','created_at','updated_at'
     ];
 
     /**
@@ -55,20 +55,14 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public function courses(){
+    public function courses()
+    {
         return $this->hasMany('App\Course');
     }
 
-    public function posts(){
-        return $this->hasMany('App\Post');
-    }
-
-    public function reviews(){
-        return $this->hasMany('App\Review', 'to_user');
-    }
-
-    public function rents(){
-        return $this->hasMany('App\Rent');
+    public function activities()
+    {
+      return $this->hasMany('App\Activity');
     }
 
 }

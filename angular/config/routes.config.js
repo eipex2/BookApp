@@ -2,19 +2,19 @@
  * @Author: eipex
  * @Date:   2017-03-29T07:32:32-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-06-11T09:31:51-05:00
+ * @Last modified time: 2017-06-15T21:08:49-05:00
  */
 
 
 
-export function RoutesConfig($stateProvider, $urlRouterProvider) {
+export function RoutesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
 	'ngInject';
 
 	let getView = (viewName) => {
 		return `./views/app/pages/${viewName}/${viewName}.page.html`;
 	};
 
-	$urlRouterProvider.otherwise('/');
+	$urlRouterProvider.otherwise('/app');
 
 	$stateProvider
 		.state('app', {
@@ -26,8 +26,11 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 			}
 		})
 		.state('app.landing', {
-		url: '/',
+		url: '/app/course/{course_id}',
 		data: {auth:true},
+		params:{
+			course_id:null
+		},
 		views: {
 			'main@' : {
 				component: "homeComponent"
@@ -36,11 +39,17 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 		resolve: {
 				user: function(UserService){
 					return UserService.getUser();
+				},
+				courseRes:function(CourseService,$stateParams){
+					return CourseService.getCourse($stateParams.course_id)
+				},
+				activitiesRes:function(ActivityService, $stateParams){
+					return ActivityService.getActivities($stateParams.course_id)
 				}
 			}
 		})
 		.state('app.login', {
-			url: '/login',
+			url: '/app/login',
 			data: {auth:false},
 			views: {
 				'toolbar@':{},
@@ -50,7 +59,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 			}
 		})
 		.state('app.register', {
-			url: '/register',
+			url: '/app/register',
 			data: {auth:false},
 			views: {
 				'toolbar@':{},
@@ -60,7 +69,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 			}
 		})
 		.state('app.edit-profile', {
-			url: '/edit-profile',
+			url: '/app/edit-profile',
 			data: {auth:true},
 			views: {
 				'toolbar@':{},
@@ -70,7 +79,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 			}
 		})
 		.state('app.forgot_password', {
-			url: '/forgot-password',
+			url: '/app/forgot-password',
 			data: {auth:false},
 			views: {
 				'toolbar@':{},
@@ -80,7 +89,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 			}
 		})
 		.state('app.reset_password', {
-			url: '/reset-password/:email/:token',
+			url: '/app/reset-password/:email/:token',
 			data: {auth:false},
 			views: {
 				'main@': {
@@ -89,7 +98,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 			}
 		})
 		.state('app.welcome',{
-			url:'/welcome',
+			url:'/app/welcome',
 			data:{auth:true},
 			views:{
 				'main@':{
@@ -103,7 +112,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 			}
 		})
 		.state('app.filter',{
-			url:'/filter',
+			url:'/app/filter',
 			data:{auth:true},
 			views:{
 				'main@':{
@@ -139,7 +148,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 		// 	}
 		//})
 		.state('app.profile', {
-			url:'/profile/{id}',
+			url:'/app/profile/{id}',
 			data:{auth:true},
 			views:{
 				'main@' : {
@@ -168,7 +177,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 		// 	}
 		// })
 		.state('app.chat', {
-			url:'/chat',
+			url:'/app/chat',
 			data:{auth:true},
 			params:{
 				id:null
@@ -191,7 +200,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 			}
 		})
 		.state('app.create_page', {
-			url:'/create',
+			url:'/app/create',
 			data:{auth:true},
 			params:{
 				id:null
@@ -207,5 +216,8 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
 				}
 			}
 		});
+
+		// use the HTML5 History API
+    $locationProvider.html5Mode(true);
 
 }

@@ -1,5 +1,5 @@
 <md-content layout-fill layout="column" layout-align="center center">
-  <h4>Hello <strong>{{vm.user.firstname}}</strong>,</h4>
+  <h3>Hello {{vm.user.firstname}},</h3>
   <md-input-container style="min-width:235px" md-no-float class="md-block">
       <input
       ng-model="user.address2"
@@ -8,13 +8,17 @@
       autofocus>
   </md-input-container>
   <div style="min-width:235px;">
-    <div>
-      <div class="md-button md-primary" layout="row" ng-repeat="c in vm.courses">
-        <p>{{c}}</p>
-        <span flex></span>
-        <md-icon md-font-icon="zmdi zmdi-chevron-right"></md-icon>
-      </div>
-    </div>
+    <md-list class="contacts-list md-dense" style="border-top:1px solid rgba(128, 128, 128, 0.27)">
+      <md-list-item ng-click="vm.loadCourse(c)" class="md-2-line" ng-repeat="c in vm.courses">
+          <img  class="md-avatar list-user-avatar" ng-src={{"/uploads/avatars/"+c.user.avatar}}  alt="avatar" />
+          <div class="md-list-item-text" layout="column" layout-align="start start" >
+            <h3>{{c.title}}</h3>
+            <p> {{c.user | username}}</p>
+          </div>
+          <md-icon md-font-icon="zmdi zmdi-chevron-right"></md-icon>
+          <md-divider></md-divider>
+      </md-list-item>
+    </md-list>
   </div>
   <div >
   </div>
