@@ -1,3 +1,4 @@
+import {SidenavComponent} from './app/components/sidenav/sidenav.component';
 import {FilterComponent} from './app/components/filter/filter.component';
 import {WelcomeComponent} from './app/components/welcome/welcome.component';
 import {RegisterFormTwoComponent} from './app/components/register-form-two/register-form-two.component';
@@ -20,6 +21,7 @@ import {LoginFormComponent} from './app/components/login-form/login-form.compone
 import {RegisterFormComponent} from './app/components/register-form/register-form.component';
 
 angular.module('app.components')
+	.component('sidenav', SidenavComponent)
 	.component('filter', FilterComponent)
 	.component('welcome', WelcomeComponent)
 	.component('registerFormTwo', RegisterFormTwoComponent)

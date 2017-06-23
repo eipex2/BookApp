@@ -1,7 +1,19 @@
 // @Author: eipex
 // @Date:   2017-06-05T09:54:07-05:00
 // @Last modified by:   eipex
-// @Last modified time: 2017-06-05T09:54:48-05:00
+// @Last modified time: 2017-06-20T12:04:49-05:00
 
+.welcome-user-avatar {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  vertical-align: middle;
+}
 
-
+.welcome_courses{
+  max-height: 200px;
+  max-width: 200;
+  overflow: auto;
+  border:1px solid white;
+  border-radius:3px;
+}

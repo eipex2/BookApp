@@ -1,24 +1,37 @@
 <div layout="row" layout-align="center center" layout-fill>
-	<div flex="50" flex-xs="100" layout-padding>
-		<md-card class="grey_text" layout="column" layout-padding>
-      <div layout="column">
-        <div layout="column">
-          <div layout="column" layout-align="center center">
-            <div ng-mouseenter="vm.changeAvatar=true" ng-mouseleave="vm.changeAvatar=false">
-                  <form ng-show="vm.changeAvatar" name="vm.form" layout="row" layout-align="start center">
-                    <div class="main_change_avatar_overlay" layout="column" layout-align="center center"
-                         ngf-select ng-model="vm.file" name="file" ngf-pattern="'image/*'"
-                         ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
-                         ngf-resize="{width: 150, height: 150}" style="cursor:pointer" ng-change="vm.selectImage(ev)">Change avatar</div>
-                    <span flex></span>
-                  </form>
-            </div>
-            <div class="text-light" style="color:#444">
-                <p><strong>Congratulations {{vm.user.firstname}},</strong> your profile is complete.</p>
-             </div>
-          </div>
-        <md-button ng-click="vm.create_page()">Create Page</md-button>
-      </div>
+	<div flex="50" flex-xs="100" style="max-height:425px; max-width:400px" layout-padding>
+		<md-card class="grey_text"  layout-padding>
+			<md-card-content>
+	      <div layout="column">
+	        <div layout="column">
+	          <div layout="column" layout-align="center center">
+	            <img class="welcome-user-avatar"  ng-src={{"/uploads/avatars/"+vm.user.avatar}} alt="avatar">
+	            <div class="text-light" style="color:#444">
+	                <p><strong>Hello {{vm.user.firstname}},</strong></p>
+	             </div>
+	          </div>
+	      </div>
+				<div  ng-hide="vm.empty()" class="welcome_courses">
+					<md-list class="contacts-list md-dense" style="border-top:1px solid rgba(128, 128, 128, 0.27)">
+			      <md-list-item ng-click="vm.loadCourse(c)" class="md-2-line" ng-repeat="c in vm.courses">
+			          <div class="md-list-item-text" layout="column" layout-align="start start" >
+			            <h3>{{c.title}}</h3>
+			            <p> {{c.user | username}}</p>
+			          </div>
+			          <md-icon md-font-icon="zmdi zmdi-chevron-right"></md-icon>
+			          <md-divider></md-divider>
+			      </md-list-item>
+			    </md-list>
+				</div>
+				<!-- <div ng-show="vm.empty()" class="courses_empty">
+						<p>You don't have any pages. Start by creating your first page.</p>
+				</div> -->
+		</md-card-content>
+		<md-card-actions>
+			<div layout="row" layout-align="center center">
+				<md-button class="md-primary md-raised" ng-click="vm.create_page()">Create Page</md-button>
+			</div>
+		</md-card-actions>
 		</md-card>
 		</div>
 <div>

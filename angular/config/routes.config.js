@@ -2,7 +2,7 @@
  * @Author: eipex
  * @Date:   2017-03-29T07:32:32-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-06-15T21:08:49-05:00
+ * @Last modified time: 2017-06-20T20:39:00-05:00
  */
 
 
@@ -97,6 +97,11 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $locationProvid
 				}
 			}
 		})
+		/**
+		 * /welcome route for instructor user
+		 * The first view an instructor sees when they login
+		 * @type {String}
+		 */
 		.state('app.welcome',{
 			url:'/app/welcome',
 			data:{auth:true},
@@ -108,9 +113,17 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $locationProvid
 			resolve:{
 				user: function(UserService){
 					return UserService.getUser();
+				},
+				courses:function(CourseService){
+					return CourseService.getCourses();
 				}
 			}
 		})
+		/**
+		 * /filter route for student user
+		 * The first view the student sees when they login
+		 * @type {String}
+		 */
 		.state('app.filter',{
 			url:'/app/filter',
 			data:{auth:true},
@@ -122,6 +135,9 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $locationProvid
 			resolve:{
 				user:function(UserService){
 					return UserService.getUser();
+				},
+				courses:function(CourseService){
+					return CourseService.getOfferedCourses();
 				}
 			}
 		})
@@ -202,9 +218,6 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $locationProvid
 		.state('app.create_page', {
 			url:'/app/create',
 			data:{auth:true},
-			params:{
-				id:null
-			},
 			views:{
 				'main@' : {
 					component: "createPage"
@@ -212,7 +225,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $locationProvid
 			},
 			resolve:{
 				user :function(UserService){
-					return UserService.user;
+					return UserService.getUser();
 				}
 			}
 		});

@@ -2,7 +2,7 @@
  * @Author: eipex
  * @Date:   2017-03-11T14:56:01-06:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-05-23T04:28:26-05:00
+ * @Last modified time: 2017-06-20T16:59:05-05:00
  */
 
 
@@ -55,7 +55,6 @@ export const AppHeaderComponent = {
     controller: AppHeaderController,
     controllerAs: 'vm',
     bindings: {
-        user: '<user',
-        title:'<title'
+        user: '<user'
     }
 };

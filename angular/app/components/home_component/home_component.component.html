@@ -1,59 +1,11 @@
-<md-sidenav
-    class="md-sidenav-left"
-    md-component-id="main-sidenav"
-    >
-        <md-content layout="column">
-          <!-- you have a 50px margin on user-div for when u deside to add the search bar -->
-          <div class="user_div" layout="column" layout-align="center center" layout-padding>
-            <div ng-mouseenter="vm.changeAvatar=true" ng-mouseleave="vm.changeAvatar=false">
-                <!-- <img class="profile-user-avatar" src={{"img/assets/images/avatars/avatar-5.png"}} alt="girl-avatar"/> -->
-                <img ng-hide="vm.changeAvatar" class="main_sidenav_user_avatar"
-                     src={{"/uploads/avatars/"+vm.user.avatar}}
-                     alt="avatar"
-                     />
-                  <form ng-show="vm.changeAvatar" name="vm.form" layout="row" layout-align="start center">
-                    <div class="main_change_avatar_overlay" ng-show="vm.changeAvatar" layout="column" layout-align="center center"
-                         ngf-select ng-model="vm.file" name="file" ngf-pattern="'image/*'"
-                         ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
-                         ngf-resize="{width: 150, height: 150}" style="cursor:pointer" ng-change="vm.selectImage(ev)">Change avatar</div>
-                    <span flex></span>
-                  </form>
-            </div>
-            <div class="text-light" style="color:#444">
-                <h3 class="font-weight-600 margin-bottom-0 text-light">{{vm.user | username}}</h3>
-             </div>
-             <div ng-show="vm.isInstructor()">
-                <md-button class="md-primary" ng-click="vm.createPage(ev)">Create Page</md-button>
-              </div>
-          </div>
-          <div>
-          <md-divider></md-divider>
-            <md-subheader class="md-no-sticky">Courses</md-subheader>
-            <md-list-item ng-click="vm.showPage(course)" ng-repeat="course in vm.courses">
-              <p>{{course.title}}</p>
-              <md-icon md-font-icon="zmdi zmdi-chevron-right zmdi-hc-lg"></md-icon>
-            </md-list-item>
-          <md-divider></md-divider>
-        </div>
-          <!-- <md-toolbar class="chat_toolbar" style="background-color:white">
-            <input type="text" class="search_contacts" placeholder="Search">
-          </md-toolbar>
-          <md-divider></md-divider>
-          <md-list class="contacts-list md-dense">
-            <md-list-item ng-class="{convo_new:convo.new_message}" ng-click="vm.setActiveConversation(convo)" ng-click-xs="vm.closeContacts()" class="md-2-line" ng-repeat="convo in vm.conversations">
-                <img  class="md-avatar list-user-avatar" ng-src={{vm.ChatService.getConvoAvatar(convo)}}  alt="avatar" />
-                <div class="md-list-item-text" layout="column" layout-align="start start" >
-                  <h3>{{convo | convoUsername}}</h3>
-                  <p> {{convo.message | limitTo: 15}}</p>
-                </div>
-                <md-divider></md-divider>
-            </md-list-item>
-          </md-list> -->
-        </md-content>
-</md-sidenav>
-<app-header user="vm.user" title="vm.course.title"></app-header>
-<md-content class="=home_background" layout="row" layout-align="center start" layout-fill style="padding:10px;">
-  <div class="md-whiteframe-1dp" flex="80" layout-padding style="background-color:white">
+<sidenav user="vm.user" courses="vm.courses"></sidenav>
+<md-content layout="column" layout-fill>
+<app-header user="vm.user"></app-header>
+<md-content class="=home_background" layout="row" layout-align="center start" flex style="padding:10px; background-color:#e0e0e0">
+  <div class="md-whiteframe-1dp" flex="80" flex-xs="100" layout="column" style="background-color:white">
+    <div layout="row" layout-align="center center">
+      <p>{{vm.course.title}}</p>
+    </div>
     <ng-quill-editor
                ng-model="vm.page.content"
                read-only="true"
@@ -61,22 +13,26 @@
                placeholder="Please select a course :)"
            >
     </ng-quill-editor>
+    <md-divider></md-divider>
+    <div layout="row" ng-show="vm.user.type === 'Student'">
+      <md-button
+            layout-align="center center"
+            aria-label="side navigation">
+              <img class="toolbar-user-avatar"  ng-src={{"/uploads/avatars/"+vm.user.avatar}} alt="avatar">
+          <span>{{vm.course.user | username}}</span>
+      </md-button>
+      <span flex></span>
+      <md-button class="md-primary">
+        Subscribe
+      </md-button>
+    </div>
   </div>
-  <!-- <div masonry load-images="true" >
-    <div class="masonry-brick" ng-repeat="listing in vm.listings track by listing.id">
-          <div style="color:grey" class="front book_header slide-down md-whiteframe-1dp" ng-show="options || checkbox" layout="row" layout-align:"start center">
-            <img class="toolbar-user-avatar"  ng-src={{"/uploads/avatars/"+listing.user.avatar}} alt="avatar">
-            <span flex >{{listing.user.firstname}}</span>
-            <md-icon ng-show="vm.showingDialog" class="spinner" md-font-icon="zmdi zmdi-spinner zmdi-hc-2x"></md-icon>
-          </div>
-          <img ng-click="vm.showAdvanced(ev,listing)" ng-mouseenter="options=true" ng-mouseleave="options=false" class="book md-whiteframe-1dp" ng-src="{{listing.thumbnail}}" alt="Washed Out">
-          <div class="book_price front md-whiteframe-1dp">
-            {{listing.rent_price|currency}}
-          <div>
-      </div>
-    </div> -->
+  <md-button ng-hide="vm.$location.hash()==='0'" ng-click="vm.previousPage()" class="md-fab md-fab-bottom-left md-primary" aria-label="previous"><md-icon md-font-icon="zmdi zmdi-chevron-left"></md-button>
+  <md-button ng-hide="vm.islastPage()" ng-click="vm.nextPage()" class="md-fab md-fab-bottom-right md-primary" aria-label="next"><md-icon  md-font-icon="zmdi zmdi-chevron-right"></md-button>
 </md-content>
-<!-- <md-button ng-click="vm.addBook(ev)" class="md-fab md-primary md-fab-bottom-right" style="position: fixed !important;" aria-label="Use Android">
-<md-icon md-font-icon="zmdi zmdi-plus zmdi-hc-1x"></md-icon>
-</md-button> -->
-<!-- TODO:add listing title in rent pop up so user knows where they are.  -->
+<div style="background-color:white; height:50px; color:teal" layout="row" layout-align="center center">
+  <md-button>
+    DISCUSSION<md-icon  md-font-icon="zmdi zmdi-chevron-up zmdi-hc-2x"></md-icon>
+  </md-button>
+</div>
+</md-content>

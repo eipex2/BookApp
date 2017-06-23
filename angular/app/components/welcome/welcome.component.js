@@ -2,7 +2,7 @@
  * @Author: eipex
  * @Date:   2017-06-05T09:54:07-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-06-05T10:18:20-05:00
+ * @Last modified time: 2017-06-20T16:53:39-05:00
  */
 
 
@@ -21,6 +21,14 @@ class WelcomeController{
     create_page(){
       this.$state.go('app.create_page');
     }
+
+    loadCourse(course){
+      this.$state.go('app.landing',{course_id:course.id})
+    }
+
+    empty(){
+      return this.courses.length === 0;
+    }
 }
 
 export const WelcomeComponent = {
@@ -28,6 +36,7 @@ export const WelcomeComponent = {
     controller: WelcomeController,
     controllerAs: 'vm',
     bindings: {
-      'user':'<'
+      'user':'<',
+      'courses':'<'
     }
 }

@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-05-19T01:43:12-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-06-13T17:02:38-05:00
+# @Last modified time: 2017-06-20T12:09:52-05:00
 
 
 
@@ -54,7 +54,7 @@ class CourseController extends Controller
     $id = Auth::id();
     $courses = Course::where('user_id', $id)->get();
     //return response()->json($courses);
-    return response()->success(compact('courses', $courses));
+    return response()->json($courses);
   }
 
   /**
@@ -64,7 +64,7 @@ class CourseController extends Controller
    */
   public function getCourse(Request $request, $course_id)
   {
-    $course = Course::with('pages')
+    $course = Course::with('pages', 'user')
                       ->find($course_id);
 
     return response()->success(compact('course',$course));
@@ -89,7 +89,7 @@ class CourseController extends Controller
                                 ->where('type', 'Instructor')
                                 ->where('school',$user->school);
       })->get();
-      return response()->success(compact('courses', $courses));
+      return response()->json($courses);
       //return response()->json($courses);
     } catch (Exception $e) {
       return response()->error(compact('courses'));

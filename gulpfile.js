@@ -2,7 +2,7 @@
  * @Author: eipex
  * @Date:   2017-04-26T09:25:11-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-05-11T11:42:43-05:00
+ * @Last modified time: 2017-06-21T01:30:23-05:00
  */
 
 
@@ -44,7 +44,11 @@ elixir.config.js.folder = 'angular';
          // for some reason, ./ prefix here works fine!
          // it is needed to override elixir.config.css.folder for styles mixin
          './public/css/vendor.css', './public/css/app.css',
-         './angular/material-design-iconic-font/css/material-design-iconic-font.css'
+         './angular/material-design-iconic-font/css/material-design-iconic-font.css',
+         './node_modules/quill/dist/quill.bubble.css',
+         './node_modules/quill/dist/quill.core.css',
+         './node_modules/quill/dist/quill.snow.css',
+
      ],
      karmaJsDir = [
          'public/js/vendor.js',

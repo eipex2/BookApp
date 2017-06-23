@@ -1,0 +1,58 @@
+<md-sidenav
+    class="md-sidenav-left"
+    md-component-id="main-sidenav"
+    >
+        <md-content layout="column">
+          <!-- you have a 50px margin on user-div for when u deside to add the search bar -->
+          <div class="user_div" layout="column" layout-align="center center" layout-padding>
+            <div ng-mouseenter="vm.changeAvatar=true" ng-mouseleave="vm.changeAvatar=false">
+                <!-- <img class="profile-user-avatar" src={{"img/assets/images/avatars/avatar-5.png"}} alt="girl-avatar"/> -->
+                <img ng-hide="vm.changeAvatar" class="main_sidenav_user_avatar"
+                     src={{"/uploads/avatars/"+vm.user.avatar}}
+                     alt="avatar"
+                     />
+                  <form ng-show="vm.changeAvatar" name="vm.form" layout="row" layout-align="start center">
+                    <div class="main_change_avatar_overlay" ng-show="vm.changeAvatar" layout="column" layout-align="center center"
+                         ngf-select ng-model="vm.file" name="file" ngf-pattern="'image/*'"
+                         ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
+                         ngf-resize="{width: 150, height: 150}" style="cursor:pointer" ng-change="vm.selectImage(ev)">Change avatar</div>
+                    <span flex></span>
+                  </form>
+            </div>
+            <div class="text-light" style="color:#444">
+                <h3 class="font-weight-600 margin-bottom-0 text-light">{{vm.user | username}}</h3>
+             </div>
+             <div ng-show="vm.user.type === 'Instructor'">
+                <md-button class="md-primary" ng-click="vm.createPage(ev)">Create Page</md-button>
+              </div>
+          </div>
+          <section ng-show="vm.user.type === 'Student'" layout-padding>
+            <md-subheader class="md-primary" style="background-color:white">Subscriptions</md-subheader>
+            <md-list-item ng-click="vm.loadCourse(course)" ng-repeat="course in vm.courses">
+              <p>{{course.title}}</p>
+              <md-icon md-font-icon="zmdi zmdi-chevron-right zmdi-hc-lg"></md-icon>
+            </md-list-item>
+          </section>
+          <section ng-show="vm.user.type === 'Instructor'" layout-padding>
+            <md-subheader class="md-primary" style="background-color:white">My courses</md-subheader>
+            <md-list-item ng-click="vm.loadCourse(course)" ng-repeat="course in vm.courses">
+              <p>{{course.title}}</p>
+              <md-icon md-font-icon="zmdi zmdi-chevron-right zmdi-hc-lg"></md-icon>
+            </md-list-item>
+          </section>
+          <!-- <md-toolbar class="chat_toolbar" style="background-color:white">
+            <input type="text" class="search_contacts" placeholder="Search">
+          </md-toolbar>
+          <md-divider></md-divider>
+          <md-list class="contacts-list md-dense">
+            <md-list-item ng-class="{convo_new:convo.new_message}" ng-click="vm.setActiveConversation(convo)" ng-click-xs="vm.closeContacts()" class="md-2-line" ng-repeat="convo in vm.conversations">
+                <img  class="md-avatar list-user-avatar" ng-src={{vm.ChatService.getConvoAvatar(convo)}}  alt="avatar" />
+                <div class="md-list-item-text" layout="column" layout-align="start start" >
+                  <h3>{{convo | convoUsername}}</h3>
+                  <p> {{convo.message | limitTo: 15}}</p>
+                </div>
+                <md-divider></md-divider>
+            </md-list-item>
+          </md-list> -->
+        </md-content>
+</md-sidenav>

@@ -2,7 +2,7 @@
  * @Author: eipex
  * @Date:   2017-04-25T11:26:14-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-06-11T10:20:55-05:00
+ * @Last modified time: 2017-06-19T18:01:07-05:00
  */
 
 
@@ -48,7 +48,6 @@ export class UserService{
 
     redirectUser(user){
       //redirect user to register if profile is incomplete
-      console.log(user)
       if(!( user.type || user.dob || user.school || user.sex) ){
         this.$state.go('app.edit-profile', {}, {reload:true, inherit:false, notify:true});
       }else{

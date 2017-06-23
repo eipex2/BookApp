@@ -2,7 +2,7 @@
  * @Author: eipex
  * @Date:   2017-05-10T22:14:43-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-06-16T16:35:14-05:00
+ * @Last modified time: 2017-06-21T21:15:17-05:00
  */
 
 /**
@@ -22,6 +22,9 @@ class CreatePageController{
 
     $onInit(){
       this.showCourseDialog()
+      this.CourseService.getCourses().then((response)=>{
+        this.courses = response;
+      })
     }
 
     /**
@@ -122,7 +125,7 @@ class CreatePageDialogController{
       ];
 
       CourseService.getCourses().then((response)=>{
-        this.courses = response.data.courses;
+        this.courses = response;
       });
   }
 
@@ -130,7 +133,7 @@ class CreatePageDialogController{
    * exit dialog and return to landing page
    */
   dialog_cancel(){
-    this.$state.go('app.landing', {}, {reload:false, inherit:false, notify:true})
+    this.$state.go('app.welcome')
     this.$mdDialog.cancel();
   }
 
@@ -204,5 +207,7 @@ export const CreatePageComponent = {
     templateUrl: './views/app/components/create_page/create_page.component.html',
     controller: CreatePageController,
     controllerAs: 'vm',
-    bindings: {}
+    bindings: {
+      'user':'<'
+    }
 }

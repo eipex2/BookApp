@@ -1,18 +1,48 @@
 // @Author: eipex
 // @Date:   2017-05-10T22:14:43-05:00
 // @Last modified by:   eipex
-// @Last modified time: 2017-05-22T20:17:58-05:00
+// @Last modified time: 2017-06-21T20:46:39-05:00
 
 
 
-ng-quill-editor div:first-child{
+ng-quill-editor div{
   height:100%;
+  min-height:100%;
   background-color: white;
+  overflow: hidden;
 }
 
-ng-quill-toolbar div:first-child{
+.page_toolbar{
+  min-height:50px;
+  padding:0px;
+  text-align: center;
+  background-color:white;
+  border-top:3px solid teal;
+  //font-size: 12px;
+}
+
+.page_footer{
+  background-color:white;
+  height:50px;
+  min-height:50px;
+  border-top: 1px solid #ccc;
+}
+
+ng-quill-toolbar{
+  display:block;
+}
+
+#ng-quill-toolbar{
+  border:none;
   height:50px;
   background-color: white;
+  display:inline;
+}
+
+div .ql-container.ql-snow {
+  border:none;
+  padding-bottom:50px;
+  display:block;
 }
 
 .ql-toolbar.ql-snow{
