@@ -1,7 +1,7 @@
 // @Author: eipex
 // @Date:   2017-04-26T09:25:11-05:00
 // @Last modified by:   eipex
-// @Last modified time: 2017-06-09T13:07:09-05:00
+// @Last modified time: 2017-06-25T17:27:22-05:00
 
 
 
@@ -27,4 +27,38 @@ body{
 
 .grey-background{
   background-color:white;//#f6f6f6;
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: teal;
+  // border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: teal;
+}
+::-webkit-scrollbar-thumb:active {
+  background: teal;
+}
+::-webkit-scrollbar-track {
+  background: none;
+  // border: 0px none #ffffff;
+   border-radius: 50px;
+}
+::-webkit-scrollbar-track:hover {
+  background: none;
+}
+::-webkit-scrollbar-track:active {
+  background: none;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
 }

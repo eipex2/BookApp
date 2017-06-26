@@ -1,7 +1,7 @@
 {
-  "name": "laravel5-angular-material-starter",
+  "name": "APAGEADAY",
   "authors": [
-    "Jad Joubran <jad@jadjoubran.com>"
+    "Samuel Setsoafia"
   ],
   "ignore": [
     "**/.*",
@@ -14,7 +14,7 @@
     "jquery": "^3.2.1",
     "angular": "~1.5",
     "angular-ui-router": "~1.0.0-alpha.3",
-    "ngstorage": "~0.3.10",
+    "ngstorage": "^0.3.11",
     "angular-material": "~1.0.8",
     "restangular": "~1.5.2",
     "angular-loading-bar": "~0.9.0",

@@ -2,7 +2,7 @@
  * @Author: eipex
  * @Date:   2017-03-29T07:32:32-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-06-20T20:39:00-05:00
+ * @Last modified time: 2017-06-23T09:51:28-05:00
  */
 
 
@@ -192,29 +192,29 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $locationProvid
 		// 		}
 		// 	}
 		// })
-		.state('app.chat', {
-			url:'/app/chat',
-			data:{auth:true},
-			params:{
-				id:null
-			},
-			views:{
-				'main@' : {
-					component: "chat"
-				}
-			},
-			resolve:{
-				activeConvo: function(API, $stateParams){
-					return $stateParams.id;
-				},
-				conversations:function(ChatService){
-						return ChatService.getConversations();
-				},
-				currentUser :function(user){
-					return user;
-				}
-			}
-		})
+		// .state('app.chat', {
+		// 	url:'/app/chat',
+		// 	data:{auth:true},
+		// 	params:{
+		// 		id:null
+		// 	},
+		// 	views:{
+		// 		'main@' : {
+		// 			component: "chat"
+		// 		}
+		// 	},
+		// 	resolve:{
+		// 		// activeConvo: function(API, $stateParams){
+		// 		// 	return $stateParams.id;
+		// 		// },
+		// 		// conversations:function(ChatService){
+		// 		// 		return ChatService.getConversations();
+		// 		// },
+		// 		// currentUser :function(user){
+		// 		// 	return user;
+		// 		// }
+		// 	}
+		// })
 		.state('app.create_page', {
 			url:'/app/create',
 			data:{auth:true},

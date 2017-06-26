@@ -2,14 +2,14 @@
  * @Author: eipex
  * @Date:   2017-05-10T22:14:43-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-06-21T21:15:17-05:00
+ * @Last modified time: 2017-06-26T11:03:03-05:00
  */
 
 /**
  * contains CreatePageController, CreatePageDialogController and PageConfirmationController
  */
 class CreatePageController{
-    constructor($state, $mdDialog, API, ToastService, CourseService){
+    constructor($state, $mdDialog, API, ToastService, CourseService, $localStorage, $interval){
         'ngInject';
 
         this.$state = $state;
@@ -17,14 +17,27 @@ class CreatePageController{
         this.API = API;
         this.CourseService = CourseService;
         this.ToastService = ToastService;
+        this.$localStorage = $localStorage;
+        this.$interval = $interval;
         this.course = {title:'Course'};
     }
 
     $onInit(){
+
+      //initialize page content from local storage
+      this.page_content = this.$localStorage.page_content;
+
       this.showCourseDialog()
       this.CourseService.getCourses().then((response)=>{
         this.courses = response;
       })
+
+
+      this.$interval(() => {
+          this.auto_save();
+      }, 100000);
+
+
     }
 
     /**
@@ -82,10 +95,12 @@ class CreatePageController{
     }
 
     auto_save(){
-      this.save().then((response)=>{
-        this.ToastService.show("Page Saved");
-        this.page = response.data.page;
-      });
+      this.$localStorage.page_content = this.page_content;
+      this.ToastService.show("Page Saved");
+      // this.save().then((response)=>{
+      //
+      //   this.page = response.data.page;
+      // });
     }
 
     done(){

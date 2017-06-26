@@ -1,7 +1,7 @@
 // @Author: eipex
 // @Date:   2017-05-10T22:14:43-05:00
 // @Last modified by:   eipex
-// @Last modified time: 2017-06-21T20:46:39-05:00
+// @Last modified time: 2017-06-26T10:46:40-05:00
 
 
 
@@ -10,6 +10,74 @@ ng-quill-editor div{
   min-height:100%;
   background-color: white;
   overflow: hidden;
+  background-color:white;
+}
+
+.course_dialog{
+  height:400px;
+  overflow: hidden;
+}
+
+add_btn{
+  width:50px;
+  margin:0px;
+  border-radius:0px;
+}
+
+
+.custom_input {
+     padding: 5px;
+     font-size: 16px;
+     border-width: 1px;
+     border-color: teal;
+     background-color: #FFFFFF;
+     color: #000000;
+     border-style: solid;
+     border-radius: 7px;
+     box-shadow: 0px 0px 0px rgba(255,255,255,.75);
+     text-shadow:  0px 0px 5px px rgba(66,66,66,.75);
+}
+ .custom_input:focus {
+     outline:none;
+}
+
+.courses_list{
+  height:100px;
+  overflow-y: hidden;
+  overflow-x:auto;
+  border-left:1px solid #ccc;
+  // -webkit-box-shadow: inset 8px 0px 10px 0px rgba(193,193,193,0.75);
+  // -moz-box-shadow: inset 8px 0px 10px 0px rgba(193,193,193,0.75);
+  // box-shadow: inset 8px 0px 10px 0px rgba(193,193,193,0.75);
+}
+
+.course_item{
+  color:rgba(0, 0, 0, 0.54);
+  cursor:pointer;
+  padding:3px;
+  border-radius:2px;
+  margin:5px;
+  width:90px;
+  min-width:90px;
+  height:90px;
+  box-sizing: border-box;
+  border-top:5px solid teal;
+  background-color:white;
+  -webkit-box-shadow: 0px 0px 1px 1px rgba(193,193,193,0.75);
+-moz-box-shadow: 0px 0px 1px 1px rgba(193,193,193,0.75);
+box-shadow: 0px 0px 1px 1px rgba(193,193,193,0.75);
+}
+
+
+.empty_things{
+  vertical-align: middle;
+  text-align:center;
+}
+
+.activities_dialog{
+  border-radius:5px;
+  border: 1px dashed teal;
+  height:100px;
 }
 
 .page_toolbar{
@@ -28,21 +96,17 @@ ng-quill-editor div{
   border-top: 1px solid #ccc;
 }
 
-ng-quill-toolbar{
-  display:block;
-}
-
 #ng-quill-toolbar{
   border:none;
   height:50px;
   background-color: white;
-  display:inline;
+  display:table-header-group;
 }
 
 div .ql-container.ql-snow {
   border:none;
-  padding-bottom:50px;
-  display:block;
+  padding-bottom:20px;
+  //display:block;
 }
 
 .ql-toolbar.ql-snow{
