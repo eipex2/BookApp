@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-05-19T01:43:12-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-06-20T12:09:52-05:00
+# @Last modified time: 2017-06-28T00:26:15-05:00
 
 
 
@@ -35,7 +35,6 @@ class CourseController extends Controller
           $course->user_id = Auth::id();
           $course->title = $request->input('title');
           $course->subject = $request->input('subject');
-          $course->last_page_no = 0;
           if($course->save()){
             return response()->success(compact('course', $course));
           };

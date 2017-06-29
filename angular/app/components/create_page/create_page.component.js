@@ -2,8 +2,12 @@
  * @Author: eipex
  * @Date:   2017-05-10T22:14:43-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-06-26T11:03:03-05:00
+ * @Last modified time: 2017-06-29T13:18:07-05:00
  */
+
+ //actions for final dialog
+ const VIEW_PAGE = "VIEW_PAGE";
+ const CREATE_ANOTHER_PAGE = "CREATE_ANOTHER_PAGE";
 
 /**
  * contains CreatePageController, CreatePageDialogController and PageConfirmationController
@@ -11,6 +15,8 @@
 class CreatePageController{
     constructor($state, $mdDialog, API, ToastService, CourseService, $localStorage, $interval){
         'ngInject';
+
+
 
         this.$state = $state;
         this.$mdDialog = $mdDialog;
@@ -25,19 +31,17 @@ class CreatePageController{
     $onInit(){
 
       //initialize page content from local storage
-      this.page_content = this.$localStorage.page_content;
+      this.activities = this.$localStorage.activies;
+      if(this.activies === undefined){
+        this.$localStorage.activies = [];
+      }
+
+      //this.page_content = this.$localStorage.page_content;
 
       this.showCourseDialog()
       this.CourseService.getCourses().then((response)=>{
         this.courses = response;
       })
-
-
-      this.$interval(() => {
-          this.auto_save();
-      }, 100000);
-
-
     }
 
     /**
@@ -46,7 +50,7 @@ class CreatePageController{
     showCourseDialog(){
       this.showingDialog = true;
 
-      var dialog2 = {
+      var pageDialog = {
         controllerAs: 'vm',
         controller: CreatePageDialogController,
         templateUrl: './views/app/components/create_page/course_dialog.tmpl.html',
@@ -58,17 +62,25 @@ class CreatePageController{
         fullscreen: false// Only for -xs, -sm breakpoints.
       };
 
-      this.$mdDialog.show(dialog2)
+
+      this.$mdDialog.show(pageDialog)
       .then((data) => {
-          //is the user creating a new course
+        //save course if its new
           if(data.new){
+            //saving the course
             this.CourseService.saveCourse(data).then((response)=>{
               this.course = response.data.course;
               this.ToastService.show('Course created');
             })
           }else{
-            this.course = JSON.parse(data);
+            this.course = data;
           }
+
+
+          //set intervals for auto save
+          // this.$interval(() => {
+          //     this.auto_save();
+          // }, 100);//100000
       }, function() {
 
       });
@@ -76,36 +88,40 @@ class CreatePageController{
 
     save(){
       //create new page if it doesnt exist else update existing page
-      if(this.page){
-        var page_no = parseInt(this.page.page_no)
-        var update = true;
-      }else{
-        var page_no = parseInt(this.course.last_page_no) + 1;
-        var update = false;
-      }
+      // if(this.page){
+      //   var page_no = parseInt(this.page.page_no)
+      //   var update = true;
+      // }else{
+      //   var page_no = parseInt(this.course.last_page_no) + 1;
+      //   var update = false;
+      // }
 
       var data = {
         course_id:this.course.id,
-        page_no,
         content: this.page_content,
-        update
       }
 
       return this.CourseService.savePage(data);
     }
 
     auto_save(){
-      this.$localStorage.page_content = this.page_content;
-      this.ToastService.show("Page Saved");
+      var activity = {
+        course_id: this.course.id,
+        page_no: this.page.page_no,
+        page_content: this.page_content
+      }
+
+      console.log(activity);
+      // this.$localStorage.activity[this.activities.length] = this.page_content;
+      // this.ToastService.show("Page Saved");
       // this.save().then((response)=>{
       //
       //   this.page = response.data.page;
       // });
     }
 
-    done(){
+    publish(){
      this.save().then(()=>{
-       this.ToastService.show("Page Saved");
        var dialog = {
          controllerAs: 'vm',
          controller: PageConfirmationController,
@@ -117,9 +133,11 @@ class CreatePageController{
 
        this.$mdDialog.show(dialog)
        .then(() => {
-
-       }, function() {
-
+           //view the page
+           this.CourseService.loadCourse(this.course);
+       }, () => {
+           //create another page
+           this.showCourseDialog()
        });
      })
     }
@@ -134,14 +152,24 @@ class CreatePageDialogController{
       this.$state = $state;
       this.$mdDialog = $mdDialog;
       this.API = API;
-      this.subjects = [
-        'Math',
-        'Science'
-      ];
+
+      this.subjects = this.loadSubjects();
+      this.selected_subjects = [];
 
       CourseService.getCourses().then((response)=>{
         this.courses = response;
+
+        //if no causes show no causes div
+        if(this.courses.length === 0){
+          this.no_courses_div = true;
+        }else{
+          this.no_courses_div = false;
+        }
       });
+  }
+
+  edit_course(course){
+    this.$mdDialog.hide(course);
   }
 
   /**
@@ -157,63 +185,99 @@ class CreatePageDialogController{
    */
   dialog_done(){
     if(this.dialog_validate()){
-      if(this.show_form){
+        var subject = this.selected_subjects[0].name;
+        console.log(subject);
         var data = {
           title: this.course_title,
-          subject: this.course_subject,
-          new: true
+          subject,
+          new:true
         }
         this.$mdDialog.hide(data);
-      }else{
-        this.$mdDialog.hide(this.course);
-      }
     }else{
       this.error = true;
     }
   }
 
   /**
-   * go back to course selection
-   */
-  dialog_goBack(){
-    this.show_form = false;
-  }
-
-  /**
-   * show new course creation form
-   */
-  new_course(){
-    this.show_form = true;
-  }
-
-  /**
-   * exit page creation form
-   */
-  exit(){
-    this.$state.go('app.landing', {}, {reload:false, inherit:false, notify:true})
-  }
-
-  /**
    * validate dialog form
    */
   dialog_validate(){
-    return this.course || (this.course_title && this.course_subject)? true : false;
+    return this.course_title && this.selected_subjects.length !== 0;
   }
+
+    /**
+    * Search for contacts; use a random delay to simulate a remote call
+    */
+   querySearch (criteria) {
+       return criteria ? this.subjects.filter(this.createFilterFor(criteria)) : [];
+   }
+
+   /***
+    * Create filter function for a query string
+    */
+   createFilterFor(query) {
+       var lowercaseQuery = angular.lowercase(query);
+
+       return function filterFn(subject) {
+           return (subject._lowername.indexOf(lowercaseQuery) != -1);
+       };
+
+   }
+
+   newSubject(chip){
+     return {
+      name: 'house',
+      image: '//www.gravatar.com/avatar/' + this.selected_subjects.length + '?s=50&d=retro'
+    };
+   }
+
+   loadSubjects() {
+       var subjects = [
+           'Geography',
+           'History',
+           'Languages and literature',
+           'Philosophy',
+           'Theology',
+           'Economics',
+           'Law',
+           'Political science',
+           'Psychology',
+           'Sociology',
+           'Biology',
+           'Chemistry',
+           'Mathematics',
+           'Physics',
+           'Agriculture',
+           'Computer science',
+           'Engineering'
+
+       ];
+
+       return subjects.map(function (c, index) {
+           var subject = {
+               name: c,
+               image: '//www.gravatar.com/avatar/' + index + '?s=50&d=retro'
+           };
+
+           subject._lowername = subject.name.toLowerCase();
+           return subject;
+       });
+   }
 }
 
 class PageConfirmationController{
   constructor($state, $mdDialog){
       'ngInject';
       this.$mdDialog = $mdDialog;
+      this.$state = $state;
   }
 
   create_page(){
-    this.$mdDialog.hide();
+    this.$mdDialog.cancel();
   }
 
   view_page(){
     this.$mdDialog.hide();
-    this.$state.go('app.landing')
   }
 
 }

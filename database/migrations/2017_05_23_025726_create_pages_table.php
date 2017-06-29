@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-05-22T22:05:32-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-05-22T22:18:44-05:00
+# @Last modified time: 2017-06-27T15:52:08-05:00
 
 
 
@@ -23,7 +23,6 @@ class CreatePagesTable extends Migration
         Schema::create('pages', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('course_id')->unsigned();
-            $table->integer('page_no');
             $table->string('content');
             $table->foreign('course_id')
                   ->references('id')->on('courses');

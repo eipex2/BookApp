@@ -2,38 +2,44 @@
     <form layout="column" layout-fill>
       <md-dialog-content setheight="50" layout-padding style="overflow:hidden">
       <div layout="column" layout-align="center stretch" layout-fill>
-        <div style=" height:100px" layout="row">
+        <div style=" height:120px" layout="row">
           <div class="md-button md-primary add_btn"  ng-click="vm.show_form=!vm.show_form" layout="column" layout-align="center center">
-            <div ng-hide="vm.show_form" style="width:50px; height:50px; text-transform:none" layout="column">
-              <md-icon class="icon" ng-click="" md-font-icon="zmdi zmdi-plus zmdi-hc-2x"></md-icon>
+            <div  ng-hide="vm.show_form" style="width:50px; height:60px; text-transform:none" layout="column">
+              <md-icon class="icon"  md-font-icon="zmdi zmdi-plus zmdi-hc-2x"></md-icon>
               Course
             </div>
             <div ng-show="vm.show_form" style="width:50px; height:50px; text-transform:none" layout="column">
-              <md-icon class="icon" ng-click="" md-font-icon="zmdi zmdi-collection-item zmdi-hc-2x"></md-icon>
+              <md-icon class="icon" md-font-icon="zmdi zmdi-collection-item zmdi-hc-2x"></md-icon>
               Courses
             </div>
           </div>
-          <div ng-hide="vm.show_form" class="courses_list" flex>
-            <div ng-show="false" class="empty_things" ng-show="true" style="color:#ccc; text-align:center" layout-fill layout="column" layout-align="center center">
+          <div ng-hide="vm.show_form" class="courses_list" layout="row" layout-align="start center" flex>
+            <div ng-show="vm.no_courses_div" class="empty_things" style="color:#ccc; text-align:left" layout-fill layout="column" layout-align="center start" layout-padding>
               No courses.
             </div>
-            <div layout="row" layout="center center">
-              <div ng-click="vm.edit_course(course)" ng-repeat="course in vm.courses" class="course_item" layout-fill layout="column" layout-align="center center">
-                 {{course.title}}
+            <div ng-hide="vm.no_courses_div" layout="row" layout="center center">
+              <div ng-click="vm.edit_course(course)"  ng-repeat="course in vm.courses"  class="slide-left course_item" layout-fill layout="column" layout-align="center center" >
+              {{ course.title |truncateWords : 2}}
               </div>
             </div>
           </div>
-          <div ng-show="vm.show_form" class="courses_list" layout="column"  layout-align="center stretch" layout-padding flex>
-            <md-input-container md-no-float class="md-block" style=" max-height:30px; margin:10px; padding:0px;">
-              <input ng-model="user.address2" placeholder="Title">
+          <div ng-show="vm.show_form" class="create_course" layout="column"  layout-align="center stretch" layout-padding flex>
+            <md-input-container class="md-block" style=" max-height:30px; margin:10px; margin-top:0px; padding:0px;">
+              <input ng-model="vm.course_title" placeholder="Title">
             </md-input-container>
-             <md-input-container md-no-float style=" max-height:30px; margin:10px; padding:0px;">
+             <md-input-container md-no-float style="display: inline-block; position: relative; vertical-align: middle; max-height:30px; margin:10px; margin-top:15px; padding:0px;">
                 <label>Subject</label>
-                <md-select ng-model="vm.course_subject">
-                  <md-option ng-repeat="subject in vm.subjects" value="{{subject}}">
-                    {{subject}}
-                  </md-option>
-                </md-select>
+              <md-contact-chips
+                   ng-model="vm.selected_subjects"
+                   md-contacts="vm.querySearch($query)"
+                   md-contact-name="name"
+                   md-contact-image="image"
+                   md-require-match="true"
+                   md-highlight-flags="i"
+                   filter-selected="true"
+                   placeholder="what is the content area?"
+                   style=" max-height:30px;">
+           </md-contact-chips>
               </md-input-container>
           </div>
         </div>
@@ -46,25 +52,13 @@
           </div>
         </div>
       </div>
-        <!-- <div ng-hide="vm.show_form" layout="column" layout-align="center center" flex>
-          <h3>Course</h1>
-          <md-input-container>
-             <label>Select course</label>
-             <md-select ng-model="vm.course">
-               <md-option ng-repeat="course in vm.courses" value="{{course}}">
-                 {{course.title}}
-               </md-option>
-             </md-select>
-           </md-input-container>
-           <md-button class="md-primary new_course_btn" ng-click="vm.new_course()">new course</md-button>
-        </div> -->
           </md-dialog-content>
           <md-dialog-actions layout="row" style="max-height:50px; padding-left:0px">
             <md-button ng-click="vm.dialog_cancel()">
               Cancel
             </md-button>
             <span flex></span>
-            <md-button ng-click="vm.dialog_done()">
+            <md-button class="md-primary" ng-click="vm.dialog_done()">
               Done
             </md-button>
           </md-dialog-actions>

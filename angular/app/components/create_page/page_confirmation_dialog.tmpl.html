@@ -1,8 +1,12 @@
-<md-dialog class="course_dialog" layout="column" flex="50" aria-label="Add Book" ng-class="{error:vm.error}">
-  <md-dialog-content layout="column" layout-padding>
-    <p layout="row" layout="center center">Your page has been successfully created <strong>Samuel</strong>.</p>
-    <md-button ng-click="vm.view_page()">View Page</md-button>
-    <div layout="row" layout-align="center center">
+<md-dialog class="course_dialog" layout="column" flex="50" flex-xs="90" aria-label="Add Book">
+  <md-dialog-content layout="column" layout-align="center center" layout-padding layout-fill>
+    <div class="done_icon" layout="column" layout-align="center center">
+        <md-icon class="icon" md-font-icon="zmdi zmdi-check  zmdi-hc-3x" style="color:teal"></md-icon>
+    </div>
+    <p layout="row" layout="center center"><span style="color:teal">Success!&nbsp</span> page created.</p>
+    <md-button class="md-primary md-raised small-btn"
+    ng-click="vm.view_page()" style="text-transform:none; box-shadow:none;">View Page</md-button>
+    <div layout="row" layout-align="center center" style="margin:10px">
       <a class="link" ng-click="vm.create_page()">Create another page.</a>
     </div>
   </md-dialog-content>
