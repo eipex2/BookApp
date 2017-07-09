@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-03-29T07:32:32-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-06-13T16:28:12-05:00
+# @Last modified time: 2017-07-06T18:03:07-05:00
 
 
 
@@ -77,13 +77,21 @@ Route::group(['middleware' => ['auth:api']], function () {
   Route::get('chat/getuserconversation/count/{recipient}', 'ChatController@getUserConversationCount');
   Route::post('chat/sendmessage', 'ChatController@sendMessage');
 
+  // /**
+  //  * course routes
+  //  */
+  // Route::get('course/{course_id}', 'CourseController@getCourse');
+  // Route::get('courses', 'CourseController@courses');
+  // Route::post('course/store_course', 'CourseController@store');
+  // Route::get('offered_courses', 'CourseController@getCoursesOfferedInSchool');
+
   /**
-   * course routes
+   * channel routes
    */
-  Route::get('course/{course_id}', 'CourseController@getCourse');
-  Route::get('courses', 'CourseController@courses');
-  Route::post('course/store_course', 'CourseController@store');
-  Route::get('offered_courses', 'CourseController@getCoursesOfferedInSchool');
+  Route::get('channel/{channel_id}', 'ChannelController@getChannel');
+  Route::get('channels', 'ChannelController@channels');
+  Route::post('channel/store', 'ChannelController@store');
+
 
   /**
   * page routes

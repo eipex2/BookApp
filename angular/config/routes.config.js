@@ -2,7 +2,7 @@
  * @Author: eipex
  * @Date:   2017-03-29T07:32:32-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-06-29T02:57:00-05:00
+ * @Last modified time: 2017-07-07T11:09:42-05:00
  */
 
 
@@ -68,16 +68,16 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $locationProvid
 				}
 			}
 		})
-		.state('app.edit-profile', {
-			url: '/app/edit-profile',
-			data: {auth:true},
-			views: {
-				'toolbar@':{},
-				'main@': {
-					component: "registerFormTwo"
-				}
-			}
-		})
+		// .state('app.edit-profile', {
+		// 	url: '/app/edit-profile',
+		// 	data: {auth:true},
+		// 	views: {
+		// 		'toolbar@':{},
+		// 		'main@': {
+		// 			component: "registerFormTwo"
+		// 		}
+		// 	}
+		// })
 		.state('app.forgot_password', {
 			url: '/app/forgot-password',
 			data: {auth:false},
@@ -114,8 +114,28 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $locationProvid
 				user: function(UserService){
 					return UserService.getUser();
 				},
-				courses:function(CourseService){
-					return CourseService.getCourses();
+				channels:function(ChannelService){
+					return ChannelService.getChannels();
+				}
+			}
+		})
+		.state('app.channel', {
+			url:'/app/channel/{id}',
+			data:{auth:true},
+			views:{
+				'main@' : {
+					component: "channelView"
+				}
+			},
+			resolve: {
+				channelRes:function(ChannelService,$stateParams){
+					return ChannelService.getChannel($stateParams.id)
+				},
+				// channelRes: function(API, $stateParams){
+				// 	return API.one('channel', $stateParams.id).get();
+				// },
+				user: function(UserService){
+					return UserService.getUser();
 				}
 			}
 		})

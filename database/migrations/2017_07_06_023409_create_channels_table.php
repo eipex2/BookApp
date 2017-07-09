@@ -1,8 +1,8 @@
 <?php
 # @Author: eipex
-# @Date:   2017-06-09T13:54:55-05:00
+# @Date:   2017-07-05T21:34:09-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-07-05T22:13:54-05:00
+# @Last modified time: 2017-07-06T21:23:25-05:00
 
 
 
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateActivitiesTable extends Migration
+class CreateChannelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -20,6 +20,16 @@ class CreateActivitiesTable extends Migration
      */
     public function up()
     {
+        Schema::create('channels', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->string('name')->unique();
+            $table->text('tags');
+            $table->timestamps();
+            $table->foreign('user_id')
+                  ->references('id')->on('users');
+        });
+
         // Schema::create('activities', function (Blueprint $table) {
         //     $table->increments('id');
         //     $table->integer('user_id')->unsigned();
@@ -41,6 +51,6 @@ class CreateActivitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('activities');
+        Schema::dropIfExists('channels');
     }
 }

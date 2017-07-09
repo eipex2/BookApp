@@ -1,3 +1,4 @@
+import {ChannelService} from './services/channel.service';
 import {ActivityService} from './services/activity.service';
 import {CourseService} from './services/course.service';
 import {ChannelManagerService} from './services/channel_manager.service';
@@ -8,6 +9,7 @@ import {DialogService} from './services/dialog.service';
 import {ToastService} from './services/toast.service';
 
 angular.module('app.services')
+	.service('ChannelService', ChannelService)
 	.service('ActivityService', ActivityService)
 	.service('CourseService', CourseService)
 	.service('ChannelManagerService', ChannelManagerService)

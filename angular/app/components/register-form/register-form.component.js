@@ -2,7 +2,7 @@
  * @Author: eipex
  * @Date:   2017-04-26T09:25:11-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-06-09T11:25:35-05:00
+ * @Last modified time: 2017-07-05T22:42:40-05:00
  */
 
 
@@ -43,7 +43,7 @@ class RegisterFormController {
 					this.UserService.user = response
 				})
 				this.ToastService.show('Successfully registered.');
-				this.$state.go('app.edit-profile');
+				this.$state.go('app.welcome');
 			})
 			.catch(this.failedRegistration.bind(this));
 	}

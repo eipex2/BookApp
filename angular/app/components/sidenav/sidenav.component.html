@@ -23,7 +23,7 @@
                 <h3 class="font-weight-600 margin-bottom-0 text-light">{{vm.user | username}}</h3>
              </div>
              <div ng-show="vm.user.type === 'Instructor'">
-                <md-button class="md-primary" ng-click="vm.createPage(ev)">Create Page</md-button>
+                <md-button class="md-primary" ng-click="vm.createPage(ev)" style="text-transform:none; border:1px solid teal">Create a Page</md-button>
               </div>
           </div>
           <section ng-show="vm.user.type === 'Student'" layout-padding>

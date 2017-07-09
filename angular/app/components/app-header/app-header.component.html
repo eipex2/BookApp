@@ -1,4 +1,4 @@
-<md-toolbar  class="main_toolbar md-whiteframe-1dp" ui-view="toolbar" layout="row" layout-align="start center" style="color:#444; background-color:white">
+<md-toolbar  ng-class="{'md-whiteframe-1dp':vm.shadow}" class="main_toolbar" ui-view="toolbar" layout="row" layout-align="start center" style="color:#444; background-color:white">
     <md-button class="small-btn" style="font-weight: bold; " ng-click="vm.toggleMainSideNav()">
       Pages
     </md-button>

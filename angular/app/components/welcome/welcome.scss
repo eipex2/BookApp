@@ -1,15 +1,29 @@
 // @Author: eipex
 // @Date:   2017-06-05T09:54:07-05:00
 // @Last modified by:   eipex
-// @Last modified time: 2017-06-20T12:04:49-05:00
+// @Last modified time: 2017-07-06T15:23:09-05:00
 
 .welcome-user-avatar {
-  width: 5rem;
-  height: 5rem;
+  width: 7rem;
+  height: 7rem;
   border-radius: 50%;
   vertical-align: middle;
 }
 
+.create_spn{
+  cursor:pointer;
+  color:gray;
+}
+
+.create_spn:focus{
+  outline: none;
+}
+
+input:focus {outline:none;}
+
+.create_spn:hover{
+  text-decoration: underline;
+}
 .welcome_courses{
   max-height: 200px;
   max-width: 200;

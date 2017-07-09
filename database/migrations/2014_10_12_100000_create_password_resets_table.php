@@ -1,4 +1,11 @@
 <?php
+# @Author: eipex
+# @Date:   2016-12-01T13:46:23-06:00
+# @Last modified by:   eipex
+# @Last modified time: 2017-07-05T22:10:49-05:00
+
+
+
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -18,6 +25,8 @@ class CreatePasswordResetsTable extends Migration
             $table->string('token')->index();
             $table->timestamp('created_at')->nullable();
         });
+
+        
     }
 
     /**

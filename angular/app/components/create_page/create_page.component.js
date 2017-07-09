@@ -2,12 +2,8 @@
  * @Author: eipex
  * @Date:   2017-05-10T22:14:43-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-06-29T13:18:07-05:00
+ * @Last modified time: 2017-07-05T22:36:28-05:00
  */
-
- //actions for final dialog
- const VIEW_PAGE = "VIEW_PAGE";
- const CREATE_ANOTHER_PAGE = "CREATE_ANOTHER_PAGE";
 
 /**
  * contains CreatePageController, CreatePageDialogController and PageConfirmationController
@@ -105,13 +101,12 @@ class CreatePageController{
     }
 
     auto_save(){
-      var activity = {
-        course_id: this.course.id,
-        page_no: this.page.page_no,
-        page_content: this.page_content
-      }
+      // var activity = {
+      //   course_id: this.course.id,
+      //   page_no: this.page.page_no,
+      //   page_content: this.page_content
+      // }
 
-      console.log(activity);
       // this.$localStorage.activity[this.activities.length] = this.page_content;
       // this.ToastService.show("Page Saved");
       // this.save().then((response)=>{
@@ -186,7 +181,7 @@ class CreatePageDialogController{
   dialog_done(){
     if(this.dialog_validate()){
         var subject = this.selected_subjects[0].name;
-        console.log(subject);
+
         var data = {
           title: this.course_title,
           subject,
@@ -224,12 +219,12 @@ class CreatePageDialogController{
 
    }
 
-   newSubject(chip){
-     return {
-      name: 'house',
-      image: '//www.gravatar.com/avatar/' + this.selected_subjects.length + '?s=50&d=retro'
-    };
-   }
+  //  newSubject(){
+  //    return {
+  //     name: 'house',
+  //     image: '//www.gravatar.com/avatar/' + this.selected_subjects.length + '?s=50&d=retro'
+  //   };
+  //  }
 
    loadSubjects() {
        var subjects = [

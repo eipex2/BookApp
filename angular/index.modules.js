@@ -2,7 +2,7 @@
  * @Author: eipex
  * @Date:   2017-03-29T07:32:33-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-05-11T11:52:48-05:00
+ * @Last modified time: 2017-07-07T13:33:39-05:00
  */
 import ngQuill from 'ng-quill'
 

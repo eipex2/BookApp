@@ -2,7 +2,7 @@
  * @Author: eipex
  * @Date:   2017-04-25T11:26:14-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-06-19T18:01:07-05:00
+ * @Last modified time: 2017-07-05T14:47:54-05:00
  */
 
 
@@ -33,7 +33,8 @@ export class UserService{
           this.API.one('user').get().then((response)=>{
             this.user = response;
             this.ToastService.show('Logged in successfully.');
-            this.redirectUser(this.user)
+            this.$state.go('app.welcome', {}, {reload:false, inherit:false, notify:true});
+            //this.redirectUser(this.user)
           });
         })
       .catch(this.failedLogin.bind(this));

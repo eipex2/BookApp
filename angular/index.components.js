@@ -1,3 +1,4 @@
+import {ChannelViewComponent} from './app/components/channel_view/channel_view.component';
 import {SidenavComponent} from './app/components/sidenav/sidenav.component';
 import {FilterComponent} from './app/components/filter/filter.component';
 import {WelcomeComponent} from './app/components/welcome/welcome.component';
@@ -21,6 +22,7 @@ import {LoginFormComponent} from './app/components/login-form/login-form.compone
 import {RegisterFormComponent} from './app/components/register-form/register-form.component';
 
 angular.module('app.components')
+	.component('channelView', ChannelViewComponent)
 	.component('sidenav', SidenavComponent)
 	.component('filter', FilterComponent)
 	.component('welcome', WelcomeComponent)
