@@ -1,3 +1,12 @@
+/**
+ * @Author: eipex
+ * @Date:   2016-12-01T13:46:23-06:00
+ * @Last modified by:   eipex
+ * @Last modified time: 2017-07-12T17:57:16-05:00
+ */
+
+
+
 /*Elixir Task for bower
 * Upgraded from https://github.com/ansata-biz/laravel-elixir-bower
 */
@@ -10,6 +19,7 @@ var uglify = require('gulp-uglify');
 var concat_sm = require('gulp-concat-sourcemap');
 var concat = require('gulp-concat');
 var gulpIf = require('gulp-if');
+var plumber = require('gulp-plumber');
 
 var Elixir = require('laravel-elixir');
 
@@ -36,7 +46,16 @@ Elixir.extend('bower', function(jsOutputFile, jsOutputFolder, cssOutputFile, css
 
     new Task('bower-js', function() {
         return gulp.src(mainBowerFiles())
-            .on('error', onError)
+            //.on('error', onError)
+            .pipe(plumber(function (error) {
+              notify.onError({
+                  title: "Laravel Elixir",
+                  subtitle: "Bower Files Compilation Failed!",
+                  message: "Error: <%= error.message %>",
+                  icon: __dirname + '/../node_modules/laravel-elixir/icons/fail.png'
+              })(err);
+                this.emit('end');
+            }))
             .pipe(filter('**/*.js'))
             .pipe(concat(jsFile, {sourcesContent: true}))
             .pipe(gulpIf(Elixir.config.production, uglify()))
@@ -52,7 +71,16 @@ Elixir.extend('bower', function(jsOutputFile, jsOutputFolder, cssOutputFile, css
 
     new Task('bower-css', function(){
         return gulp.src(mainBowerFiles())
-            .on('error', onError)
+            //.on('error', onError)
+            .pipe(plumber(function (error) {
+              notify.onError({
+                  title: "Laravel Elixir",
+                  subtitle: "Bower Files Compilation Failed!",
+                  message: "Error: <%= error.message %>",
+                  icon: __dirname + '/../node_modules/laravel-elixir/icons/fail.png'
+              })(err);
+                this.emit('end');
+            }))
             .pipe(filter('**/*.css'))
             .pipe(concat(cssFile))
             .pipe(gulpIf(Elixir.config.production, cssnano({safe: true})))

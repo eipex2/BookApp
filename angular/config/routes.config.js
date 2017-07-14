@@ -2,7 +2,7 @@
  * @Author: eipex
  * @Date:   2017-03-29T07:32:32-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-07-07T11:09:42-05:00
+ * @Last modified time: 2017-07-13T11:37:03-05:00
  */
 
 
@@ -26,7 +26,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $locationProvid
 			}
 		})
 		.state('app.landing', {
-		url: '/app/course/{course_id}',
+		url: '/app/page/{page_id}',
 		data: {auth:true},
 		params:{
 			course_id:null
@@ -40,12 +40,15 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $locationProvid
 				user: function(UserService){
 					return UserService.getUser();
 				},
-				courseRes:function(CourseService,$stateParams){
-					return CourseService.getCourse($stateParams.course_id)
-				},
-				activitiesRes:function(ActivityService, $stateParams){
-					return ActivityService.getActivities($stateParams.course_id)
+				pageRes:function(ChannelService,$stateParams){
+					return ChannelService.getPage($stateParams.page_id)
 				}
+				// channelRes:function(ChannelService,$stateParams){
+				// 	return ChannelService.getChannel($stateParams.channel_id)
+				// },
+				// activitiesRes:function(ActivityService, $stateParams){
+				// 	return ActivityService.getActivities($stateParams.course_id)
+				// }
 			}
 		})
 		.state('app.login', {
@@ -236,7 +239,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $locationProvid
 		// 	}
 		// })
 		.state('app.create_page', {
-			url:'/app/create',
+			url:'/app/create/{id}',
 			data:{auth:true},
 			views:{
 				'main@' : {
@@ -244,8 +247,11 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $locationProvid
 				}
 			},
 			resolve:{
-				user :function(UserService){
+				user:function(UserService){
 					return UserService.getUser();
+				},
+				channelRes:function(ChannelService,$stateParams){
+					return ChannelService.getChannel($stateParams.id);
 				}
 			}
 		});

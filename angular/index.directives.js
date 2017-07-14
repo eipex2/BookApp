@@ -1,3 +1,4 @@
+import {TimeLeftDirective} from './directives/time_left/time_left.directive';
 
 /**
  * @Author: eipex
@@ -12,6 +13,7 @@ import {RepeatDoneDirective} from './directives/repeat-done/repeat-done.directiv
 
 
 angular.module('app.directives')
+	.directive('timeLeft', TimeLeftDirective)
 		.directive('setheight', ['$window', '$interval',function($window,$interval){
 			return {
 				link: function(scope, element, attrs){

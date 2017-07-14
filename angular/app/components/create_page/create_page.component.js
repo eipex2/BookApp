@@ -2,14 +2,14 @@
  * @Author: eipex
  * @Date:   2017-05-10T22:14:43-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-07-05T22:36:28-05:00
+ * @Last modified time: 2017-07-11T17:46:25-05:00
  */
 
 /**
  * contains CreatePageController, CreatePageDialogController and PageConfirmationController
  */
 class CreatePageController{
-    constructor($state, $mdDialog, API, ToastService, CourseService, $localStorage, $interval){
+    constructor($state, $mdDialog, API, ToastService, ChannelService, $localStorage, $interval){
         'ngInject';
 
 
@@ -17,11 +17,10 @@ class CreatePageController{
         this.$state = $state;
         this.$mdDialog = $mdDialog;
         this.API = API;
-        this.CourseService = CourseService;
+        this.ChannelService = ChannelService;
         this.ToastService = ToastService;
         this.$localStorage = $localStorage;
         this.$interval = $interval;
-        this.course = {title:'Course'};
     }
 
     $onInit(){
@@ -32,12 +31,17 @@ class CreatePageController{
         this.$localStorage.activies = [];
       }
 
+      this.channel = this.channelRes.data.channel
       //this.page_content = this.$localStorage.page_content;
 
-      this.showCourseDialog()
-      this.CourseService.getCourses().then((response)=>{
-        this.courses = response;
-      })
+      //this.showCourseDialog()
+      // this.CourseService.getCourses().then((response)=>{
+      //   this.courses = response;
+      // })
+    }
+
+    toChannel(){
+      this.$state.go('app.channel', {id:this.channel.id})
     }
 
     /**
@@ -93,11 +97,12 @@ class CreatePageController{
       // }
 
       var data = {
-        course_id:this.course.id,
+        channel_id:this.channel.id,
+        title:this.page_title,
         content: this.page_content,
       }
 
-      return this.CourseService.savePage(data);
+      return this.ChannelService.savePage(data);
     }
 
     auto_save(){
@@ -129,10 +134,10 @@ class CreatePageController{
        this.$mdDialog.show(dialog)
        .then(() => {
            //view the page
-           this.CourseService.loadCourse(this.course);
+           this.ChannelService.loadChannel(this.channel);
        }, () => {
            //create another page
-           this.showCourseDialog()
+           this.$mdDialog.hide();
        });
      })
     }
@@ -282,6 +287,7 @@ export const CreatePageComponent = {
     controller: CreatePageController,
     controllerAs: 'vm',
     bindings: {
-      'user':'<'
+      'user':'<',
+      'channelRes':'<'
     }
 }

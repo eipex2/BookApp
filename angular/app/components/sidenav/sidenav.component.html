@@ -26,15 +26,19 @@
                 <md-button class="md-primary" ng-click="vm.createPage(ev)" style="text-transform:none; border:1px solid teal">Create a Page</md-button>
               </div>
           </div>
-          <section ng-show="vm.user.type === 'Student'" layout-padding>
-            <md-subheader class="md-primary" style="background-color:white">Subscriptions</md-subheader>
-            <md-list-item ng-click="vm.loadCourse(course)" ng-repeat="course in vm.courses">
-              <p>{{course.title}}</p>
+          <section layout-padding>
+            <md-subheader class="md-primary" style="background-color:white">Channels</md-subheader>
+            <md-list-item ng-hide="vm.empty" ng-click="vm.loadChannel(channel)" ng-repeat="channel in vm.channels">
+              <p>{{channel.name}}</p>
               <md-icon md-font-icon="zmdi zmdi-chevron-right zmdi-hc-lg"></md-icon>
             </md-list-item>
+            <md-list-item ng-show="vm.empty" ng-click="vm.createChannel()">
+              <p>No channels. Create one</p>
+              <md-icon md-font-icon="zmdi zmdi-plus zmdi-hc-lg"></md-icon>
+            </md-list-item>
           </section>
-          <section ng-show="vm.user.type === 'Instructor'" layout-padding>
-            <md-subheader class="md-primary" style="background-color:white">My courses</md-subheader>
+          <section layout-padding>
+            <md-subheader class="md-primary" style="background-color:white">Subscriptions</md-subheader>
             <md-list-item ng-click="vm.loadCourse(course)" ng-repeat="course in vm.courses">
               <p>{{course.title}}</p>
               <md-icon md-font-icon="zmdi zmdi-chevron-right zmdi-hc-lg"></md-icon>

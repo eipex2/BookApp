@@ -2,13 +2,13 @@
  * @Author: eipex
  * @Date:   2017-04-26T09:25:11-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-06-29T02:55:55-05:00
+ * @Last modified time: 2017-07-13T08:09:52-05:00
  */
 
 
 
 class HomeComponentController{
-    constructor($location, $mdDialog, $mdSidenav, $state, API, ToastService,$scope, CourseService, ActivityService){
+    constructor($location, $mdDialog, $mdSidenav, $state, API, ToastService,$scope, ChannelService, ActivityService){
         'ngInject';
 
         this.$location = $location;
@@ -17,11 +17,13 @@ class HomeComponentController{
         this.API = API;
         this.ToastService = ToastService;
         this.$scope = $scope;
-        this.CourseService = CourseService;
+        this.ChannelService = ChannelService;
         this.ActivityService = ActivityService;
         this.$mdSidenav = $mdSidenav;
 
         this.page = null;
+
+        this.time_color = 'teal';
 
 
 
@@ -31,55 +33,60 @@ class HomeComponentController{
 
     $onInit(){
       this.$mdDialog.hide();
-      //this.current_page = {content:'Please select a course :)'};
+      //this.current_page = {content:'Please select a channel :)'};
 
-      this.course = this.courseRes.data.course
-      this.activities = this.activitiesRes.data.activities
+      this.page = this.pageRes.data.page
+    
+    //  this.activities = this.activitiesRes.data.activities
 
       //initialize based on user type
-      this.user.type === 'Student'? this.studentInit() : this.instructorInit();
+    //  this.user.type === 'Student'? this.studentInit() : this.instructorInit();
 
     }
 
-    studentInit(){
-      //if $location.hash() is not set get the page number from the activity
-      if(this.$location.hash()===""){
-        this.page_no = this.ActivityService.getPageNo(this.course, this.activities);
-        this.page = this.course.pages[this.page_no];
-        this.$location.hash(this.page_no)
-      }else{
-        //if it is set get the page_no from the $location.hash()
-        this.page_no = this.$location.hash();
-        this.page = this.course.pages[this.page_no]
-
-      }
+    toChannel(){
+      this.$state.go('app.channel', {id:this.page.channel.id})
     }
 
-    instructorInit(){
+    // studentInit(){
+    //   //if $location.hash() is not set get the page number from the activity
+    //   if(this.$location.hash()===""){
+    //     this.page_no = this.ActivityService.getPageNo(this.channel, this.activities);
+    //     this.page = this.channel.pages[this.page_no];
+    //     this.$location.hash(this.page_no)
+    //   }else{
+    //     //if it is set get the page_no from the $location.hash()
+    //     this.page_no = this.$location.hash();
+    //     this.page = this.channel.pages[this.page_no]
+    //
+    //   }
+    // }
 
-      this.CourseService.getCourses().then((response)=>{
-        this.courses = response;
-      })
+    // instructorInit(){
+    //
+    //   this.channelService.getchannels().then((response)=>{
+    //     this.channels = response;
+    //   })
+    //
+    //   if(this.$location.hash()===""){
+    //     this.page = this.channel.pages[0];
+    //     this.$location.hash(0);
+    //
+    //
+    //   }else{
+    //     //if it is set get the page_no from the $location.hash()
+    //     this.page_no = this.$location.hash();
+    //     this.page = this.channel.pages[this.page_no]
+    //   }
+    // }
 
-      if(this.$location.hash()===""){
-        this.page = this.course.pages[0];
-        this.$location.hash(0);
-
-
-      }else{
-        //if it is set get the page_no from the $location.hash()
-        this.page_no = this.$location.hash();
-        this.page = this.course.pages[this.page_no]
-      }
+    loadchannel(channel){
+      this.$state.go('app.landing',{channel_id:channel.id}, {reload:"app.landing"})
     }
 
-    loadCourse(course){
-      this.$state.go('app.landing',{course_id:course.id}, {reload:"app.landing"})
-    }
-
-    // showPage(course){
-    //   this.course = course;
-    //   this.CourseService.getPage(course).then((response)=>{
+    // showPage(channel){
+    //   this.channel = channel;
+    //   this.channelService.getPage(channel).then((response)=>{
     //     this.current_page = response.data.page[0]
     //     this.$mdSidenav("main-sidenav")
     //    .toggle()
@@ -101,16 +108,16 @@ class HomeComponentController{
     }
 
     selectPage(page_no){
-      if(page_no < 0 || page_no > this.course.pages.length - 1){
+      if(page_no < 0 || page_no > this.channel.pages.length - 1){
         return;
       }
 
-      this.page = this.course.pages[page_no];
+      this.page = this.channel.pages[page_no];
       this.$location.hash(page_no);
     }
 
     islastPage(){
-      return this.$location.hash() == this.course.pages.length - 1;
+      return this.$location.hash() == this.channel.pages.length - 1;
     }
 
     showDiscussion(){
@@ -265,7 +272,8 @@ export const HomeComponentComponent = {
     controllerAs: 'vm',
     bindings: {
         user: '<',
-        courseRes: '<',
-        activitiesRes: '<'
+        pageRes: '<',
+        activitiesRes: '<',
+        channels:'<'
     }
 }

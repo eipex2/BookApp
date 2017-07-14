@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-02-19T10:36:03-06:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-06-12T16:15:02-05:00
+# @Last modified time: 2017-07-13T07:41:16-05:00
 
 
 
@@ -55,9 +55,9 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public function courses()
+    public function channels()
     {
-        return $this->hasMany('App\Course');
+        return $this->hasMany('App\Channel');
     }
 
     public function activities()

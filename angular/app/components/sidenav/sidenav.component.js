@@ -2,28 +2,87 @@
  * @Author: eipex
  * @Date:   2017-06-20T20:45:30-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-06-20T20:56:44-05:00
+ * @Last modified time: 2017-07-13T14:36:06-05:00
  */
 
 
 
 class SidenavController{
-    constructor( $state){
+    constructor( $state, $mdDialog, $mdSidenav, ChannelService){
         'ngInject';
 
         this.$state = $state;
+        this.$mdDialog = $mdDialog;
+        this.$mdSidenav = $mdSidenav;
+        this.ChannelService = ChannelService;
     }
 
     $onInit(){
+      this.ChannelService.getUserChannels().then((response)=>{
+        this.channels = response;
+        this.empty = this.channels.length === 0
+      });
     }
 
-    loadCourse(course){
-      this.$state.go('app.landing',{course_id:course.id}, {reload:"app.landing"})
+    loadChannel(channel){
+      this.$mdSidenav("main-sidenav")
+      .close()
+
+      this.ChannelService.loadChannel(channel);
+      // this.$state.go('app.landing',{course_id:channel.id}, {reload:"app.landing"})
+    }
+
+    createChannel(){
+      this.$mdSidenav("main-sidenav")
+      .toggle()
+
+      var dialog = {
+        controllerAs: 'vm',
+        controller: ChannelController,
+        templateUrl: './views/app/components/sidenav/sidenav_dialog.tmpl.html',
+        // template:'<md-dialog class="course_dialog" layout="column" flex="50" aria-label="Add Book" ng-class="{error:vm.error}">
+        //     <form layout="column" layout-fill>
+        //       <md-dialog-content setheight="50" layout-padding style="overflow:hidden">
+        //       </md-dialog-content>
+        //     </form>
+        //   </md-dialog>'
+        parent: angular.element(document.body),
+        autoWrap:false,
+        fullscreen: false// Only for -xs, -sm breakpoints.
+      };
+
+      this.$mdDialog.show(dialog)
+      .then(() => {
+          //view the page
+          //this.ChannelService.loadChannel(this.channel);
+      }, () => {
+          //create another page
+          this.$mdDialog.hide();
+      });
     }
 
     createPage(){
         this.$state.go('app.create_page', {});
     }
+
+}
+
+class ChannelController{
+  contructor($mdDialog,$mdSidenav){
+      'ngInject';
+    this.$mdDialog = $mdDialog
+    this.$mdSidenav = $mdSidenav
+  }
+
+  $onInit(){
+
+  }
+
+  cancel(){
+    this.$mdSidenav("main-sidenav")
+   .toggle()
+    this.$mdDialog.hide();
+  }
 }
 
 export const SidenavComponent = {
@@ -31,7 +90,6 @@ export const SidenavComponent = {
     controller: SidenavController,
     controllerAs: 'vm',
     bindings: {
-      'user':'<',
-      'courses':'<'
+      'user':'<'
     }
 }

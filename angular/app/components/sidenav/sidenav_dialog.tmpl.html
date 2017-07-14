@@ -1,0 +1,38 @@
+<md-dialog class="course_dialog" layout="column" flex="50" aria-label="Add Book" ng-class="{error:vm.error}">
+    <form layout="column" layout-fill>
+      <md-dialog-content setheight="50" layout-padding style="overflow:hidden">
+        <div layout="column">
+         <!-- <div class="text-light" style="margin:10px; color:#444">
+             <p><strong>Create a channel</strong></p>
+          </div> -->
+
+          <div style="margin:10px" layout="column">
+           <md-input-container md-no-float  >
+             <input   placeholder="Name" type="text" ng-model="vm.channel_name">
+           </md-input-container>
+         </div>
+         <div layout="row">
+         <md-input-container flex md-no-float style="display: inline-block; position: relative; vertical-align: middle; max-height:30px; margin:10px; margin-top:15px; padding:0px;">
+            <label>Tags</label>
+             <md-chips ng-model="vm.tags" readonly="ctrl.readonly" md-removable="ctrl.removable">
+          <!-- <md-contact-chips
+               ng-model="vm.selected_subjects"
+               md-contacts="vm.querySearch($query)"
+               md-contact-name="name"
+               md-contact-image="image"
+               md-require-match="true"
+               md-highlight-flags="i"
+               filter-selected="true"
+               placeholder="what is the content area?"
+               style=" max-height:30px;">
+       </md-contact-chips> -->
+          </md-input-container>
+       </div>
+       <div style="margin-top:10px" layout="row" layout-align="start center">
+        <md-button class="md-primary" ng-click="vm.cancel()">Cancel</md-button>
+        <md-button class="md-primary md-raised" ng-click="vm.create_channel()">Create</md-button>
+      </div>
+      </div>
+      </md-dialog-content>
+    </form>
+  </md-dialog>

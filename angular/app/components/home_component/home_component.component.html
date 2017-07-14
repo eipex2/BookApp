@@ -1,10 +1,12 @@
-<sidenav user="vm.user" courses="vm.courses"></sidenav>
+<sidenav user="vm.user"></sidenav>
 <md-content layout="column" layout-fill>
-<app-header user="vm.user"></app-header>
+<app-header user="vm.user"  shadow="true"></app-header>
 <md-content class="=home_background" layout="row" layout-align="center start" flex style="padding:10px; background-color:#e0e0e0">
   <div class="md-whiteframe-1dp" flex="80" flex-xs="100" layout="column" style="background-color:white">
-    <div layout="row" layout-align="center center">
-      <p>{{vm.course.title}}</p>
+    <div layout="row" layout="start center" layout-padding>
+      <div flex>{{vm.page.title}}</div>
+      <time-left created="vm.page.created_at"></time-left>
+      <!-- <span ng-style="{'color':vm.time_color}"><strong>{{vm.time_left}}</strong></span> -->
     </div>
     <ng-quill-editor
                ng-model="vm.page.content"
@@ -14,12 +16,14 @@
            >
     </ng-quill-editor>
     <md-divider></md-divider>
-    <div layout="row" ng-show="vm.user.type === 'Student'">
+    <!-- <div layout="row" ng-hide="vm.user.id === vm.page.channel.user_id"> -->
+      <div layout="row" >
+
       <md-button
             layout-align="center center"
-            aria-label="side navigation">
-              <img class="toolbar-user-avatar"  ng-src={{"/uploads/avatars/"+vm.user.avatar}} alt="avatar">
-          <span>{{vm.course.user | username}}</span>
+            aria-label="side navigation" style="text-transform:none" ng-click="vm.toChannel()">
+              <img class="toolbar-user-avatar"  ng-src={{"//www.gravatar.com/avatar/50?s=25&d=retro"}} alt="avatar">
+          <span>{{vm.page.channel.name}}</span>
       </md-button>
       <span flex></span>
       <md-button class="md-primary">
@@ -27,8 +31,8 @@
       </md-button>
     </div>
   </div>
-  <md-button ng-hide="vm.$location.hash()==='0'" ng-click="vm.previousPage()" class="md-fab md-fab-bottom-left md-primary" aria-label="previous"><md-icon md-font-icon="zmdi zmdi-chevron-left"></md-button>
-  <md-button ng-hide="vm.islastPage()" ng-click="vm.nextPage()" class="md-fab md-fab-bottom-right md-primary" aria-label="next"><md-icon  md-font-icon="zmdi zmdi-chevron-right"></md-button>
+  <!-- <md-button ng-hide="vm.$location.hash()==='0'" ng-click="vm.previousPage()" class="md-fab md-fab-bottom-left md-primary" aria-label="previous"><md-icon md-font-icon="zmdi zmdi-chevron-left"></md-button>
+  <md-button ng-hide="vm.islastPage()" ng-click="vm.nextPage()" class="md-fab md-fab-bottom-right md-primary" aria-label="next"><md-icon  md-font-icon="zmdi zmdi-chevron-right"></md-button> -->
 </md-content>
 <div style="background-color:white; height:50px; color:teal" layout="row" layout-align="center center">
   <md-button>

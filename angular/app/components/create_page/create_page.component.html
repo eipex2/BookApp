@@ -1,18 +1,22 @@
-<sidenav user="vm.user" courses="vm.courses"></sidenav>
+<sidenav user="vm.user"></sidenav>
 <md-content layout="column" layout-fill>
 <app-header user="vm.user"></app-header>
 <md-content class="=home_background" layout="row" flex style="padding:10px; background-color:#e0e0e0; overflow:hidden">
   <div flex="10" flex-xs="0" flex-gt-md="20"></div>
   <div class="md-whiteframe-1dp" layout="column" style="background-color:white" flex="80" flex-xs="100" flex-gt-md="60">
     <md-toolbar class="page_toolbar" layout="row" layout-align="start center" layout-padding style="color:#444; background-color:white">
-      <div>{{vm.course.title}}</div>
+      <!-- <div style="text-transform:capitalize">{{vm.channel.name}}</div>
       <span flex></span>
       <div>
       <md-icon ng-click="vm.exit()" class="create_close" md-font-icon="zmdi zmdi-close zmdi-hc-lg"></md-icon>
-      </div>
+      </div> -->
+      <md-input-container md-no-float class="md-block" style="padding:10px 10px 0px 10px; margin:0px; height:40px; width:100%">
+         <input ng-model="vm.page_title" placeholder="Title" style="text-align:center" maxlength="50"  autocomplete="off">
+       </md-input-container>
     </md-toolbar>
+
       <ng-quill-editor
-               ng-model="vm.page_content" max-length="5" flex layout="column" setheight="100">
+               ng-model="vm.page_content" max-length="5" flex layout="column" setheight="100" style="margin-top:0px">
                <ng-quill-toolbar>
                    <div id="ng-quill-toolbar"  layout="row" layout-align="start center">
                        <span class="ql-formats">
@@ -71,6 +75,12 @@
                </ng-quill-toolbar>
            </ng-quill-editor>
          <div class="page_footer" layout="row">
+           <md-button
+                 layout-align="center center"
+                 aria-label="side navigation" style="text-transform:none" ng-click="vm.toChannel()">
+                   <img class="toolbar-user-avatar"  ng-src={{"//www.gravatar.com/avatar/50?s=25&d=retro"}} alt="avatar">
+               <span>{{vm.channel.name}}</span>
+           </md-button>
            <span flex></span>
            <md-button ng-click="vm.auto_save()">Save</md-button>
            <md-button class="md-primary md-raised" ng-click="vm.publish()">Publish</md-button>
