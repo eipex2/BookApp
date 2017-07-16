@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-07-06T17:54:00-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-07-16T15:38:27-05:00
+# @Last modified time: 2017-07-16T15:42:31-05:00
 
 
 
@@ -86,7 +86,7 @@ class ChannelController extends Controller
         //get page created in last 24 hrs
         $page = Page::with('channel')
                       ->where('channel_id', $id)
-                      ->where('created_at', '<=', Carbon::now()->subDay())->first();
+                      ->where('created_at', '>=', Carbon::now()->subDay())->first();
 
         return response()->success(compact('page', 'type'));
 
