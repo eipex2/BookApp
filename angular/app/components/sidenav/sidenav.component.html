@@ -6,7 +6,6 @@
           <!-- you have a 50px margin on user-div for when u deside to add the search bar -->
           <div class="user_div" layout="column" layout-align="center center" layout-padding>
             <div ng-mouseenter="vm.changeAvatar=true" ng-mouseleave="vm.changeAvatar=false">
-                <!-- <img class="profile-user-avatar" src={{"img/assets/images/avatars/avatar-5.png"}} alt="girl-avatar"/> -->
                 <img ng-hide="vm.changeAvatar" class="main_sidenav_user_avatar"
                      src={{"/uploads/avatars/"+vm.user.avatar}}
                      alt="avatar"
@@ -28,20 +27,24 @@
           </div>
           <section layout-padding>
             <md-subheader class="md-primary" style="background-color:white">Channels</md-subheader>
-            <md-list-item ng-hide="vm.empty" ng-click="vm.loadChannel(channel)" ng-repeat="channel in vm.channels">
+            <md-list-item ng-hide="vm.no_channels" ng-click="vm.loadChannel(channel)" ng-repeat="channel in vm.channels">
               <p>{{channel.name}}</p>
               <md-icon md-font-icon="zmdi zmdi-chevron-right zmdi-hc-lg"></md-icon>
             </md-list-item>
-            <md-list-item ng-show="vm.empty" ng-click="vm.createChannel()">
+            <md-list-item ng-show="vm.no_channels" ng-click="vm.createChannel()">
               <p>No channels. Create one</p>
               <md-icon md-font-icon="zmdi zmdi-plus zmdi-hc-lg"></md-icon>
             </md-list-item>
           </section>
           <section layout-padding>
             <md-subheader class="md-primary" style="background-color:white">Subscriptions</md-subheader>
-            <md-list-item ng-click="vm.loadCourse(course)" ng-repeat="course in vm.courses">
-              <p>{{course.title}}</p>
+            <md-list-item ng-hide="vm.no_subs" ng-click="vm.loadChannel(subscription.channel)" ng-repeat="subscription in vm.subscriptions">
+              <p>{{subscription.channel.name}}</p>
               <md-icon md-font-icon="zmdi zmdi-chevron-right zmdi-hc-lg"></md-icon>
+            </md-list-item>
+            <md-list-item ng-show="vm.no_subs">
+              <p>No subscriptions.</p>
+              <!-- <md-icon md-font-icon="zmdi zmdi-info-outline zmdi-hc-lg"></md-icon> -->
             </md-list-item>
           </section>
           <!-- <md-toolbar class="chat_toolbar" style="background-color:white">

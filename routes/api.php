@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-03-29T07:32:32-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-07-13T14:09:31-05:00
+# @Last modified time: 2017-07-15T01:43:03-05:00
 
 
 
@@ -100,6 +100,14 @@ Route::group(['middleware' => ['auth:api']], function () {
   * */
   Route::post('page/store_page', 'PageController@store');
   Route::get('page/{page_id}', 'PageController@getPage');
+
+  /**
+   * subscription routes
+   */
+   Route::post('subscription/store', 'SubscriptionController@store');
+   Route::get('user_subcriptions', 'SubscriptionController@getUserSubscriptions');
+   Route::get('subscription/{channel_id}', 'SubscriptionController@getChannelSubscriptions');
+
 
   /**
    * activity routes

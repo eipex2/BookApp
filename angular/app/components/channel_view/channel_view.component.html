@@ -1,6 +1,6 @@
 <sidenav user="vm.user"></sidenav>
 <md-content layout="column" layout-fill>
-<app-header user="vm.user"></app-header>
+<app-header user="vm.user" shadow="true  "></app-header>
   <md-content class="=home_background" layout="row" layout-align="center start" flex style="padding:10px; background-color:#e0e0e0">
     <div ng-show="vm.type === 'expired'" style="background-color:white; height:400px" layout="column" layout-align="center center">
           No new content!
@@ -8,8 +8,7 @@
     <div  ng-show="vm.type === 'page'" class="md-whiteframe-1dp" flex="80" flex-xs="100" layout="column" style="background-color:white">
       <div layout="row" layout="start center" layout-padding>
         <div flex>{{vm.page.title}}</div>
-        <time-left created="vm.page.created_at"></time-left>
-        <!-- <span ng-style="{'color':vm.time_color}"><strong>{{vm.time_left}}</strong></span> -->
+        <time-left  created="vm.page.created_at"></time-left>
       </div>
       <ng-quill-editor
                  ng-model="vm.page.content"
@@ -29,7 +28,7 @@
             <span>{{vm.page.channel.name}}</span>
         </md-button>
         <span flex></span>
-        <md-button class="md-primary">
+        <md-button ng-click="vm.subcribe()" class="md-primary">
           Subscribe
         </md-button>
       </div>
@@ -38,7 +37,7 @@
       <div layout="row">
         <p style="margin-left:10px; text-transform:capitalize">{{vm.channel.name}}</p>
         <span flex></span>
-        <md-button>Subscribe</md-button>
+        <md-button ng-hide="vm.type === 'channel'" >Subscribe</md-button>
       </div>
       <md-tabs md-dynamic-height md-border-bottom >
 

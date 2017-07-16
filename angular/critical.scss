@@ -1,7 +1,7 @@
 // @Author: eipex
 // @Date:   2017-04-26T09:25:11-05:00
 // @Last modified by:   eipex
-// @Last modified time: 2017-06-29T12:48:22-05:00
+// @Last modified time: 2017-07-14T21:45:30-05:00
 
 
 
@@ -75,3 +75,50 @@ body{
 ::-webkit-scrollbar-corner {
   background: transparent;
 }
+
+//time left css
+//
+
+.countdown {
+  position: relative;
+  margin: auto;
+  height: 40px;
+  width: 40px;
+  text-align: center;
+}
+
+.countdown-number {
+  color: inherit;
+  display: inline-block;
+  line-height: 40px;
+}
+
+.time_svg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  stroke-dashoffset: inherit;
+  transform: rotateY(-180deg) rotateZ(-90deg);
+}
+
+.time_svg circle {
+  stroke-dasharray: 113px;
+  stroke-dashoffset: inherit;
+  stroke-linecap: round;
+  stroke-width: 3px;
+  stroke: inherit;
+  fill: none;
+  animation: countdown 1s linear infinite forwards;
+  animation-iteration-count: 1;
+}
+
+// @keyframes countdown {
+//   from {
+//     stroke-dashoffset: 0px;
+//   }
+//   to {
+//     stroke-dashoffset: 60px;
+//   }
+// }

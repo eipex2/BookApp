@@ -2,26 +2,32 @@
  * @Author: eipex
  * @Date:   2017-06-20T20:45:30-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-07-13T14:36:06-05:00
+ * @Last modified time: 2017-07-15T08:25:55-05:00
  */
 
 
 
 class SidenavController{
-    constructor( $state, $mdDialog, $mdSidenav, ChannelService){
+    constructor( $state, $mdDialog, $mdSidenav, ChannelService,SubscriptionService){
         'ngInject';
 
         this.$state = $state;
         this.$mdDialog = $mdDialog;
         this.$mdSidenav = $mdSidenav;
         this.ChannelService = ChannelService;
+        this.SubscriptionService = SubscriptionService;
     }
 
     $onInit(){
       this.ChannelService.getUserChannels().then((response)=>{
         this.channels = response;
-        this.empty = this.channels.length === 0
+        this.no_channels = this.channels.length === 0
       });
+
+      this.SubscriptionService.getUserSubscriptions().then((response)=>{
+        this.subscriptions = response;
+        this.no_subs = this.subscriptions.length === 0
+      })
     }
 
     loadChannel(channel){
@@ -68,10 +74,9 @@ class SidenavController{
 }
 
 class ChannelController{
-  contructor($mdDialog,$mdSidenav){
+  constructor($mdDialog){
       'ngInject';
     this.$mdDialog = $mdDialog
-    this.$mdSidenav = $mdSidenav
   }
 
   $onInit(){
@@ -79,8 +84,6 @@ class ChannelController{
   }
 
   cancel(){
-    this.$mdSidenav("main-sidenav")
-   .toggle()
     this.$mdDialog.hide();
   }
 }

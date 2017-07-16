@@ -2,23 +2,27 @@
  * @Author: eipex
  * @Date:   2017-07-06T20:42:35-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-07-13T21:01:30-05:00
+ * @Last modified time: 2017-07-16T11:17:05-05:00
  */
 
 
 
 class ChannelViewController{
-    constructor($state){
+    constructor($state, SubscriptionService, ToastService){
         'ngInject';
 
         this.$state = $state
+        this.SubscriptionService = SubscriptionService
+        this.ToastService = ToastService;
 
     }
 
     $onInit(){
+      console.log('init')
 
       //handle channel response data
       this.type = this.channelRes.data.type
+
       switch(  this.type){
         //show channel dashboard if user owns channel
         case 'channel':
@@ -28,7 +32,6 @@ class ChannelViewController{
         case 'page':
           this.page = this.channelRes.data.page
           break;
-        //handle expired
         default:
           break;
       }
@@ -37,6 +40,16 @@ class ChannelViewController{
       // if(this.channel){
       //
       // }
+    }
+
+    subcribe(){
+      var data = {
+        channel_id: this.page.channel.id
+      }
+
+      this.SubscriptionService.saveSubscription(data).then(()=>{
+        this.ToastService.show("You Subcribed");
+      })
     }
 
     toPage(page){

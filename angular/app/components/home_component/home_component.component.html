@@ -5,9 +5,8 @@
   <div class="md-whiteframe-1dp" flex="80" flex-xs="100" layout="column" style="background-color:white">
     <div layout="row" layout="start center" layout-padding>
       <div flex>{{vm.page.title}}</div>
-      <time-left created="vm.page.created_at"></time-left>
-      <!-- <span ng-style="{'color':vm.time_color}"><strong>{{vm.time_left}}</strong></span> -->
-    </div>
+      <!-- <time-left ng-hide="vm.type === 'channel'" created="vm.page.created_at"></time-left> -->
+        </div>
     <ng-quill-editor
                ng-model="vm.page.content"
                read-only="true"

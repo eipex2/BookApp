@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-05-23T03:26:51-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-07-13T15:38:08-05:00
+# @Last modified time: 2017-07-13T23:59:30-05:00
 
 
 
@@ -57,13 +57,19 @@ class PageController extends Controller
 
   public function getPage(Request $request, $page_id)
   {
-    $user_id = Auth::id();
-    //get the page
-    $page = Page::with('channel', 'channel.user')->find($page_id);
-    if($page->channel->user_id == $user_id){
-      //return page if user owns page
-      return response()->success(compact('page', $page));
+    try {
+      $user_id = Auth::id();
+      //get the page
+      $page = Page::with('channel', 'channel.user')->find($page_id);
+      if($page->channel->user_id == $user_id){
+        //return page if user owns page
+        return response()->success(compact('page', $page));
+      }
+    } catch (Exception $e) {
+      return response()->error('Whoops, looks like something went wrong.');
     }
+
+
   }
 
   // public function getPage(Request $request)

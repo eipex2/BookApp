@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-07-06T17:54:00-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-07-13T19:02:38-05:00
+# @Last modified time: 2017-07-15T21:58:14-05:00
 
 
 
@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Channel;
 use App\Page;
 use DateTime;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class ChannelController extends Controller
@@ -79,21 +80,14 @@ class ChannelController extends Controller
 
       }else{
 
+        //get local time 
+
+        //get page created in last 24 hrs
         $page = Page::with('channel')
                       ->where('channel_id', $id)
-                      ->orderBy('created_at', 'desc')->first();
-        //current time.
-        $date_now = new DateTime();
+                      ->where('created_at', '<=', Carbon::now()->subDay())->first();
 
-        //return page if it was published less than 86400 (24 hours )
-        if(86400 > ($date_now->getTimeStamp() - $page->created_at->getTimeStamp())) {
-          $type = 'page';
-          return response()->success(compact('page', 'type'));
-
-        }else{
-          $type = 'expired';
-          return response()->success(compact('page','type'));
-        }
+        return response()->success(compact('page', 'type'));
 
       }
 
