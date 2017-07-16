@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-07-06T17:54:00-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-07-15T21:58:14-05:00
+# @Last modified time: 2017-07-16T15:38:27-05:00
 
 
 
@@ -80,7 +80,8 @@ class ChannelController extends Controller
 
       }else{
 
-        //get local time 
+        //get local time
+        $type = 'page';
 
         //get page created in last 24 hrs
         $page = Page::with('channel')
