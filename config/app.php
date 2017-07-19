@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-04-26T09:25:11-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-07-17T22:26:39-05:00
+# @Last modified time: 2017-07-19T18:13:20-05:00
 
 
 
@@ -192,13 +192,8 @@ return [
         /*
         *Image provider
         */
-        Intervention\Image\ImageServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class
 
-        /*
-        *pusher
-        */
-        NotificationChannels\PusherPushNotifications\PusherPushNotificationsServiceProvider::class,
-        Vinkla\Pusher\PusherServiceProvider::class
     ],
 
     /*

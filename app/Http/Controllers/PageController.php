@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-05-23T03:26:51-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-07-19T15:32:54-05:00
+# @Last modified time: 2017-07-19T18:14:50-05:00
 
 
 
@@ -14,10 +14,8 @@ use App\Page;
 use App\User;
 use App\Events\PagePublished;
 use Illuminate\Support\Facades\Auth;
-use App\Notifications\PagePublishedNotification;
-use Illuminate\Events\Dispatcher;
 use Pusher;
-use NotificationChannels\PusherPushNotifications\PusherChannel;
+
 
 
 class PageController extends Controller

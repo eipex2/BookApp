@@ -11,11 +11,8 @@
         "laravelangular/generators": "2.7.*",
         "irazasyed/jwt-auth-guard": "^1.0",
         "barryvdh/laravel-cors": "^0.8.2",
-        "antoineaugusti/google-books": "^0.3.0",
         "intervention/image": "^2.3",
-        "pusher/pusher-php-server": "^2.6",
-        "vinkla/pusher": "^2.5",
-        "laravel-notification-channels/pusher-push-notifications": "^1.0"
+        "pusher/pusher-php-server": "^2.6"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
