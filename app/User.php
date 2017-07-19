@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-02-19T10:36:03-06:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-07-15T01:36:45-05:00
+# @Last modified time: 2017-07-18T00:09:24-05:00
 
 
 
@@ -69,5 +69,12 @@ class User extends Authenticatable implements JWTSubject
     {
       return $this->hasMany('App\Activity');
     }
+
+    public function routeNotificationForPusherPushNotifications()
+    {
+      return 'my-channel';
+    }
+
+
 
 }

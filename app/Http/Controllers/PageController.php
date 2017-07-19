@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-05-23T03:26:51-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-07-13T23:59:30-05:00
+# @Last modified time: 2017-07-19T15:32:54-05:00
 
 
 
@@ -11,8 +11,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Page;
-use App\Course;
+use App\User;
+use App\Events\PagePublished;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\PagePublishedNotification;
+use Illuminate\Events\Dispatcher;
+use Pusher;
+use NotificationChannels\PusherPushNotifications\PusherChannel;
 
 
 class PageController extends Controller
@@ -33,21 +38,17 @@ class PageController extends Controller
               'content' => 'required'
           ]);
 
+          $user = $request->user();
+
           $page = new Page;
           $page->channel_id = $request->input('channel_id');
           $page->title = $request->input('title');
           $page->content = $request->input('content');
-          $page->save();
-          // $page = Page::updateOrCreate(
-          //   ['course_id' => $course_id, 'page_no' => $page_no],
-          //   ['content' => $content]);
-          //
-          // //if its a new page increment the course last page
-          // if(!$update){
-          //   $course = Course::find($request->input('course_id'));
-          //   $course->last_page_no += 1;
-          //   $course->save();
-          // }
+
+          if($page->save()){
+            event(new PagePublished("New message", $user));
+            $this->sendNotification();
+          };
 
           return response()->success(compact('page',$page));
       }catch(Exception $e){
@@ -68,7 +69,35 @@ class PageController extends Controller
     } catch (Exception $e) {
       return response()->error('Whoops, looks like something went wrong.');
     }
+  }
 
+  public function sendNotification(){
+    $key = config('broadcasting.connections.pusher.key');
+    $secret = config('broadcasting.connections.pusher.secret');
+    $app_id = config('broadcasting.connections.pusher.app_id');
+    $cluster = config('broadcasting.connections.pusher.cluster');
+    $pusher = new Pusher($key,$secret,$app_id,array('cluster'=>'mt1'));
+
+    $pusher->notify(
+      array("donuts"),
+      array(
+        'apns' => array(
+          'aps' => array(
+            'alert' => array(
+              'body' => 'hello world'
+            ),
+          ),
+        ),
+      )
+    );
+
+    // $events = new Dispatcher();
+    // $channel = new PusherChannel($pusher,$events);
+
+    // $notification = new PagePublishedNotification;
+    // $notifiable = new User;
+    //
+    // $channel->send($notifiable,$notification);
 
   }
 
