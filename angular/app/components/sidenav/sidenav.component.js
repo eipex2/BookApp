@@ -2,13 +2,13 @@
  * @Author: eipex
  * @Date:   2017-06-20T20:45:30-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-07-15T08:25:55-05:00
+ * @Last modified time: 2017-07-20T20:52:22-05:00
  */
 
 
 
 class SidenavController{
-    constructor( $state, $mdDialog, $mdSidenav, ChannelService,SubscriptionService){
+    constructor( $state, $mdDialog, $mdSidenav, ChannelService,SubscriptionService,UserService){
         'ngInject';
 
         this.$state = $state;
@@ -16,6 +16,7 @@ class SidenavController{
         this.$mdSidenav = $mdSidenav;
         this.ChannelService = ChannelService;
         this.SubscriptionService = SubscriptionService;
+        this.UserService = UserService;
     }
 
     $onInit(){
@@ -84,7 +85,7 @@ class ChannelController{
   }
 
   cancel(){
-    this.$mdDialog.hide();
+    this.$mdDialog.cancel();
   }
 }
 

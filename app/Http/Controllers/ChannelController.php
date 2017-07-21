@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-07-06T17:54:00-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-07-17T14:13:11-05:00
+# @Last modified time: 2017-07-20T20:35:14-05:00
 
 
 
@@ -36,12 +36,22 @@ class ChannelController extends Controller
           $channel->user_id = Auth::id();
           $channel->name = $request->input('name');
           $channel->tags = $request->input('tags');
+          $channel->about = "";
           if($channel->save()){
-            return response()->success(compact('channel', $channel));
+            return response()->success(compact('channel'));
           };
       }catch(Exception $e){
-          return response()->error('Something went wrong');
+          return response()->error('Whoops, looks like something went wrong.');
       }
+  }
+
+  public function about(Request $request)
+  {
+    $channel = Channel::find($request->input('channel_id'));
+    $channel->about = $request->input('about');
+    $channel->save();
+
+    return response()->success('channel');
   }
 
   public function channels(Request $request)
@@ -50,7 +60,7 @@ class ChannelController extends Controller
       $channels = Channel::get();
       return response()->json($channels);//->success(compact('channels', $channels));
     }catch(Exception $e){
-      return response()->error('Something went wrong');
+      return response()->error('Whoops, looks like something went wrong.');
     }
 
   }
@@ -62,7 +72,7 @@ class ChannelController extends Controller
       $channels = Channel::where('id', $id)->get();
       return response()->json($channels);//->success(compact('channels', $channels));
     }catch(Exception $e){
-      return response()->error('Something went wrong');
+      return response()->error('Whoops, looks like something went wrong.');
     }
 
   }
@@ -93,7 +103,7 @@ class ChannelController extends Controller
       }
 
     }catch(Exception $e){
-      return response()->error('Something went wrong');
+      return response()->error('Whoops, looks like something went wrong.');
     }
   }
 }

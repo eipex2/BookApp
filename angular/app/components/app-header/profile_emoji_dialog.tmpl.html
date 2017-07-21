@@ -1,0 +1,20 @@
+<md-dialog layout="column" flex="40" flex-xs="80" aria-label="Add Book" ng-class="{error:vm.error}" style="height:320px">
+  <form layout="column" layout-fill>
+    <md-dialog-content layout="column" layout-padding style="overflow:hidden">
+       <div class="user_div" layout="column" layout-align="center center" layout-padding>
+            <div class="edit_profile_emoji" ng-style={'background-color':vm.profileColor}>
+
+            </div>
+            <div class="color_picker_div" layout="row" layout="start center">
+              <div class="color_picker" ng-click="vm.changeProfileColor(color)" ng-repeat="color in vm.colors" ng-style={'background-color':color}></div>
+            </div>
+            <!-- <input emoji-picker type="text" ng-model="chat.message"/> -->
+        </div>
+        <div layout="row" layout-align="start center">
+         <md-button class="md-primary small-btn" ng-click="vm.cancel()">Cancel</md-button>
+         <span flex></span>
+         <md-button class="md-primary md-raised small-btn" ng-click="vm.updateProfileEmoji()">Done</md-button>
+       </div>
+    </md-dialog-content>
+  </form>
+</md-dialog>

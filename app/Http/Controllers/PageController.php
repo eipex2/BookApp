@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-05-23T03:26:51-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-07-19T18:14:50-05:00
+# @Last modified time: 2017-07-20T20:34:49-05:00
 
 
 
@@ -50,7 +50,7 @@ class PageController extends Controller
 
           return response()->success(compact('page',$page));
       }catch(Exception $e){
-          return response()->error($e->getMessage());
+          return response()->error('Whoops, looks like something went wrong.');
       }
   }
 

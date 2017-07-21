@@ -1,22 +1,12 @@
 <md-sidenav
     class="md-sidenav-left"
-    md-component-id="main-sidenav"
-    >
+    md-component-id="main-sidenav">
         <md-content layout="column">
           <!-- you have a 50px margin on user-div for when u deside to add the search bar -->
           <div class="user_div" layout="column" layout-align="center center" layout-padding>
-            <div ng-mouseenter="vm.changeAvatar=true" ng-mouseleave="vm.changeAvatar=false">
-                <img ng-hide="vm.changeAvatar" class="main_sidenav_user_avatar"
-                     src={{"/uploads/avatars/"+vm.user.avatar}}
-                     alt="avatar"
-                     />
-                  <form ng-show="vm.changeAvatar" name="vm.form" layout="row" layout-align="start center">
-                    <div class="main_change_avatar_overlay" ng-show="vm.changeAvatar" layout="column" layout-align="center center"
-                         ngf-select ng-model="vm.file" name="file" ngf-pattern="'image/*'"
-                         ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
-                         ngf-resize="{width: 150, height: 150}" style="cursor:pointer" ng-change="vm.selectImage(ev)">Change avatar</div>
-                    <span flex></span>
-                  </form>
+            <!-- <div ng-mouseenter="vm.changeAvatar=true" ng-mouseleave="vm.changeAvatar=false"> -->
+
+            <div class="main_sidenav_user_avatar" ng-style={'background-color':vm.user.color} style="background-color:#f1f1f0">
             </div>
             <div class="text-light" style="color:#444">
                 <h3 class="font-weight-600 margin-bottom-0 text-light">{{vm.user | username}}</h3>
@@ -31,8 +21,8 @@
               <p>{{channel.name}}</p>
               <md-icon md-font-icon="zmdi zmdi-chevron-right zmdi-hc-lg"></md-icon>
             </md-list-item>
-            <md-list-item ng-show="vm.no_channels" ng-click="vm.createChannel()">
-              <p>No channels. Create one</p>
+            <md-list-item ng-click="vm.createChannel()">
+              <p>{{vm.no_channels? "No channels. Create one":"Create a channel"}}</p>
               <md-icon md-font-icon="zmdi zmdi-plus zmdi-hc-lg"></md-icon>
             </md-list-item>
           </section>
@@ -45,6 +35,14 @@
             <md-list-item ng-show="vm.no_subs">
               <p>No subscriptions.</p>
               <!-- <md-icon md-font-icon="zmdi zmdi-info-outline zmdi-hc-lg"></md-icon> -->
+            </md-list-item>
+          </section>
+          <span flex></span>
+          <section layout-padding>
+            <md-subheader class="md-primary" style="background-color:white">Settings</md-subheader>
+            <md-list-item ng-click="vm.UserService.logout()">
+              <p>Logout</p>
+              <md-icon md-font-icon="zmdi zmdi-power zmdi-hc-fw"></md-icon>
             </md-list-item>
           </section>
           <!-- <md-toolbar class="chat_toolbar" style="background-color:white">

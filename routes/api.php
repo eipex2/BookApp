@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-03-29T07:32:32-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-07-15T01:43:03-05:00
+# @Last modified time: 2017-07-20T12:35:34-05:00
 
 
 
@@ -91,6 +91,7 @@ Route::group(['middleware' => ['auth:api']], function () {
   Route::get('channel/{channel_id}', 'ChannelController@getChannel');
   Route::get('channels', 'ChannelController@channels');
   Route::post('channel/store', 'ChannelController@store');
+  Route::post('channel/about', 'ChannelController@about');
   Route::get('user_channels', 'ChannelController@getUserChannels');
 
 

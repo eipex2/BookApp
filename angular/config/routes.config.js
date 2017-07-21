@@ -2,7 +2,7 @@
  * @Author: eipex
  * @Date:   2017-03-29T07:32:32-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-07-13T11:37:03-05:00
+ * @Last modified time: 2017-07-19T22:53:13-05:00
  */
 
 
@@ -14,7 +14,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $locationProvid
 		return `./views/app/pages/${viewName}/${viewName}.page.html`;
 	};
 
-	$urlRouterProvider.otherwise('/app');
+	$urlRouterProvider.otherwise('/app/welcome');
 
 	$stateProvider
 		.state('app', {

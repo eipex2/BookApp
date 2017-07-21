@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-05-30T15:58:56-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-05-30T20:47:39-05:00
+# @Last modified time: 2017-07-20T20:34:56-05:00
 
 
 
@@ -20,18 +20,14 @@ class UserController extends Controller
       try {
         $user_id = Auth::id();
         $user = User::find($user_id);
-        $user->type = $request->input('type');
-        $user->sex = $request->input('sex');
-        $user->dob = date( "Y-m-d", strtotime($request->input('dob')) );
-        $user->school = $request->input('school');
-
+        $user->color = $request->input('profile_color');
         $user->save();
 
         if($user->save()){
-          return response()->success(compact('user', $user));
+          return response()->success(compact('user'));
         };
       } catch (Exception $e) {
-        return response()->error($e->getMessage());
+        return response()->error('Whoops, looks like something went wrong.');
       }
     }
 }

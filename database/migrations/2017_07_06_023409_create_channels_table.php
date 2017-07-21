@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-07-05T21:34:09-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-07-06T21:23:25-05:00
+# @Last modified time: 2017-07-20T12:07:54-05:00
 
 
 
@@ -24,6 +24,7 @@ class CreateChannelsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('name')->unique();
+            $table->mediumText('about');
             $table->text('tags');
             $table->timestamps();
             $table->foreign('user_id')

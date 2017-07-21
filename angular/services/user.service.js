@@ -2,7 +2,7 @@
  * @Author: eipex
  * @Date:   2017-04-25T11:26:14-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-07-05T14:47:54-05:00
+ * @Last modified time: 2017-07-20T20:29:04-05:00
  */
 
 
@@ -40,12 +40,26 @@ export class UserService{
       .catch(this.failedLogin.bind(this));
     }
 
-    updateProfile(data){
-      return this.API.all('user/update_profile').post(data).then((response)=>{
-        this.user = response.data.user;
-        this.redirectUser(this.user)
-      });
+    logout(){
+        if (!this.$auth.isAuthenticated()) { return; }
+        this.$auth.logout()
+            .then(() => {
+                this.user = {};
+                this.ToastService.show('You have been logged out.');
+                this.$state.go('app.login');
+            });
     }
+
+    updateProfile(data){
+      return this.API.all('user/update_profile').post(data);
+    }
+
+    // updateProfile(data){
+    //   return this.API.all('user/update_profile').post(data).then((response)=>{
+    //     this.user = response.data.user;
+    //     this.redirectUser(this.user)
+    //   });
+    // }
 
     redirectUser(user){
       //redirect user to register if profile is incomplete

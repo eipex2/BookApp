@@ -2,23 +2,24 @@
  * @Author: eipex
  * @Date:   2017-07-06T20:42:35-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-07-16T11:17:05-05:00
+ * @Last modified time: 2017-07-20T13:14:52-05:00
  */
 
 
 
 class ChannelViewController{
-    constructor($state, SubscriptionService, ToastService){
+    constructor($state, SubscriptionService, ToastService, ChannelService){
         'ngInject';
 
         this.$state = $state
         this.SubscriptionService = SubscriptionService
         this.ToastService = ToastService;
+        this.ChannelService = ChannelService;
 
     }
 
     $onInit(){
-      console.log('init')
+      this.edit = false;
 
       //handle channel response data
       this.type = this.channelRes.data.type
@@ -58,6 +59,17 @@ class ChannelViewController{
 
     createPage(){
       this.$state.go('app.create_page', {id:this.channel.id});
+    }
+
+    done(){
+      this.edit = false;
+      var data = {
+        channel_id:this.channel.id,
+        about: this.channel.about
+      }
+      this.ChannelService.updateAbout(data).then(()=>{
+        this.ToastService.show("Channel updated")
+      });
     }
 
     empty(){

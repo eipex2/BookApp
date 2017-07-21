@@ -30,7 +30,8 @@
     "material-calendar": "^0.2.14",
     "pusher-angular": "^0.1.9",
     "angular-scroll-glue": "^2.2.0",
-    "pusher-js": "pusher#^4.1.0"
+    "pusher-js": "pusher#^4.1.0",
+    "ng-emoji-picker": "^0.13.2"
   },
   "overrides": {
     "masonry": {

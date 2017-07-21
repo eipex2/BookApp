@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-07-05T22:09:10-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-07-11T14:26:54-05:00
+# @Last modified time: 2017-07-20T10:27:40-05:00
 
 
 
@@ -24,7 +24,7 @@ class CreatePagesTable extends Migration
           $table->increments('id');
           $table->integer('channel_id')->unsigned();
           $table->string('title');
-          $table->string('content');
+          $table->mediumText('content');
           $table->foreign('channel_id')
                 ->references('id')->on('channels');
           $table->timestamps();

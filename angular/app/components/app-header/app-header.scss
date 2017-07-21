@@ -1,7 +1,7 @@
 // @Author: eipex
 // @Date:   2017-04-26T09:25:11-05:00
 // @Last modified by:   eipex
-// @Last modified time: 2017-05-08T11:41:11-05:00
+// @Last modified time: 2017-07-20T19:59:24-05:00
 
 
 
@@ -37,4 +37,49 @@
 
 .toolbar-divider{
   margin:5px 0px 5px 0px;
+}
+
+.profile_emoji_dialog{
+  min-height:300px;
+}
+
+.edit_profile_emoji{
+  min-width:150px;
+  min-height:150px;
+  border-radius:50%;
+  background-color:#f1f1f0;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
+}
+
+.color_picker{
+  height:40px;
+  width:40px;
+  min-height:40px;
+  min-width:40px;
+  max-height:40px;
+  max-width:40px;
+  margin:5px;
+  border-radius:50%;
+  border:1px solid #ccc;
+  cursor: pointer;
+}
+
+.color_picker:hover{
+  border:2px solid #ccc;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
+}
+
+.color_picker:focus{
+  outline:0;
+}
+
+
+
+.color_picker_div{
+  overflow-x:auto;
+  overflow-y:hidden;
+  height:70px;
+  margin:10px 5px 10px 5px;
+  max-width:250px;
+  min-width:250px;
 }

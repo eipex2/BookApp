@@ -5,10 +5,10 @@
     <!--<img src="img/icons/logo.svg" ui-sref="app.landing" class="DemoHeader-logo"/>-->
     <span flex></span>
 
-    <div ng-show="!vm.$auth.isAuthenticated()" layout="row" layout-align="start center">
+    <!-- <div ng-show="!vm.$auth.isAuthenticated()" layout="row" layout-align="start center">
         <md-button class="small-btn" ui-sref="app.login">Login</md-button>
         <md-button class="small-btn" ui-sref="app.register">Register</md-button>
-    </div>
+    </div> -->
 
     <div ng-show="vm.$auth.isAuthenticated()" layout="row" layout-align="center stretch">
         <!-- <md-button class="small-btn" ui-sref="app.chat" layout="row" layout-align="center center">
@@ -23,12 +23,14 @@
             <span>{{vm.user.firstname}}</span>
         </md-button> -->
         <md-button
+              ng-click="vm.editProfileEmoji()"
+              layout="row"
               layout-align="center center"
               aria-label="side navigation">
-                <img class="toolbar-user-avatar"  ng-src={{"/uploads/avatars/"+vm.user.avatar}} alt="avatar">
-            <span>{{vm.user.firstname}}</span>
+            <div class="toolbar-user-avatar"  ng-style={'background-color':vm.user.color} style="margin-right:5px; border:1px solid #ccc;"></div>
+            <span>{{vm.user | username}}</span>
         </md-button>
-        <md-menu>
+        <!-- <md-menu>
           <md-button class="header_more_btn" layout-align="center center"  aria-label="Open user menu"  aria-label="side navigation">
             <md-icon ng-click="$mdOpenMenu()"  md-font-icon="zmdi zmdi-more-vert zmdi-hc-2x"></md-icon>
           </md-button>
@@ -47,6 +49,6 @@
                   </md-button>
               </md-menu-item>
           </md-menu-content>
-      </md-menu>
+      </md-menu> -->
     </div>
 </md-toolbar>

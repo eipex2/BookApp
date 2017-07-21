@@ -2,7 +2,7 @@
  * @Author: eipex
  * @Date:   2017-07-06T16:32:18-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-07-13T14:40:31-05:00
+ * @Last modified time: 2017-07-20T12:34:33-05:00
  */
 
 
@@ -25,6 +25,10 @@ export class ChannelService{
 
     saveChannel(data){
       return this.API.all('channel/store').post(data);
+    }
+
+    updateAbout(data){
+      return this.API.all('channel/about').post(data);
     }
 
     getChannel(id){
