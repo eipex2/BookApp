@@ -2,7 +2,7 @@
  * @Author: eipex
  * @Date:   2017-06-05T09:54:07-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-07-12T08:12:23-05:00
+ * @Last modified time: 2017-08-02T14:08:14-05:00
  */
 
 
@@ -65,6 +65,7 @@ class WelcomeController{
       this.create = true
       this.channel_name = searchText
     }
+    
     create_channel(){
       var data = {
         name: this.channel_name,

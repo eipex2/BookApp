@@ -2,19 +2,20 @@
  * @Author: eipex
  * @Date:   2017-07-06T20:42:35-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-07-20T13:14:52-05:00
+ * @Last modified time: 2017-08-02T13:34:30-05:00
  */
 
 
 
 class ChannelViewController{
-    constructor($state, SubscriptionService, ToastService, ChannelService){
+    constructor($state, SubscriptionService, ToastService, ChannelService, $stateParams){
         'ngInject';
 
         this.$state = $state
         this.SubscriptionService = SubscriptionService
         this.ToastService = ToastService;
         this.ChannelService = ChannelService;
+        this.$stateParams = $stateParams;
 
     }
 
@@ -32,6 +33,11 @@ class ChannelViewController{
         //show page if other user
         case 'page':
           this.page = this.channelRes.data.page
+          this.isSubscribed = this.channelRes.data.isSubscribed
+          if(this.page === null){
+            this.channel_name = this.channelRes.data.channel_name
+            this.no_page = true
+          }
           break;
         default:
           break;
@@ -45,11 +51,12 @@ class ChannelViewController{
 
     subcribe(){
       var data = {
-        channel_id: this.page.channel.id
+        channel_id: this.$stateParams.id
       }
 
       this.SubscriptionService.saveSubscription(data).then(()=>{
         this.ToastService.show("You Subcribed");
+        this.isSubscribed = true;
       })
     }
 

@@ -1,4 +1,11 @@
 <?php
+# @Author: eipex
+# @Date:   2017-05-29T11:02:01-05:00
+# @Last modified by:   eipex
+# @Last modified time: 2017-08-02T11:29:29-05:00
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +22,11 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
-        'name' => $faker->name,
+        'firstname' => $faker->firstname,
+        'lastname' => $faker->lastname,
         'email' => $faker->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
-        'remember_token' => str_random(10),
+        //'remember_token' => str_random(10),
     ];
 });
 
@@ -28,6 +36,22 @@ $factory->define(App\PasswordReset::class, function (Faker\Generator $faker) {
         'email'  => $faker->safeEmail,
         'token' => str_random(10),
     ];
+});
+
+$factory->define(App\Channel::class, function(Faker\Generator $faker){
+  return [
+    'name' => $faker->word,
+    'about'=>$faker->text,
+    'tags' => [$faker->word]
+  ];
+});
+
+$factory->define(App\Page::class, function(Faker\Generator $faker){
+  return [
+    'channel_id' => 1,
+    'title' => $faker->word,
+    'content'=> $faker->text
+  ];
 });
 
 $factory->define(App\Message::class, function (Faker\Generator $faker) {

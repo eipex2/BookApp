@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-05-23T03:26:51-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-07-20T20:34:49-05:00
+# @Last modified time: 2017-08-02T13:58:14-05:00
 
 
 
@@ -59,9 +59,10 @@ class PageController extends Controller
     try {
       $user_id = Auth::id();
       //get the page
-      $page = Page::with('channel', 'channel.user')->find($page_id);
+      $page = Page::with('channel', 'channel.user', 'channel.subscribers')->find($page_id);
+
+      //return page if user owns page
       if($page->channel->user_id == $user_id){
-        //return page if user owns page
         return response()->success(compact('page', $page));
       }
     } catch (Exception $e) {

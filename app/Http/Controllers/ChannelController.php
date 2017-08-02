@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-07-06T17:54:00-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-07-20T20:35:14-05:00
+# @Last modified time: 2017-08-02T10:57:22-05:00
 
 
 
@@ -12,6 +12,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Channel;
 use App\Page;
+use App\Subscription;
 use DateTime;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -69,12 +70,11 @@ class ChannelController extends Controller
   {
     try{
       $id = Auth::id();
-      $channels = Channel::where('id', $id)->get();
+      $channels = Channel::where('user_id', $id)->get();
       return response()->json($channels);//->success(compact('channels', $channels));
     }catch(Exception $e){
       return response()->error('Whoops, looks like something went wrong.');
     }
-
   }
 
   public function getChannel(Request $request, $id)
@@ -89,17 +89,17 @@ class ChannelController extends Controller
         return response()->success(compact('channel','type'));
 
       }else{
-
         //get local time
         $type = 'page';
-
+        $channel_name = $channel->name;
         //get page created in last 24 hrs
         $page = Page::with('channel')
                       ->where('channel_id', $id)
                       ->where('created_at', '>=', Carbon::now()->subDay())->first();
 
-        return response()->success(compact('page', 'type'));
+        $isSubscribed = Subscription::where('channel_id',$id)->where('user_id',$user_id)->exists();
 
+        return response()->success(compact('channel_name','page', 'type', 'isSubscribed'));
       }
 
     }catch(Exception $e){

@@ -25,8 +25,8 @@
           <span>{{vm.page.channel.name}}</span>
       </md-button>
       <span flex></span>
-      <md-button class="md-primary">
-        Subscribe
+      <md-button class="md-primary"  style="text-transform:none">
+        {{vm.subscribersCount}} {{vm.subscribersCount>1 ? 'Subsribers': 'Subscriber'}}
       </md-button>
     </div>
   </div>

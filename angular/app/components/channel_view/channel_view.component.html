@@ -1,47 +1,45 @@
 <sidenav user="vm.user"></sidenav>
 <md-content layout="column" layout-fill>
 <app-header user="vm.user" shadow="true  "></app-header>
-  <md-content class="=home_background" layout="row" layout-align="center start" flex style="padding:10px; background-color:#e0e0e0">
+  <md-content class="home_background" layout="row" layout-align="center start" flex style="padding:10px; background-color:#e0e0e0">
     <div ng-show="vm.type === 'expired'" style="background-color:white; height:400px" layout="column" layout-align="center center">
           No new content!
     </div>
-    <div  ng-show="vm.type === 'page'" class="md-whiteframe-1dp" flex="80" flex-xs="100" layout="column" style="background-color:white">
+    <div ng-show="vm.type === 'page'" class="md-whiteframe-1dp" flex="80" flex-xs="100" layout="column" style="background-color:white">
       <div layout="row" layout="start center" layout-padding>
         <div flex>{{vm.page.title}}</div>
         <time-left  created="vm.page.created_at"></time-left>
       </div>
       <ng-quill-editor
+                 ng-hide="vm.no_page"
                  ng-model="vm.page.content"
                  read-only="true"
                  modules="{toolbar:false}"
                  placeholder="Please select a course :)"
              >
       </ng-quill-editor>
+      <div ng-show="vm.no_page" layout="row" layout-align="center center" style="height:200px;">
+          No new content
+      </div>
       <md-divider></md-divider>
       <!-- <div layout="row" ng-hide="vm.user.id === vm.page.channel.user_id"> -->
         <div layout="row" >
-
-        <md-button
-              layout-align="center center"
-              aria-label="side navigation" style="text-transform:none" ng-click="vm.toChannel()">
-                <img class="toolbar-user-avatar"  ng-src={{"//www.gravatar.com/avatar/50?s=25&d=retro"}} alt="avatar">
-            <span>{{vm.page.channel.name}}</span>
-        </md-button>
-        <span flex></span>
-        <md-button ng-click="vm.subcribe()" class="md-primary">
-          Subscribe
-        </md-button>
+          <md-button
+                layout-align="center center"
+                aria-label="side navigation" style="text-transform:none" ng-click="vm.toChannel()">
+                  <img class="toolbar-user-avatar"  ng-src={{"//www.gravatar.com/avatar/50?s=25&d=retro"}} alt="avatar">
+              <span>{{vm.no_page? vm.channel_name : vm.page.channel.name}}</span>
+          </md-button>
+          <span flex></span>
+          <md-button ng-click="vm.subcribe()" class="md-primary">
+            {{vm.isSubscribed? 'Subscribed' : 'Subscribe'}}
+          </md-button>
       </div>
     </div>
     <div ng-show="vm.type === 'channel'" class="md-whiteframe-1dp" flex="80" flex-xs="100" layout="column" style="background-color:white">
-      <div layout="row">
-        <p style="margin-left:10px; text-transform:capitalize">{{vm.channel.name}}</p>
-        <span flex></span>
-        <md-button ng-hide="vm.type === 'channel'" >Subscribe</md-button>
-      </div>
       <md-tabs md-dynamic-height md-border-bottom >
           <md-tab label="Pages">
-            <md-content class="md-padding" style="background-color:white">
+            <md-content style="background-color:white">
               <div  ng-hide="vm.empty()" class="welcome_courses">
                 <md-list class="contacts-list md-dense" style="border-top:1px solid rgba(128, 128, 128, 0.27)">
                   <md-list-item ng-click="vm.toPage(page)" class="md-2-line" ng-repeat="page in vm.channel.pages">
@@ -54,10 +52,19 @@
                   </md-list-item>
                 </md-list>
               </div>
-              <div ng-show="vm.empty()" class="courses_empty">
+              <div ng-show="vm.empty()" class="courses_empty" layout-padding>
                   <p>You don't have any pages. Start by creating your first page.</p>
               </div>
-              <md-button ng-click="vm.createPage()" class="md-primary create-btn">Create a page</md-button>
+              <md-divider></md-divider>
+              <div layout="row" layout="center end">
+                <md-button
+                      layout-align="center center"
+                      aria-label="side navigation" style="text-transform:none" ng-click="vm.toChannel()">
+                        <img class="toolbar-user-avatar"  ng-src={{"//www.gravatar.com/avatar/50?s=25&d=retro"}} alt="avatar">
+                    <span>{{vm.channel.name}}</span>
+                </md-button>
+                <span flex></span>
+                <md-button ng-click="vm.createPage()" class="md-primary create-btn small-btn">Create a page</md-button>
             </md-content>
           </md-tab>
           <md-tab label="About">
@@ -123,6 +130,12 @@
                    </ng-quill-editor>
                    <md-divider></md-divider>
                    <div layout="row" layout="center end">
+                     <md-button
+                           layout-align="center center"
+                           aria-label="side navigation" style="text-transform:none" ng-click="vm.toChannel()">
+                             <img class="toolbar-user-avatar"  ng-src={{"//www.gravatar.com/avatar/50?s=25&d=retro"}} alt="avatar">
+                         <span>{{vm.channel.name}}</span>
+                     </md-button>
                      <span flex></span>
                       <md-button ng-hide="vm.edit" ng-click="vm.edit = true" class="md-button md-raised">Edit</md-button>
                      <md-button ng-show="vm.edit" ng-click="vm.done()" class="md-button md-primary md-raised">Done</md-button>

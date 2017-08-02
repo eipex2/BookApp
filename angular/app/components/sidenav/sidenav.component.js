@@ -2,7 +2,7 @@
  * @Author: eipex
  * @Date:   2017-06-20T20:45:30-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-07-20T20:52:22-05:00
+ * @Last modified time: 2017-08-02T14:48:52-05:00
  */
 
 
@@ -20,6 +20,7 @@ class SidenavController{
     }
 
     $onInit(){
+
       this.ChannelService.getUserChannels().then((response)=>{
         this.channels = response;
         this.no_channels = this.channels.length === 0
@@ -59,7 +60,10 @@ class SidenavController{
       };
 
       this.$mdDialog.show(dialog)
-      .then(() => {
+      .then((data) => {
+          this.ChannelService.saveChannel(data).then((response)=>{
+            this.$state.go('app.channel', {id:response.data.channel.id})
+          })
           //view the page
           //this.ChannelService.loadChannel(this.channel);
       }, () => {
@@ -78,10 +82,20 @@ class ChannelController{
   constructor($mdDialog){
       'ngInject';
     this.$mdDialog = $mdDialog
+    this.tags = [];
   }
 
   $onInit(){
 
+  }
+
+  create_channel(){
+    var data = {
+      name: this.channel_name,
+      tags: this.tags
+    }
+
+    this.$mdDialog.hide(data);
   }
 
   cancel(){

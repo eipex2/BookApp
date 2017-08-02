@@ -2,7 +2,7 @@
  * @Author: eipex
  * @Date:   2017-04-26T09:25:11-05:00
  * @Last modified by:   eipex
- * @Last modified time: 2017-07-13T08:09:52-05:00
+ * @Last modified time: 2017-08-02T14:01:32-05:00
  */
 
 
@@ -36,7 +36,8 @@ class HomeComponentController{
       //this.current_page = {content:'Please select a channel :)'};
 
       this.page = this.pageRes.data.page
-    
+      this.subscribersCount = this.pageRes.data.page.channel.subscribers.length
+
     //  this.activities = this.activitiesRes.data.activities
 
       //initialize based on user type

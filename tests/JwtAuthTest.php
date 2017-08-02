@@ -1,4 +1,11 @@
 <?php
+# @Author: eipex
+# @Date:   2016-12-01T13:46:23-06:00
+# @Last modified by:   eipex
+# @Last modified time: 2017-08-01T12:47:36-05:00
+
+
+
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
@@ -17,10 +24,10 @@ class JwtAuthTest extends TestCase
 
         $this->post('/api/auth/login', [
             'email'    => $user->email,
-            'password' => 'test12345',
+            'password' => 'test12345'
         ])
         ->seeApiSuccess()
-        ->seeJson(['email' => $user->email])
+        // ->seeJson(['email' => $user->email])
         ->seeJsonKey('token')
         ->dontSee('"password"');
     }
@@ -49,12 +56,13 @@ class JwtAuthTest extends TestCase
         $user = factory(App\User::class)->make();
 
         $this->post('/api/auth/register', [
-            'name'     => $user->name,
+            'firstname'     => $user->firstname,
+            'lastname' => $user->lastname,
             'email'    => $user->email,
             'password' => 'test15125',
         ])
         ->seeApiSuccess()
-        ->seeJson(['email' => $user->email])
+        // ->seeJson(['email' => $user->email])
         ->seeJsonKey('token');
     }
 }

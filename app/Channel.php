@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-07-05T21:34:09-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-07-13T22:08:07-05:00
+# @Last modified time: 2017-08-02T13:55:54-05:00
 
 
 namespace App;
@@ -24,6 +24,11 @@ class Channel extends Model
   public function pages()
   {
     return $this->hasMany('App\Page');
+  }
+
+  public function subscribers()
+  {
+    return $this->hasMany('App\Subscription');
   }
 
   public function activies()
