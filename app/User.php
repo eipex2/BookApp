@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-02-19T10:36:03-06:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-07-18T00:09:24-05:00
+# @Last modified time: 2017-08-09T14:09:12-05:00
 
 
 
@@ -27,12 +27,19 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     /**
+     * The attributes that should be visible in arrays.
+     *
+     * @var array
+     */
+    protected $visible = ['firstname', 'lastname', 'emoji', 'color'];
+
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token','email','dob','created_at','updated_at'
+        'password', 'remember_token','email','created_at','updated_at'
     ];
 
     /**

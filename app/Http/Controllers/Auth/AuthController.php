@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-02-19T10:36:03-06:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-05-30T15:32:16-05:00
+# @Last modified time: 2017-08-09T14:55:19-05:00
 
 
 
@@ -54,10 +54,41 @@ class AuthController extends Controller
         $user->lastname = trim($request->lastname);
         $user->email = trim(strtolower($request->email));
         $user->password = bcrypt($request->password);
-        $user->save();
+        if($user->save()){
+          $user = User::find($user->id);
+        };
 
         $token = JWTAuth::fromUser($user);
 
         return response()->success(compact('user', 'token'));
+    }
+
+    public function refresh(Request $request)
+    {
+      $input = $request->all();
+      $token = $input['Token'];
+
+
+      if(!$token){
+       $Err['status']='error';
+       $Err['msg']='There is no token';
+       return response()
+       ->json($Err, 200, ['Content-type'=> 'application/json; charset=utf-8'],
+        JSON_UNESCAPED_UNICODE| JSON_PRETTY_PRINT);
+      }
+
+      try{
+        $token = JWTAuth::refresh($token);
+      }catch (JWTException $e) {
+          $ERR['status']='error';
+          $ERR['MSG']= "the was erorr on your token ";
+          return response()
+          ->json($ERR, 200, ['Content-type'=> 'application/json; charset=utf-8'], JSON_UNESCAPED_UNICODE| JSON_PRETTY_PRINT);
+      }
+
+      $sucess['status']='success';
+      $sucess['token']= $token;
+      return response()
+      ->json($sucess, 200, ['Content-type'=> 'application/json; charset=utf-8'], JSON_UNESCAPED_UNICODE| JSON_PRETTY_PRINT);
     }
 }

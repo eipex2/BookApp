@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-04-26T09:25:11-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-07-20T20:11:00-05:00
+# @Last modified time: 2017-08-09T14:06:11-05:00
 
 
 
@@ -26,8 +26,8 @@ class CreateUsersTable extends Migration
             $table->string('lastname');
             $table->string('email')->unique();
             $table->string('password', 60);
-            $table->string('emoji')->default("");
-            $table->string('color')->default("");
+            $table->string('emoji')->default("😄 ");
+            $table->string('color')->default("teal");
             // $table->string('type')->nullable();
             // $table->date('dob')->nullable();
             // $table->string('school')->nullable();

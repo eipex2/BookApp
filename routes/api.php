@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-03-29T07:32:32-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-08-02T11:11:15-05:00
+# @Last modified time: 2017-08-06T07:51:29-05:00
 
 
 
@@ -22,6 +22,7 @@ use Illuminate\Http\Request;
 
 Route::post('auth/login', 'Auth\AuthController@login');
 Route::post('auth/register', 'Auth\AuthController@register');
+Route::get('auth/refresh','Auth\AuthController@refresh');
 
 Route::post('auth/password/email', 'Auth\PasswordResetController@sendResetLinkEmail');
 Route::get('auth/password/verify', 'Auth\PasswordResetController@verify');

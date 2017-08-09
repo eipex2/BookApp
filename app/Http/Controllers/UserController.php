@@ -2,7 +2,7 @@
 # @Author: eipex
 # @Date:   2017-05-30T15:58:56-05:00
 # @Last modified by:   eipex
-# @Last modified time: 2017-07-20T20:34:56-05:00
+# @Last modified time: 2017-08-09T15:04:12-05:00
 
 
 
@@ -20,7 +20,8 @@ class UserController extends Controller
       try {
         $user_id = Auth::id();
         $user = User::find($user_id);
-        $user->color = $request->input('profile_color');
+        $user->emoji = $request->input('emoji');
+        $user->color = $request->input('color');
         $user->save();
 
         if($user->save()){
